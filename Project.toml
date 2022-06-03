@@ -1,0 +1,8 @@
+name = "OpeRe"
+uuid = "8042aa49-e599-49ec-a8f7-b5b80cc82a88"
+authors = ["jbytecode <mhsatman@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+GLPK = "60bf3e95-4087-53dc-ae20-288a0d20c6a6"
+JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
