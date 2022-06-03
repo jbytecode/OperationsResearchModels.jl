@@ -36,4 +36,33 @@
         @test balancedT.demand |> last == 200
     end
 
+    @testset "Solution" begin
+        #=
+        |        |  D1       |  D2      |  D3      |  D4       |  Supply  |
+        |  S1    |  1        |  5 (100) |  7       |  8        |  100     |
+        |  S2    |  2        |  6       |  4 (100) |  9        |  100     |
+        |  S3    |  3 (100)  |  10      |  11      |  12 (100) |  200     |
+        | Demand | 100       | 100      | 100      | 100       |          |
+        
+        cost = 5 * 100 + 4 * 100 + 3 * 100 + 12 * 100 
+             = 500 + 400 + 300 + 1200 
+             = 2400
+        =# 
+        t = TransportationProblem(
+            [1 5 7 8;
+             2 6 4 9;
+             3 10 11 12;],
+            [100, 100, 100, 100],
+            [100, 100, 200])
+        
+        result = solve(t)
+
+        @test result isa TransportationResult
+        @test result.cost == 2400
+        @test result.solution == [
+            0 100 0 0;
+            0 0 100 0;
+            100 0 0 100;]
+    end 
+
 end 
