@@ -1,15 +1,13 @@
-module ShortestPath
+module MaximumFlow 
 
 using JuMP, GLPK
 
 using ..Network
 
-struct ShortestPathResult 
+struct MaximumFlowResult 
     path::Array{Connection, 1}
-    cost::Float64
+    flow::Float64
 end 
-
-
 
 function solve(cns::Array{Connection,1})
 
@@ -21,7 +19,7 @@ function solve(cns::Array{Connection,1})
             end
         end
         if length(lst) == 0
-            return 0
+            return :f
         end
         expr = @expression(model, 0)
         for i = 1:length(lst)
@@ -38,7 +36,7 @@ function solve(cns::Array{Connection,1})
             end
         end
         if length(lst) == 0
-            return 0
+            return :f
         end
         expr = @expression(model, 0)
         for i = 1:length(lst)
@@ -56,25 +54,31 @@ function solve(cns::Array{Connection,1})
     finishnode = finish(cns)
 
     # Variables 
-    @variable(model, x[1:n, 1:n], Bin)
+    @variable(model, f)
+    @variable(model, x[1:n, 1:n])
 
     # Objective Function
-    obj_expr = @expression(model, 0)
-    for conn in cns
-        obj_expr = obj_expr + x[conn.from, conn.to] * conn.value
-    end
-    @objective(model, Min, obj_expr)
+    @objective(model, Max, f)
 
     # Constraints 
     for nextnode in mynodes
         leftexpr = leftexpressions(nextnode, cns, model)
         rightexpr = rightexpressions(nextnode, cns, model)
-        if nextnode in [startnode, finishnode]
-            @constraint(model, leftexpr + rightexpr == 1)
+        if leftexpr == :f 
+            @constraint(model, rightexpr == f)
+        elseif rightexpr == :f
+            @constraint(model, leftexpr == f)
         else
-            @constraint(model, leftexpr == rightexpr)
+            @constraint(model, leftexpr - rightexpr == 0)
         end
     end
+
+    for nd in cns
+        @constraint(model, x[nd.from, nd.to] <= nd.value)
+         @constraint(model, x[nd.from, nd.to] >= 0)
+    end 
+
+    @constraint(model, f >= 0)
 
     optimize!(model)
 
@@ -83,16 +87,15 @@ function solve(cns::Array{Connection,1})
     solutionnodes = []
     for i = 1:n
         for j = 1:n
-            if xs[i, j] == 1
-                indx = findfirst(x -> x.from == i && x.to == j, cns)
-                push!(solutionnodes, cns[indx])
+            if xs[i, j] > 0
+                push!(solutionnodes, Connection(i, j, xs[i, j]))
             end
         end
     end
 
-    return ShortestPathResult(solutionnodes, cost)
+    return MaximumFlowResult(solutionnodes, cost)
 end
 
-export solve
+export solve 
 
-end # end of module Shortest Path
+end # end of module

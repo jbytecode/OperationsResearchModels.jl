@@ -16,7 +16,7 @@
         # Shortest path: 1 -> 3 -> 6 -> 7
         CorrectShortestPath = [conns[2], conns[6], conns[9]]
 
-        result = solve(conns)
+        result = solve(conns, problem = ShortestPathProblem)
 
         @test result isa ShortestPathResult
         @test result.cost == 8.0
