@@ -3,4 +3,7 @@
 - Linear programming solution of transportation problems 
 - Linear programming solution of shortest path problem
 - Linear programming solution of maximum flow problem
+- Linear programming solution of assignment problem
+  
+  
   

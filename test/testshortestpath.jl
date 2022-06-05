@@ -21,8 +21,8 @@
         @test result isa ShortestPathResult
         @test result.cost == 8.0
         
-        @test Connection(1, 3, 2) in CorrectShortestPath 
-        @test Connection(3, 6, 1) in CorrectShortestPath 
-        @test Connection(6, 7, 5) in CorrectShortestPath 
+        for element in result.path 
+            @test element in CorrectShortestPath
+        end
     end
 end
