@@ -45,7 +45,7 @@ function finish(cns::Array{Connection,1})::Int64
             return n
         end
     end
-    error("No start node found in connection list.")
+    error("No finish node found in connection list.")
 end
 
 function start(cns::Array{Connection,1})::Int64
