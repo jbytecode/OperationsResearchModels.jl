@@ -1,6 +1,6 @@
 module ShortestPath
 
-using JuMP, GLPK
+using JuMP, HiGHS
 
 using ..Network
 
@@ -48,7 +48,9 @@ function solve(cns::Array{Connection,1})
     end
 
 
-    model = Model(GLPK.Optimizer)
+    model = Model(HiGHS.Optimizer)
+    MOI.set(model, MOI.Silent(), true)
+    
     mynodes = nodes(cns)
     n = length(mynodes)
 

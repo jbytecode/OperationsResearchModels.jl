@@ -1,5 +1,11 @@
 module OpeRe
 
+
+# Default Optimizer 
+using HiGHS
+const theoptimizerpackage = Symbol("HiGHS")
+const theoptimizer = HiGHS.Optimizer
+
 include("network.jl")
 include("transportation.jl")
 include("assignment.jl")

@@ -1,6 +1,6 @@
 module Assignment
 
-using JuMP, GLPK 
+using JuMP, HiGHS
 
 struct AssignmentProblem{T <: Real}
     costs  :: Array{T, 2}
@@ -13,7 +13,8 @@ struct AssignmentResult
 end 
 
 function solve(a::AssignmentProblem)::AssignmentResult
-    model = JuMP.Model(GLPK.Optimizer)
+    model = JuMP.Model(HiGHS.Optimizer)
+    MOI.set(model, MOI.Silent(), true)
     
     n, p = size(a.costs)
     @assert n == p

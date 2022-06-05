@@ -1,8 +1,9 @@
 module MaximumFlow 
 
-using JuMP, GLPK
-
 using ..Network
+
+using JuMP, HiGHS
+
 
 struct MaximumFlowResult 
     path::Array{Connection, 1}
@@ -46,7 +47,9 @@ function solve(cns::Array{Connection,1})
     end
 
 
-    model = Model(GLPK.Optimizer)
+    model = Model(HiGHS.Optimizer)
+    MOI.set(model, MOI.Silent(), true)
+    
     mynodes = nodes(cns)
     n = length(mynodes)
 

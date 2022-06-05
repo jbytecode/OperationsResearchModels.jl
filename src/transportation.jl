@@ -1,6 +1,6 @@
 module Transportation
 
-using JuMP, GLPK
+using JuMP, HiGHS
 
 mutable struct TransportationProblem{T <: Real}
     costs   :: Array{T, 2}
@@ -76,7 +76,8 @@ end
 function solve(t::TransportationProblem)::TransportationResult
     newt = balance(t)
 
-    model = JuMP.Model(GLPK.Optimizer)
+    model = JuMP.Model(HiGHS.Optimizer)
+    MOI.set(model, MOI.Silent(), true)
     
     n, p = size(newt.costs)
 
