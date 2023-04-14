@@ -41,5 +41,15 @@
         @test hasloop(conns) == true
     end 
 
+    @testset "Start model" begin
+        conns = Connection[
+            Connection(1, 2, 5),
+            Connection(2, 3, 5),
+            Connection(2, 4, 5),
+            Connection(2, 5, 5)
+        ]
+        @test hasloop(conns) == false
+    end
+
 
 end 
