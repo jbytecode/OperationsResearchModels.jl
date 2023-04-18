@@ -1,5 +1,5 @@
 using Test
-using OpeRe 
+using OperationsResearchModels 
 
 include("testtransportation.jl")
 include("testassignment.jl")

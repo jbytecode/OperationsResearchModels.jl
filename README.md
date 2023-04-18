@@ -1,4 +1,4 @@
-# OpeRe.jl
+# OperationsResearchModels.jl
 
 A package for Operations Research problems.
 

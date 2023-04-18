@@ -1,4 +1,4 @@
-module OpeRe
+module OperationsResearchModels
 
 
 # Default Optimizer 
