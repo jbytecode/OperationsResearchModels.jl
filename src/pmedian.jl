@@ -9,6 +9,40 @@ function euclidean(u, v)::Float64
     return (d .* d) |> sum |> sqrt 
 end 
 
+
+"""
+
+    pmedian(data, ncenters)
+
+# Arguments 
+- `data::Matrix`: Coordinates of locations 
+- `ncenters::Int`: Number of centers 
+
+# Descriptions 
+The function calculates Euclidean distances between all possible rows of the matrix data. 
+`ncenters` locations are then selected that minimizes the total distances to the nearest rows. 
+
+# Output 
+- `Dict{String, Any}`: The dictionary object that holds the results. 
+
+# Example 
+julia> data1 = rand(10, 2);
+
+julia> data2 = rand(10, 2) .+ 50;
+
+julia> data3 = rand(10, 2) .+ 100;
+
+julia> data = vcat(data1, data2, data3);
+
+julia> result = pmedian(data, 3)
+Dict{String, Any} with 5 entries:
+  "centers"   => [6, 13, 25]
+  "model"     => A JuMP Model…
+  "objective" => 10.5921
+  "z"         => [-0.0 -0.0 … 0.0 0.0; -0.0 -0.0 … 0.0 0.0; … ; 0.0 0.0 … -0.0 0.0; 0.0 0.0 … 0.0 -0.0]
+  "y"         => [0.0, -0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, -0.0, 0.0  …  0.0, 0.0, 0.0, -0.0, 1.0, 0.0, -0.0,…
+
+"""
 function pmedian(data::Matrix, ncenters:: Int)
     
     n, p = size(data)
