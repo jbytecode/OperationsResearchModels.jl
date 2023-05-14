@@ -1,3 +1,5 @@
+[![Doc](https://img.shields.io/badge/docs-dev-blue.svg)](https://jbytecode.github.io/OperationsResearchModels.jl/dev/)
+
 # OperationsResearchModels.jl
 
 A package for Operations Research problems.
