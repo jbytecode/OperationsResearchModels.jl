@@ -1,4 +1,10 @@
-### 0.1.0 (Upcoming release)
+### 0.1.1 (Upcoming release)
+
+- Add/update documentation
+
+
+
+### 0.1.0 
 
 - Transportation problem definition
 - Linear programming solution of transportation problems 
