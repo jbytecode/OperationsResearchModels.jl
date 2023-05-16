@@ -10,6 +10,11 @@ OperationsResearchModels.solve(a::AssignmentProblem)
 OperationsResearchModels.solve(t::TransportationProblem)
 ```
 
+## Shortest Path and Maximum Flow 
+```@docs
+OperationsResearchModels.solve(c; problem = ShortestPathProblem)
+```
+
 
 ## pmedian
 ```@docs
