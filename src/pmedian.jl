@@ -26,6 +26,8 @@ The function calculates Euclidean distances between all possible rows of the mat
 - `Dict{String, Any}`: The dictionary object that holds the results. 
 
 # Example 
+
+```julia
 julia> data1 = rand(10, 2);
 
 julia> data2 = rand(10, 2) .+ 50;
@@ -41,6 +43,7 @@ Dict{String, Any} with 5 entries:
   "objective" => 10.5921
   "z"         => [-0.0 -0.0 … 0.0 0.0; -0.0 -0.0 … 0.0 0.0; … ; 0.0 0.0 … -0.0 0.0; 0.0 0.0 … 0.0 -0.0]
   "y"         => [0.0, -0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, -0.0, 0.0  …  0.0, 0.0, 0.0, -0.0, 1.0, 0.0, -0.0,…
+``` 
 
 """
 function pmedian(data::Matrix, ncenters:: Int)
