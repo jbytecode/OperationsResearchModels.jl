@@ -14,11 +14,11 @@ OperationsResearchModels.solve(t::TransportationProblem)
     
     solve(c::Vector{Connection}; problem::Union{::ShortestPathProblem, ::MaximumFlowProblem} = ShortestPathProblem)
 
-# Arguments 
+### Arguments 
 - `c::Vector{Connection}`: Vector of connections 
 - `problem`: Type of problem. Either `ShortestPathProblem` or `MaximumFlowProblem`
 
-# Example 
+### Example 
 
 ```julia 
 julia> conns = [
