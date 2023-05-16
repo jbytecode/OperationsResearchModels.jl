@@ -41,9 +41,105 @@ export game, GameResult
 export hasloop
 export pmedian 
 
+"""
+    solve(t)
+
+# Arguments 
+`a::TransportationProblem`: The problem in type of TransportationProblem
+
+# Output 
+`TransportationResult`: The custom data type that holds problem, solution, and optimum cost. 
+
+# Description 
+Solves a transportation problem given by an object of in type `TransportationProblem`.
+
+# Example 
+
+```julia
+julia> t = TransportationProblem(
+                   [   1 1 1 1; 
+                       2 2 2 2; 
+                       3 3 3 3], 
+                   [100, 100, 100, 100], # Demands 
+                   [100, 100, 100])      # Supplies 
+Transportation Problem:
+Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3]
+Demand: [100, 100, 100, 100]
+Supply: [100, 100, 100]
+
+julia> isbalanced(t)
+false
+
+julia> result = solve(t)
+Transportation Results:
+Main problem:
+Transportation Problem:
+Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3]
+Demand: [100, 100, 100, 100]
+Supply: [100, 100, 100]
+
+Balanced problem:
+Transportation Problem:
+Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3; 0 0 0 0]
+Demand: [100, 100, 100, 100]
+Supply: [100, 100, 100, 100]
+
+Cost:
+600.0
+Solution:
+[-0.0 -0.0 -0.0 100.0; 100.0 -0.0 -0.0 -0.0; -0.0 -0.0 100.0 -0.0; -0.0 100.0 -0.0 -0.0]
+```
+"""
 solve(t::TransportationProblem) = Transportation.solve(t)
+
+
+"""
+    solve(a)
+
+# Arguments 
+`a::AssignmentProblem`: The problem in type of AssignmentProblem
+
+# Output 
+`AssignmentResult`: The custom data type that holds problem, solution, and optimum cost. 
+
+# Description 
+Solves an assignment problem given by an object of in type `AssignmentProblem`.
+
+# Example 
+
+```julia
+julia> mat = [
+                   4 8 1;
+                   3 1 9;
+                   1 6 7;
+               ];
+
+julia> problem = AssignmentProblem(mat);
+
+julia> result = solve(problem);
+
+julia> result.solution
+
+3×3 Matrix{Float64}:
+ 0.0  0.0  1.0
+ 0.0  1.0  0.0
+ 1.0  0.0  0.0
+
+julia> result.cost
+
+3.0
+```
+"""
 solve(a::AssignmentProblem) = Assignment.solve(a)
 
+
+"""
+    solve(c; problem = ShortestPathProblem)
+
+# Arguments 
+`c::Vector{Connection}`: Vector of connections 
+`problem`: Type of problem. Either `ShortestPathProblem` or `MaximumFlowProblem`
+"""
 function solve(c::Array{Connection, 1}; problem = ShortestPathProblem) 
     if problem == ShortestPathProblem
         return ShortestPath.solve(c)

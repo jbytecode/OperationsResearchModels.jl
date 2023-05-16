@@ -12,6 +12,7 @@ struct AssignmentResult
     cost :: Real
 end 
 
+
 function solve(a::AssignmentProblem)::AssignmentResult
     model = JuMP.Model(HiGHS.Optimizer)
     MOI.set(model, MOI.Silent(), true)
