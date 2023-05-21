@@ -137,4 +137,15 @@
             @test i in allnodes 
         end 
     end
+
+    @testset "big network" begin 
+        connections = Connection[]
+        N = 300
+        for i in 1:N
+            for j in (i+1):N
+                push!(connections, Connection(i, j, rand()))
+            end 
+        end 
+        result = mst(connections)
+    end 
 end

@@ -37,24 +37,41 @@ function findconnection(conns::Vector{Connection}, i::Int, j::Int)::Union{Nothin
     return nothing
 end
 
-function findnearestbetweennodes(conns::Vector{Connection}, assigned::Set{Int64}, unassigned::Set{Int64})::Tuple{Int,Connection}
+function findnearestbetweennodes(conns::Vector{Connection}, distmat::Matrix, assigned::Set{Int64}, unassigned::Set{Int64})::Tuple{Int,Connection}
     mindist = typemax(Float64)
     theconnection = -1
     connobj = nothing
     for assignedelement in assigned
         for unassignedelement in unassigned
-            c = findconnection(conns, assignedelement, unassignedelement)
-            if !isnothing(c)
-                if c.value < mindist
-                    mindist = c.value
-                    theconnection = unassignedelement
-                    connobj = c
-                end
+            cdist = distmat[assignedelement, unassignedelement]
+            if cdist < mindist
+                mindist = cdist
+                theconnection = unassignedelement
+                #connobj = Connection(assignedelement, unassignedelement, cdist)
+                connobj = findconnection(conns, assignedelement, unassignedelement)
             end
         end
     end
     return (theconnection, connobj)
 end
+
+function makedistancematrix(conns::Vector{Connection})::Matrix
+    allnodes = nodes(conns)
+    maxnode = maximum(allnodes)
+    mat = zeros(Float64, maxnode, maxnode)
+    for i in 1:maxnode 
+        for j in (i+1):maxnode 
+            c = findconnection(conns, i, j)
+            if !isnothing(c)
+                mat[i, j] = c.value
+            else
+                mat[i, j] = typemax(Float64)
+            end
+            mat[j, i] = mat[i, j]
+        end 
+    end 
+    return mat 
+end 
 
 
 """
@@ -103,6 +120,8 @@ function mst(conns::Vector{Connection})::MstResult
 
     totaldist = 0.0
 
+    distmat = makedistancematrix(conns)
+
     assigned = Set{Int64}()
     unassigned = nodes(conns)
     connresult = Connection[]
@@ -111,7 +130,7 @@ function mst(conns::Vector{Connection})::MstResult
     push!(assigned, luckynode)
 
     while length(unassigned) > 0
-        nearestnode, conn = findnearestbetweennodes(conns, assigned, unassigned)
+        nearestnode, conn = findnearestbetweennodes(conns, distmat, assigned, unassigned)
         push!(assigned, nearestnode)
         push!(connresult, conn)
         totaldist += conn.value
