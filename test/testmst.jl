@@ -79,6 +79,7 @@
         result = mst(conns)
         @test result isa MstResult 
         @test result.distance == 30.0
+        @test !hasloop(result.connections)
     end
 
     @testset "6 nodes with loops" begin 
@@ -102,6 +103,8 @@
         for i in 1:6
             @test i in allnodes 
         end
+
+        @test !hasloop(result.connections)
     end 
 
     @testset "7 nodes with loops" begin
@@ -135,7 +138,9 @@
 
         for i in 1:7
             @test i in allnodes 
-        end 
+        end
+        
+        @test !hasloop(result.connections)
     end
 
     @testset "big network" begin 
@@ -147,5 +152,13 @@
             end 
         end 
         result = mst(connections)
+
+        allnodes = nodes(result.connections)
+
+        for i in 1:N
+            @test i in allnodes 
+        end
+
+        @test !hasloop(result.connections)
     end 
 end
