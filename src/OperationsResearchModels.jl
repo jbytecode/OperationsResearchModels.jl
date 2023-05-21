@@ -26,19 +26,19 @@ import .PMedian
 
 import .Transportation: TransportationProblem, TransportationResult, balance, isbalanced
 import .ShortestPath: ShortestPathResult
-import .Network:  Connection, ShortestPathProblem, MaximumFlowProblem
+import .Network:  Connection, ShortestPathProblem, MaximumFlowProblem, nodes
 import .MaximumFlow: MaximumFlowResult
 import .Assignment: AssignmentProblem, AssignmentResult
 import .Game: game, GameResult
-import .MinimumSpanningTree: hasloop
+import .MinimumSpanningTree: hasloop, mst, MstResult
 import .PMedian: pmedian
 
 export TransportationProblem, TransportationResult, balance, isbalanced
-export Connection, ShortestPathResult, MaximumFlowResult 
+export Connection, ShortestPathResult, MaximumFlowResult, nodes 
 export ShortestPathProblem, MaximumFlowProblem
 export AssignmentProblem, AssignmentResult
 export game, GameResult
-export hasloop
+export hasloop, mst, MstResult
 export pmedian 
 
 """

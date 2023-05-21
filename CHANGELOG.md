@@ -1,8 +1,10 @@
-### 0.1.1 (Upcoming release)
+### 0.1.2 (Upcoming release) 
+
+
+### 0.1.1 
 
 - Add/update documentation
-
-
+- Add mst() for minimum spanning tree
 
 ### 0.1.0 
 

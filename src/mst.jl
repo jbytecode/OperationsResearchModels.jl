@@ -1,24 +1,124 @@
 module MinimumSpanningTree
 
-import ..Network: Connection 
+import ..Network: Connection, nodes
 
 export hasloop
+export mst
+export MstResult
+
+struct MstResult
+    connections::Vector{Connection}
+    distance::Float64
+end
 
 function hasloop(conns::Vector{Connection})::Bool
     if length(conns) <= 1
-        return false 
-    end 
+        return false
+    end
     nodes = Set{Int64}()
     push!(nodes, conns[1].from)
     push!(nodes, conns[1].to)
     for i in 2:length(conns)
         if conns[i].from in nodes && conns[i].to in nodes
-            return true 
-        end 
+            return true
+        end
         push!(nodes, conns[i].from)
         push!(nodes, conns[i].to)
     end
     return false
-end 
+end
+
+function findconnection(conns::Vector{Connection}, i::Int, j::Int)::Union{Nothing,Connection}
+    for c in conns
+        if (c.from == i && c.to == j) || (c.from == j && c.to == i)
+            return c
+        end
+    end
+    return nothing
+end
+
+function findnearestbetweennodes(conns::Vector{Connection}, assigned::Set{Int64}, unassigned::Set{Int64})::Tuple{Int,Connection}
+    mindist = typemax(Float64)
+    theconnection = -1
+    connobj = nothing
+    for assignedelement in assigned
+        for unassignedelement in unassigned
+            c = findconnection(conns, assignedelement, unassignedelement)
+            if !isnothing(c)
+                if c.value < mindist
+                    mindist = c.value
+                    theconnection = unassignedelement
+                    connobj = c
+                end
+            end
+        end
+    end
+    return (theconnection, connobj)
+end
+
+
+"""
+    mst(connections)
+
+# Arguments 
+- `connections::Vector{Connection}`: Vector of Connections 
+
+# Description
+
+Obtains the minimum spanning tree. 
+
+# Output 
+- `::MstResult`: A MstResult object that holds the results. 
+
+# Examples 
+
+```julia 
+julia> conns = Connection[
+                       Connection(1, 2, 10),
+                       Connection(2, 3, 10),
+                       Connection(3, 4, 10),
+                       Connection(1, 4, 10)
+                   ]
+
+4-element Vector{Connection}:
+ Connection(1, 2, 10, "x12")
+ Connection(2, 3, 10, "x23")
+ Connection(3, 4, 10, "x34")
+ Connection(1, 4, 10, "x14")
+
+ julia> result = mst(conns)
+ MstResult(Connection[Connection(3, 4, 10, "x34"), Connection(1, 4, 10, "x14"), Connection(2, 3, 10, "x23")], 30.0)
+ 
+ julia> result.distance
+ 30.0
+ 
+ julia> result.connections
+ 3-element Vector{Connection}:
+  Connection(3, 4, 10, "x34")
+  Connection(1, 4, 10, "x14")
+  Connection(2, 3, 10, "x23")
+```
+"""
+function mst(conns::Vector{Connection})::MstResult
+
+    totaldist = 0.0
+
+    assigned = Set{Int64}()
+    unassigned = nodes(conns)
+    connresult = Connection[]
+
+    luckynode = pop!(unassigned)
+    push!(assigned, luckynode)
+
+    while length(unassigned) > 0
+        nearestnode, conn = findnearestbetweennodes(conns, assigned, unassigned)
+        push!(assigned, nearestnode)
+        push!(connresult, conn)
+        totaldist += conn.value
+        unassigned = filter(x -> x != nearestnode, unassigned)
+    end
+
+    return MstResult(connresult, totaldist)
+end
 
 end # end of module

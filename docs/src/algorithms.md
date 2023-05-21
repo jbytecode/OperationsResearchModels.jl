@@ -67,3 +67,8 @@ julia> result.flow
 ```@docs
 OperationsResearchModels.pmedian
 ```
+
+## Minimum Spanning Tree
+```@docs
+OperationsResearchModels.mst
+```

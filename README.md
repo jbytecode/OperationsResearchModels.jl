@@ -6,6 +6,9 @@ A package for Operations Research problems.
 
 
 
+
+# The Content
+
 ## Linear Transportation Problem
 
 Suppose the linear transportation problem is 
@@ -96,3 +99,7 @@ mat = [
 
 result = game(mat)
 ```
+
+## p-median for selecting location of facilities
+
+## Minimum Spanning Tree 

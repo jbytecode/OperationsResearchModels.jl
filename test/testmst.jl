@@ -70,5 +70,71 @@
 
 
     @testset "mst()" begin 
+        conns = Connection[
+                Connection(1, 2, 10),
+                Connection(2, 3, 10),
+                Connection(3, 4, 10),
+                Connection(1, 4, 10)
+            ]
+        result = mst(conns)
+        @test result isa MstResult 
+        @test result.distance == 30.0
+    end
+
+    @testset "6 nodes with loops" begin 
+        conns = Connection[
+            Connection(1, 2, 5),
+            Connection(1, 3, 4),
+            Connection(2, 3, 5),
+            Connection(2, 4, 7),
+            Connection(2, 5, 9),
+            Connection(3, 4, 8),
+            Connection(3, 5, 6),
+            Connection(4, 5, 6),
+            Connection(3, 6, 10),
+            Connection(5, 6, 11)
+        ]
+        result = mst(conns)
+        @test result.distance == 31.0
+        @test length(result.connections) == 5
+
+        allnodes = nodes(result.connections)
+        for i in 1:6
+            @test i in allnodes 
+        end
+    end 
+
+    @testset "7 nodes with loops" begin
+        conns = Connection[
+            Connection(1, 2, 9),
+            Connection(1, 3, 2),
+            Connection(1, 4, 1),
+            Connection(1, 5, 7),
+            Connection(1, 6, 6),
+            Connection(1, 7, 10),
+            Connection(2, 3, 11),
+            Connection(2, 4, 8),
+            Connection(2, 5, 13),
+            Connection(2, 6, 14),
+            Connection(2, 7, 9),
+            Connection(3, 4, 7),
+            Connection(3, 5, 6),
+            Connection(3, 6, 11),
+            Connection(3, 7, 20),
+            Connection(4, 5, 14),
+            Connection(5, 6, 18),
+            Connection(5, 7, 19),
+            Connection(6, 7, 15)
+        ]
+
+        result = mst(conns)
+
+        @test result.distance == 32.0
+        
+        allnodes = nodes(result.connections)
+
+        for i in 1:7
+            @test i in allnodes 
+        end 
     end
 end

@@ -1,5 +1,14 @@
 module Network 
 
+export Connection 
+export nodes 
+export iseveronleft
+export iseveronright
+export finish
+export start
+export ShortestPathProblem
+export MaximumFlowProblem
+
 struct Connection
     from::Int64
     to::Int64
@@ -57,16 +66,6 @@ function start(cns::Array{Connection,1})::Int64
     end
     error("No start node found in connection list.")
 end
-
-
-export Connection 
-export nodes 
-export iseveronleft
-export iseveronright
-export finish
-export start
-export ShortestPathProblem
-export MaximumFlowProblem
 
 
 end # end of module Network 
