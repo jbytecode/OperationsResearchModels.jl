@@ -103,3 +103,5 @@ result = game(mat)
 ## p-median for selecting location of facilities
 
 ## Minimum Spanning Tree 
+
+## CPM (Critical Path Method)

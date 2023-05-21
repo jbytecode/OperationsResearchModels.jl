@@ -14,6 +14,7 @@ include("maximumflow.jl")
 include("game.jl")
 include("mst.jl")
 include("pmedian.jl")
+include("cpm.jl")
 
 import .Network
 import .Transportation
@@ -23,6 +24,7 @@ import .MaximumFlow
 import .Game
 import .MinimumSpanningTree
 import .PMedian
+import .CPM 
 
 import .Transportation: TransportationProblem, TransportationResult, balance, isbalanced
 import .ShortestPath: ShortestPathResult
@@ -32,6 +34,7 @@ import .Assignment: AssignmentProblem, AssignmentResult
 import .Game: game, GameResult
 import .MinimumSpanningTree: hasloop, mst, MstResult
 import .PMedian: pmedian
+import .CPM: cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 
 export TransportationProblem, TransportationResult, balance, isbalanced
 export Connection, ShortestPathResult, MaximumFlowResult, nodes 
@@ -40,6 +43,8 @@ export AssignmentProblem, AssignmentResult
 export game, GameResult
 export hasloop, mst, MstResult
 export pmedian 
+export cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
+
 
 """
     solve(t)

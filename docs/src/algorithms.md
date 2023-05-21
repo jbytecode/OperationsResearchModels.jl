@@ -72,3 +72,8 @@ OperationsResearchModels.pmedian
 ```@docs
 OperationsResearchModels.mst
 ```
+
+## CPM (Critical Path Method)
+```@docs
+OperationsResearchModels.cpm
+```

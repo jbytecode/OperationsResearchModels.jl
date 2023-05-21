@@ -5,6 +5,7 @@
 
 - Add/update documentation
 - Add mst() for minimum spanning tree
+- Add cpm() for critical path method
 
 ### 0.1.0 
 
