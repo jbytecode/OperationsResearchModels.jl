@@ -1,5 +1,7 @@
 ### 0.1.2 (Upcoming release) 
 
+- Add pert() for Project Evaluation and Review Technique (PERT)
+
 
 ### 0.1.1 
 

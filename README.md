@@ -105,3 +105,5 @@ result = game(mat)
 ## Minimum Spanning Tree 
 
 ## CPM (Critical Path Method)
+
+## PERT (Project Evaluation and Review Technique)

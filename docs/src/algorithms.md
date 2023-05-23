@@ -77,3 +77,8 @@ OperationsResearchModels.mst
 ```@docs
 OperationsResearchModels.cpm
 ```
+
+## PERT (Project Evalutation and Review Technique)
+```@docs
+OperationsResearchModels.pert
+```

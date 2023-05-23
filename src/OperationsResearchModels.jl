@@ -35,6 +35,7 @@ import .Game: game, GameResult
 import .MinimumSpanningTree: hasloop, mst, MstResult
 import .PMedian: pmedian
 import .CPM: cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
+import .CPM: pert, PertActivity, PertResult
 
 export TransportationProblem, TransportationResult, balance, isbalanced
 export Connection, ShortestPathResult, MaximumFlowResult, nodes 
@@ -44,6 +45,7 @@ export game, GameResult
 export hasloop, mst, MstResult
 export pmedian 
 export cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
+export pert, PertActivity, PertResult
 
 
 """
