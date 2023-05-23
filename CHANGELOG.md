@@ -1,4 +1,7 @@
-### 0.1.2 (Upcoming release) 
+### 0.1.3 (Upcoming release) 
+
+
+### 0.1.2  
 
 - Add pert() for Project Evaluation and Review Technique (PERT)
 
