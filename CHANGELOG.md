@@ -1,5 +1,7 @@
 ### 0.1.3 (Upcoming release) 
 
+- Add tests for PERT
+
 
 ### 0.1.2  
 

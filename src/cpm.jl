@@ -100,23 +100,14 @@ Calculates CPM (Critical Path Method) and reports the critical path for a given 
 # Example 
 ```julia 
 julia> A = CpmActivity("A", 2);
-
 julia> B = CpmActivity("B", 3);
-
 julia> C = CpmActivity("C", 2, [A]);
-
 julia> D = CpmActivity("D", 3, [B]);
-
 julia> E = CpmActivity("E", 2, [B]);
-
 julia> F = CpmActivity("F", 3, [C, D]);
-
 julia> G = CpmActivity("G", 7, [E]);
-
 julia> H = CpmActivity("H", 5, [E]);
-
 julia> I = CpmActivity("I", 6, [G, F]);
-
 julia> J = CpmActivity("J", 2, [C, D]);
 
 julia> activities = [A, B, C, D, E, F, G, H, I, J];
