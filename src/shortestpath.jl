@@ -24,7 +24,7 @@ function solve(cns::Array{Connection,1})
             return 0
         end
         expr = @expression(model, 0)
-        for i = 1:length(lst)
+        for i = eachindex(lst)
             expr += x[lst[i].from, lst[i].to]
         end
         return expr
