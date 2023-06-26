@@ -18,17 +18,17 @@ include("cpm.jl")
 
 import .Network
 import .Transportation
-import .Assignment 
+import .Assignment
 import .ShortestPath
-import .MaximumFlow 
+import .MaximumFlow
 import .Game
 import .MinimumSpanningTree
 import .PMedian
-import .CPM 
+import .CPM
 
-import .Transportation: TransportationProblem, TransportationResult, balance, isbalanced
+import .Transportation: TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
 import .ShortestPath: ShortestPathResult
-import .Network:  Connection, ShortestPathProblem, MaximumFlowProblem, nodes
+import .Network: Connection, ShortestPathProblem, MaximumFlowProblem, nodes
 import .MaximumFlow: MaximumFlowResult
 import .Assignment: AssignmentProblem, AssignmentResult
 import .Game: game, GameResult
@@ -37,13 +37,13 @@ import .PMedian: pmedian
 import .CPM: cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 import .CPM: pert, PertActivity, PertResult
 
-export TransportationProblem, TransportationResult, balance, isbalanced
-export Connection, ShortestPathResult, MaximumFlowResult, nodes 
+export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
+export Connection, ShortestPathResult, MaximumFlowResult, nodes
 export ShortestPathProblem, MaximumFlowProblem
 export AssignmentProblem, AssignmentResult
 export game, GameResult
 export hasloop, mst, MstResult
-export pmedian 
+export pmedian
 export cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 export pert, PertActivity, PertResult
 
@@ -141,7 +141,7 @@ solve(a::AssignmentProblem) = Assignment.solve(a)
 
 
 
-function solve(c::Vector{Connection}; problem::Union{Type{ShortestPathProblem}, Type{MaximumFlowProblem}} = ShortestPathProblem) 
+function solve(c::Vector{Connection}; problem::Union{Type{ShortestPathProblem},Type{MaximumFlowProblem}}=ShortestPathProblem)
     if problem == ShortestPathProblem
         return ShortestPath.solve(c)
     elseif problem == MaximumFlowProblem
@@ -149,8 +149,8 @@ function solve(c::Vector{Connection}; problem::Union{Type{ShortestPathProblem}, 
     else
         error(string("Could not find problem type: ", string(problem)))
     end
-end 
+end
 
-export solve 
+export solve
 
 end # end of module
