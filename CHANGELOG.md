@@ -1,6 +1,10 @@
-### 0.1.3 (Upcoming release) 
+### 0.1.4 (Upcoming release) 
+
+### 0.1.3 
 
 - Add tests for PERT
+- Implement Simplex. Note that the implemented algorithm does not depend on JuMP and any solver. All of the Simplex iterations can be reported. Unbounded variables are not supported, that is, all of the decision variables are supposed to be $x_i \ge 0$. Maximum and minimum objective types, $\ge, \le, \eq$ type constraints are supported. This implementation is for educational purposes and it isn't implemented in an
+efficient way. 
 
 
 ### 0.1.2  

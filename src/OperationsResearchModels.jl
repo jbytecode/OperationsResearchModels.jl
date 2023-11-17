@@ -15,6 +15,7 @@ include("game.jl")
 include("mst.jl")
 include("pmedian.jl")
 include("cpm.jl")
+include("simplex.jl")
 
 import .Network
 import .Transportation
@@ -25,6 +26,7 @@ import .Game
 import .MinimumSpanningTree
 import .PMedian
 import .CPM
+import .Simplex 
 
 import .Transportation: TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
 import .ShortestPath: ShortestPathResult
@@ -46,7 +48,7 @@ export hasloop, mst, MstResult
 export pmedian
 export cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 export pert, PertActivity, PertResult
-
+export Simplex
 
 """
     solve(t)
