@@ -107,3 +107,107 @@ result = game(mat)
 ## CPM (Critical Path Method)
 
 ## PERT (Project Evaluation and Review Technique)
+
+
+## Simplex with iterations 
+
+Suppose the problem is 
+
+$$
+\begin{aligned}
+\max z = & 2x_1 + 3_x2 \\
+\text{Subject to:} & \\
+& x_1 + 2x_2 \le 100 \\
+& 2x_1 + x_2 \le 150 \\
+& x_1, x_2 \ge 0 
+\end{aligned}
+$$
+
+```julia
+using OperationsResearchModels.Simplex
+
+problem = createsimplexproblem(
+    Float64[2, 3],
+    Float64[1 2; 2 1],
+    Float64[100, 150],
+    [LE, LE],
+    Maximize
+);
+
+println(problem)
+```
+
+
+```
+Maximize -> 2.0x1 + 3.0x2
+S.t:
+1.0x1 + 2.0x2 LE 100.0
+2.0x1 + 1.0x2 LE 150.0
+All variables are non-negative
+```
+
+```julia
+simplexpretty(problem)
+```
+
+```
+[ Info: The problem:
+Maximize -> 2.0x1 + 3.0x2
+S.t:
+1.0x1 + 2.0x2 LE 100.0
+2.0x1 + 1.0x2 LE 150.0
+All variables are non-negative
+
+[ Info: The standard form:
+Maximize -> 2.0x1 + 3.0x2 + 0.0x3 + 0.0x4
+S.t:
+x3: 1.0x1 + 2.0x2 + 1.0x3 + 0.0x4 EQ 100.0
+x4: 2.0x1 + 1.0x2 + 0.0x3 + 1.0x4 EQ 150.0
+Slack: [3, 4]
+Basic Variables: [3, 4]
+All variables are non-negative
+
+[ Info: M Method corrections:
+Maximize -> 2.0x1 + 3.0x2 + 0.0x3 + 0.0x4
+S.t:
+x3: 1.0x1 + 2.0x2 + 1.0x3 + 0.0x4 EQ 100.0
+x4: 2.0x1 + 1.0x2 + 0.0x3 + 1.0x4 EQ 150.0
+Slack: [3, 4]
+Basic Variables: [3, 4]
+All variables are non-negative
+
+[ Info: Iteration 1
+Maximize -> 0.5x1 + 0.0x2 + -1.5x3 + 0.0x4
+S.t:
+x2: 0.5x1 + 1.0x2 + 0.5x3 + 0.0x4 EQ 50.0
+x4: 1.5x1 + 0.0x2 + -0.5x3 + 1.0x4 EQ 100.0
+Slack: [3, 4]
+Basic Variables: [2, 4]
+All variables are non-negative
+
+[ Info: Iteration 2
+Maximize -> 0.0x1 + 0.0x2 + -1.3333333333333333x3 + -0.3333333333333333x4
+S.t:
+x2: 0.0x1 + 1.0x2 + 0.6666666666666666x3 + -0.3333333333333333x4 EQ 16.666666666666664
+x1: 1.0x1 + 0.0x2 + -0.3333333333333333x3 + 0.6666666666666666x4 EQ 66.66666666666667
+Slack: [3, 4]
+Basic Variables: [2, 1]
+All variables are non-negative
+
+[ Info: Iteration 3
+Maximize -> 0.0x1 + 0.0x2 + -1.3333333333333333x3 + -0.3333333333333333x4
+S.t:
+x2: 0.0x1 + 1.0x2 + 0.6666666666666666x3 + -0.3333333333333333x4 EQ 16.666666666666664
+x1: 1.0x1 + 0.0x2 + -0.3333333333333333x3 + 0.6666666666666666x4 EQ 66.66666666666667
+Slack: [3, 4]
+Basic Variables: [2, 1]
+All variables are non-negative
+Status: CONVERGED!
+
+[ Info: The problem is converged
+[ Info: Here is the result
+[ Info: x2 = 16.666666666666664
+[ Info: x1 = 66.66666666666667
+[ Info: Objective value: 183.33333333333334
+
+```
