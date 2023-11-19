@@ -104,6 +104,33 @@ result = game(mat)
 
 ## Minimum Spanning Tree 
 
+```julia
+julia> conns = Connection[
+                       Connection(1, 2, 10),
+                       Connection(2, 3, 10),
+                       Connection(3, 4, 10),
+                       Connection(1, 4, 10)
+                   ]
+4-element Vector{Connection}:
+ Connection(1, 2, 10, "x12")
+ Connection(2, 3, 10, "x23")
+ Connection(3, 4, 10, "x34")
+ Connection(1, 4, 10, "x14")
+
+julia> result = mst(conns)
+MstResult(Connection[Connection(3, 4, 10, "x34"), Connection(1, 4, 10, "x14"), Connection(2, 3, 10, "x23")], 30.0)
+
+julia> result.distance
+30.0
+
+julia> result.connections
+3-element Vector{Connection}:
+ Connection(3, 4, 10, "x34")
+ Connection(1, 4, 10, "x14")
+ Connection(2, 3, 10, "x23")
+
+```
+
 ## CPM (Critical Path Method)
 
 ## PERT (Project Evaluation and Review Technique)
@@ -177,10 +204,8 @@ All variables are non-negative
 ```
 
 ```julia
-simplexpretty(problem)
-```
+julia> simplexpretty(problem)
 
-```
 [ Info: The problem:
 Maximize -> 2.0x1 + 3.0x2
 S.t:
