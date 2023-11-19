@@ -108,6 +108,36 @@ result = game(mat)
 
 ## PERT (Project Evaluation and Review Technique)
 
+```julia
+A = PertActivity("A", 1, 2, 3)
+B = PertActivity("B", 3, 3, 3)
+# C dependens on A and B
+# with optimistic, mostlikely, and pessimistics
+# times of 5, 5, and 5, respectively
+C = PertActivity("C", 5, 5, 5, [A, B])
+
+activities = [A, B, C]
+```
+
+```julia
+julia> result = pert(activities)
+PertResult(PertActivity[PertActivity("B", 3.0, 3.0, 3.0, PertActivity[]), PertActivity("C", 5.0, 5.0, 5.0, PertActivity[PertActivity("A", 1.0, 2.0, 3.0, PertActivity[]), PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])])], 8.0, 0.0)
+```
+
+
+```julia
+julia> result.mean
+8.0
+
+julia> result.stddev
+0.0
+
+julia> result.path
+2-element Vector{PertActivity}:
+ PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])
+ PertActivity("C", 5.0, 5.0, 5.0, PertActivity[PertActivity("A", 1.0, 2.0, 3.0, PertActivity[]), PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])])
+
+```
 
 ## Simplex with iterations 
 
