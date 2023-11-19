@@ -1,5 +1,7 @@
 ### 0.1.4 (Upcoming release) 
 
+- Numbers rounded with 3 decimal points in Simplex iterations.
+
 ### 0.1.3 
 
 - Add tests for PERT

@@ -136,7 +136,7 @@ function sumproduct(io::IO, coefs::Vector, varnames::Vector)
 	@assert length(coefs) == length(varnames)
 	l = length(coefs)
 	for i in 1:l
-		print(io, coefs[i], varnames[i])
+		print(io, round(coefs[i], digits = 3), varnames[i])
 		if i < l
 			print(io, " + ")
 		end
@@ -156,7 +156,7 @@ function Base.show(io::IO, s::SimplexProblem)
 			print(io, bis, ": ")
 		end
 		sumproduct(io, s.lhs[i, :], s.varnames)
-		println(io, " ", s.directions[i], " ", s.rhs[i])
+		println(io, " ", s.directions[i], " ", round(s.rhs[i], digits = 3))
 	end
 	if !isempty(s.slackvariableindices)
 		println(io, "Slack: ", s.slackvariableindices)
