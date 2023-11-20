@@ -1,4 +1,7 @@
-### 0.1.4 (Upcoming release) 
+### 0.1.5 (Upcoming release) 
+
+
+### 0.1.4 
 
 - Numbers rounded with 3 decimal points in Simplex iterations.
 
