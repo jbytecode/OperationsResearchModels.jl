@@ -18,6 +18,8 @@ using OperationsResearchModels.Simplex
 		@test isapprox(s.rhs[1], 16.666666666666664, atol = eps)
 		@test isapprox(s.rhs[2], 66.66666666666667, atol = eps)
 
+		@test isapprox(s.objective_value, 183.33333, atol = eps)
+
 	end
 
 
@@ -39,6 +41,8 @@ using OperationsResearchModels.Simplex
 		@test s.converged
 		@test isapprox(s.rhs[1], 0.3333333333, atol = eps)
 		@test isapprox(s.rhs[2], 1.3333333333, atol = eps)
+
+		@test isapprox(s.objective_value, 183.33333, atol = eps)
 
 	end
 

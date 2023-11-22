@@ -1,7 +1,7 @@
 name = "OperationsResearchModels"
 uuid = "8042aa49-e599-49ec-a8f7-b5b80cc82a88"
 authors = ["Mehmet Hakan Satman <mhsatman@gmail.com>"]
-version = "0.1.4"
+version = "0.1.5"
 
 [deps]
 HiGHS = "87dc4568-4c63-4d18-b0c0-bb2238e4078b"

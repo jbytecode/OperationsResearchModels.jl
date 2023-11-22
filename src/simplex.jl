@@ -12,6 +12,7 @@ export simplexiterations
 export simplexpretty
 export createsimplexproblem
 export solve!
+export latex
 
 
 @enum OptimizationType begin
@@ -39,6 +40,7 @@ mutable struct SimplexProblem
 	biggestvalue::Float64
 	isinstandardform::Bool
 	converged::Bool
+	objective_value::Float64
 end
 
 function SimplexProblem()::SimplexProblem
@@ -56,6 +58,7 @@ function SimplexProblem()::SimplexProblem
 		-Inf64,                           # Biggest value for M - Method 
 		false,                             # is it in standard form?
 		false,                              # Converged?
+		0.0,                                # Objective Value
 	)
 end
 
@@ -74,11 +77,16 @@ function Base.copy(source::SimplexProblem)
 	s.surplusvariableindices    = copy(source.surplusvariableindices)
 	s.varnames                  = copy(source.varnames)
 	s.z                         = copy(source.z)
+	s.objective_value           = copy(source.objective_value)
 	return s
 end
 
 function Base.copy(source::OptimizationType)
 	return source
+end
+
+function numround(x)
+	return round(x, digits = 3)
 end
 
 function updatebiggestvalue(s::SimplexProblem)
@@ -136,7 +144,7 @@ function sumproduct(io::IO, coefs::Vector, varnames::Vector)
 	@assert length(coefs) == length(varnames)
 	l = length(coefs)
 	for i in 1:l
-		print(io, round(coefs[i], digits = 3), varnames[i])
+		print(io, numround(coefs[i]), varnames[i])
 		if i < l
 			print(io, " + ")
 		end
@@ -147,6 +155,7 @@ function Base.show(io::IO, s::SimplexProblem)
 	n, p = size(s.lhs)
 	print(s.opttype, " -> ")
 	sumproduct(io, s.z, s.varnames)
+	print(" = ", numround(s.objective_value))
 	println(io)
 	println(io, "S.t:")
 	for i in 1:n
@@ -156,7 +165,7 @@ function Base.show(io::IO, s::SimplexProblem)
 			print(io, bis, ": ")
 		end
 		sumproduct(io, s.lhs[i, :], s.varnames)
-		println(io, " ", s.directions[i], " ", round(s.rhs[i], digits = 3))
+		println(io, " ", s.directions[i], " ", numround(s.rhs[i]))
 	end
 	if !isempty(s.slackvariableindices)
 		println(io, "Slack: ", s.slackvariableindices)
@@ -300,8 +309,10 @@ function mmethodcorrection(s::SimplexProblem)
 		if idx in s.artificialvariableindices
 			if s.opttype == Maximize
 				s.z .= s.z .+ M * s.lhs[i, :]
+				s.objective_value = s.objective_value - M * s.rhs[i]
 			else
 				s.z .= s.z .- M * s.lhs[i, :]
+				s.objective_value = s.objective_value + M * s.rhs[i]
 			end
 		end
 	end
@@ -329,6 +340,8 @@ function update!(s::SimplexProblem, enteringvarindex::Int, exitingvarindex::Int)
 
 	pp = s.z[enteringvarindex]
 	s.z = s.z .- pp * s.lhs[rowindex, :]
+
+	s.objective_value = s.objective_value + pp * s.rhs[rowindex]
 
 	s.basicvariableindex[rowindex] = enteringvarindex
 
@@ -459,22 +472,68 @@ function simplexpretty(s::SimplexProblem; maxiter::Int = 1000)::Nothing
 end
 
 function createsimplexproblem(
-    obj::Vector, 
-    amat::Matrix, 
-    rhs::Vector,
-    dir::Vector,
-    opttype::OptimizationType)::SimplexProblem
+	obj::Vector,
+	amat::Matrix,
+	rhs::Vector,
+	dir::Vector,
+	opttype::OptimizationType)::SimplexProblem
 
-    s = SimplexProblem()
-    setobjectivecoefs(s, obj)
-    setlhs(s, amat)
-    setrhs(s, rhs)
-    setdirections(s, dir)
-    setopttype(s, opttype)
-    setautomaticvarnames(s)
+	s = SimplexProblem()
+	setobjectivecoefs(s, obj)
+	setlhs(s, amat)
+	setrhs(s, rhs)
+	setdirections(s, dir)
+	setopttype(s, opttype)
+	setautomaticvarnames(s)
 
-    return s
-end 
+	return s
+end
 
+
+function formatruler(s::SimplexProblem)
+	formatter = "|c|"
+	L = length(s.varnames) + 1
+	for i in 1:L
+		formatter *= "c|"
+	end
+	return formatter
+end
+
+function tableheader(s::SimplexProblem)
+	return "  & " * join(s.varnames, " & ") * " & Solution \\\\"
+end
+
+function tablerows(s::SimplexProblem)
+	trow = "z & " * join(-1.0 .* numround.(s.z), " & ") * " & " * string(numround(s.objective_value)) * "\\\\"
+	trow *= "\n \\hline"
+	n, _ = size(s.lhs)
+	for i in 1:n
+		c = s.lhs[i, :]
+		vname = s.varnames[s.basicvariableindex[i]]
+		trow *= "\n" * vname * " & " * join(numround.(c), " & ") * " & " * string(numround.(s.rhs[i])) * "\\\\"
+		trow *= "\n \\hline"
+	end
+	return trow
+end
+
+function latex(s::SimplexProblem)
+	formatter = formatruler(s)
+	header = tableheader(s)
+	trows = tablerows(s)
+	latex = """
+\\begin{table}[H]
+\\centering
+\\begin{tabular}{$formatter}
+\\hline
+$header
+\\hline
+$trows 
+\\end{tabular}
+\\label{}
+\\caption{}
+\\end{table}
+"""
+	return latex
+end
 
 end # end of module Simplex 

@@ -1,5 +1,9 @@
-### 0.1.5 (Upcoming release) 
+### 0.1.6 (Upcoming release) 
 
+### 0.1.5 
+
+- Add objective value in Simplex iterations
+- $\LaTeX$ support for outputting simplex iterations
 
 ### 0.1.4 
 
