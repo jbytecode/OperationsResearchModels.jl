@@ -1,5 +1,9 @@
 ### 0.1.6 (Upcoming release) 
 
+- Pretty printing simplex iterations
+- Automatic calculation of objective value by iterations and manual calculation code is removed
+
+
 ### 0.1.5 
 
 - Add objective value in Simplex iterations

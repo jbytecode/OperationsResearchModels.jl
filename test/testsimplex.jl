@@ -46,4 +46,7 @@ using OperationsResearchModels.Simplex
 
 	end
 
+
+	
+
 end # end of test set Simplex

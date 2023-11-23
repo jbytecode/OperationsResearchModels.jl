@@ -266,6 +266,20 @@ function invert(d::Direction)::Direction
 	end
 end
 
+function Base.print(io::IO, dir::Direction)
+	if dir == LE 
+		print(io, "<=")
+	elseif dir == GE 
+		print(io, ">=")
+	elseif dir == EQ 
+		print(io, "==")
+	else 
+		error("Undefined dir: $dir")
+	end 
+end 
+
+
+
 function makerhspositive!(s::SimplexProblem)
 	nc = length(s.rhs)
 	for i in 1:nc
@@ -442,8 +456,6 @@ function simplexpretty(s::SimplexProblem; maxiter::Int = 1000)::Nothing
 	standardform!(copied)
 	println(copied)
 
-	standardform::SimplexProblem = copy(copied)
-
 	@info "M Method corrections:"
 	mmethodcorrection(copied)
 	println(copied)
@@ -465,11 +477,10 @@ function simplexpretty(s::SimplexProblem; maxiter::Int = 1000)::Nothing
 		@info "$(varnames[i]) = $(copied.rhs[i])"
 	end
 
-	zzz = zeros(Float64, length(copied.varnames))
-	zzz[copied.basicvariableindex] .= copied.rhs
-	goalvalue = sum(zzz .* standardform.z)
-	@info "Objective value: $goalvalue"
+	@info "Objective value: $(copied.objective_value)"
+	println()
 end
+
 
 function createsimplexproblem(
 	obj::Vector,
