@@ -13,11 +13,19 @@
 
         @testset "Triangular node with 3 nodes" begin
             @testset "1" begin
-                conn = Connection[Connection(1, 2, 10), Connection(2, 3, 10), Connection(3, 1, 10)]
+                conn = Connection[
+                    Connection(1, 2, 10),
+                    Connection(2, 3, 10),
+                    Connection(3, 1, 10),
+                ]
                 @test hasloop(conn) == true
             end
             @testset "2" begin
-                conn = Connection[Connection(1, 2, 10), Connection(2, 3, 10), Connection(1, 3, 10)]
+                conn = Connection[
+                    Connection(1, 2, 10),
+                    Connection(2, 3, 10),
+                    Connection(1, 3, 10),
+                ]
                 @test hasloop(conn) == true
             end
         end
@@ -27,7 +35,7 @@
                 Connection(1, 2, 10),
                 Connection(2, 3, 10),
                 Connection(3, 4, 10),
-                Connection(1, 4, 10)
+                Connection(1, 4, 10),
             ]
             @test hasloop(conns) == true
         end
@@ -37,7 +45,7 @@
                 Connection(1, 2, 10),
                 Connection(2, 3, 10),
                 Connection(3, 4, 10),
-                Connection(2, 4, 10)
+                Connection(2, 4, 10),
             ]
             @test hasloop(conns) == true
         end
@@ -48,7 +56,7 @@
                     Connection(1, 2, 5),
                     Connection(2, 3, 5),
                     Connection(2, 4, 5),
-                    Connection(2, 5, 5)
+                    Connection(2, 5, 5),
                 ]
                 @test hasloop(conns) == false
             end
@@ -61,7 +69,7 @@
                     Connection(2, 5, 5),
                     Connection(5, 6, 5),
                     Connection(5, 7, 5),
-                    Connection(5, 8, 5)
+                    Connection(5, 8, 5),
                 ]
                 @test hasloop(conns) == false
             end
@@ -69,20 +77,20 @@
     end
 
 
-    @testset "mst()" begin 
+    @testset "mst()" begin
         conns = Connection[
-                Connection(1, 2, 10),
-                Connection(2, 3, 10),
-                Connection(3, 4, 10),
-                Connection(1, 4, 10)
-            ]
+            Connection(1, 2, 10),
+            Connection(2, 3, 10),
+            Connection(3, 4, 10),
+            Connection(1, 4, 10),
+        ]
         result = mst(conns)
-        @test result isa MstResult 
+        @test result isa MstResult
         @test result.distance == 30.0
         @test !hasloop(result.connections)
     end
 
-    @testset "6 nodes with loops" begin 
+    @testset "6 nodes with loops" begin
         conns = Connection[
             Connection(1, 2, 5),
             Connection(1, 3, 4),
@@ -93,19 +101,19 @@
             Connection(3, 5, 6),
             Connection(4, 5, 6),
             Connection(3, 6, 10),
-            Connection(5, 6, 11)
+            Connection(5, 6, 11),
         ]
         result = mst(conns)
         @test result.distance == 31.0
         @test length(result.connections) == 5
 
         allnodes = nodes(result.connections)
-        for i in 1:6
-            @test i in allnodes 
+        for i = 1:6
+            @test i in allnodes
         end
 
         @test !hasloop(result.connections)
-    end 
+    end
 
     @testset "7 nodes with loops" begin
         conns = Connection[
@@ -127,38 +135,38 @@
             Connection(4, 5, 14),
             Connection(5, 6, 18),
             Connection(5, 7, 19),
-            Connection(6, 7, 15)
+            Connection(6, 7, 15),
         ]
 
         result = mst(conns)
 
         @test result.distance == 32.0
-        
+
         allnodes = nodes(result.connections)
 
-        for i in 1:7
-            @test i in allnodes 
+        for i = 1:7
+            @test i in allnodes
         end
-        
+
         @test !hasloop(result.connections)
     end
 
-    @testset "big network" begin 
+    @testset "big network" begin
         connections = Connection[]
         N = 300
-        for i in 1:N
-            for j in (i+1):N
+        for i = 1:N
+            for j = (i+1):N
                 push!(connections, Connection(i, j, rand()))
-            end 
-        end 
+            end
+        end
         result = mst(connections)
 
         allnodes = nodes(result.connections)
 
-        for i in 1:N
-            @test i in allnodes 
+        for i = 1:N
+            @test i in allnodes
         end
 
         @test !hasloop(result.connections)
-    end 
+    end
 end

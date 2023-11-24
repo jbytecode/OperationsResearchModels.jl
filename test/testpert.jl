@@ -14,9 +14,9 @@
     end
 
     @testset "Basic Pert 2" begin
-        
+
         epsilon = 0.0001
-        
+
         A = PertActivity("A", 1, 2, 3)
         B = PertActivity("B", 3, 4, 5)
         C = PertActivity("C", 5, 6, 7, [A, B])
@@ -26,11 +26,11 @@
         result::PertResult = pert(activities)
 
         @test result.mean == 10.0
-        @test isapprox(result.stddev, 0.4714045207910317, atol = epsilon )
+        @test isapprox(result.stddev, 0.4714045207910317, atol = epsilon)
         @test result.path == PertActivity[B, C]
-    end 
+    end
 
-    @testset "Comprehensive example" begin 
+    @testset "Comprehensive example" begin
 
         epsilon = 0.0001
 
@@ -52,9 +52,9 @@
         result = pert(activities)
 
         @test result isa PertResult
-        @test result.mean == 22.5 
+        @test result.mean == 22.5
         @test isapprox(result.stddev, 0.8660254, atol = epsilon)
-        
+
         @test !(A in result.path)
         @test !(B in result.path)
         @test C in result.path
@@ -67,5 +67,5 @@
         @test J in result.path
         @test K in result.path
         @test !(L in result.path)
-    end 
+    end
 end

@@ -14,7 +14,7 @@
         y = result["y"]
 
         @test sort(result["centers"]) == [2, 6]
-        
+
         @test iszero(y[1])
         @test isone(y[2])
         @test iszero(y[3])

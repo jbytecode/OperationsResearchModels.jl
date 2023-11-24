@@ -18,7 +18,7 @@ function hasloop(conns::Vector{Connection})::Bool
     nodes = Set{Int64}()
     push!(nodes, conns[1].from)
     push!(nodes, conns[1].to)
-    for i in 2:length(conns)
+    for i = 2:length(conns)
         if conns[i].from in nodes && conns[i].to in nodes
             return true
         end
@@ -28,7 +28,11 @@ function hasloop(conns::Vector{Connection})::Bool
     return false
 end
 
-function findconnection(conns::Vector{Connection}, i::Int, j::Int)::Union{Nothing,Connection}
+function findconnection(
+    conns::Vector{Connection},
+    i::Int,
+    j::Int,
+)::Union{Nothing,Connection}
     for c in conns
         if (c.from == i && c.to == j) || (c.from == j && c.to == i)
             return c
@@ -37,7 +41,12 @@ function findconnection(conns::Vector{Connection}, i::Int, j::Int)::Union{Nothin
     return nothing
 end
 
-function findnearestbetweennodes(conns::Vector{Connection}, distmat::Matrix, assigned::Set{Int64}, unassigned::Set{Int64})::Tuple{Int,Connection}
+function findnearestbetweennodes(
+    conns::Vector{Connection},
+    distmat::Matrix,
+    assigned::Set{Int64},
+    unassigned::Set{Int64},
+)::Tuple{Int,Connection}
     mindist = typemax(Float64)
     theconnection = -1
     connobj = nothing
@@ -59,8 +68,8 @@ function makedistancematrix(conns::Vector{Connection})::Matrix
     allnodes = nodes(conns)
     maxnode = maximum(allnodes)
     mat = zeros(Float64, maxnode, maxnode)
-    for i in 1:maxnode 
-        for j in (i+1):maxnode 
+    for i = 1:maxnode
+        for j = (i+1):maxnode
             c = findconnection(conns, i, j)
             if !isnothing(c)
                 mat[i, j] = c.value
@@ -68,10 +77,10 @@ function makedistancematrix(conns::Vector{Connection})::Matrix
                 mat[i, j] = typemax(Float64)
             end
             mat[j, i] = mat[i, j]
-        end 
-    end 
-    return mat 
-end 
+        end
+    end
+    return mat
+end
 
 
 """

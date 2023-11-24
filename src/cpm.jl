@@ -1,6 +1,6 @@
-module CPM 
+module CPM
 
-export cpm 
+export cpm
 export CpmActivity
 export CpmResult
 export earliestfinishtime
@@ -9,38 +9,38 @@ export PertActivity
 export PertResult
 export pert
 
-struct CpmActivity 
-    name::String 
-    time::Float64 
+struct CpmActivity
+    name::String
+    time::Float64
     dependencies::Vector{CpmActivity}
-end 
+end
 
-struct CpmResult 
+struct CpmResult
     pathstr::Vector{String}
     path::Vector{CpmActivity}
-end 
+end
 
-struct PertActivity 
-    name::String 
-    optimistic::Float64 
-    mostlikely::Float64 
-    pessimistic::Float64 
+struct PertActivity
+    name::String
+    optimistic::Float64
+    mostlikely::Float64
+    pessimistic::Float64
     dependencies::Vector{PertActivity}
 end
 
-struct PertResult 
+struct PertResult
     path::Vector{PertActivity}
     mean::Float64
-    stddev::Float64 
+    stddev::Float64
 end
 
-function CpmActivity(name::String, time::T)::CpmActivity where {T <: Real}
+function CpmActivity(name::String, time::T)::CpmActivity where {T<:Real}
     return CpmActivity(name, Float64(time), CpmActivity[])
-end 
+end
 
-function PertActivity(name::String, o::T, m::T, p::T)::PertActivity where {T <: Real}
+function PertActivity(name::String, o::T, m::T, p::T)::PertActivity where {T<:Real}
     return PertActivity(name, Float64(o), Float64(m), Float64(p), PertActivity[])
-end 
+end
 
 
 
@@ -50,16 +50,16 @@ function earliestfinishtime(activity::CpmActivity)
 
     if L == 0
         return activity.time
-    end 
+    end
 
     v = Float64[]
 
-    for i in 1:L
+    for i = 1:L
         push!(v, earliestfinishtime(activity.dependencies[i]))
-    end  
+    end
 
     return maximum(v) + activity.time
-end 
+end
 
 function longestactivity(activies::Vector{CpmActivity})::CpmActivity
     activity = CpmActivity("", -1, CpmActivity[])
@@ -67,23 +67,23 @@ function longestactivity(activies::Vector{CpmActivity})::CpmActivity
 
     for a in activies
         ea = earliestfinishtime(a)
-        if ea > maxval 
-            maxval = ea 
-            activity = a 
-        end 
-    end 
-    
-    return activity 
-end 
+        if ea > maxval
+            maxval = ea
+            activity = a
+        end
+    end
+
+    return activity
+end
 
 function pathtostring(activities::Vector{CpmActivity})::Vector{String}
     L = length(activities)
     v = String[]
-    for i in 1:L 
+    for i = 1:L
         push!(v, activities[i].name)
     end
     return reverse(v)
-end 
+end
 
 """
     cpm(activities)
@@ -131,24 +131,24 @@ function cpm(activities::Vector{CpmActivity})::CpmResult
     while true
         longest = longestactivity(activities)
         push!(path, longest)
-        if length(longest.dependencies) == 0 
+        if length(longest.dependencies) == 0
             break
         end
         activities = longest.dependencies
     end
 
     return CpmResult(pathtostring(path), reverse(path))
-end 
+end
 
-function mean(a::PertActivity)::Float64 
+function mean(a::PertActivity)::Float64
     return (a.optimistic + 4.0 * a.mostlikely + a.pessimistic) / 6.0
-end 
+end
 
-function var(a::PertActivity)::Float64 
-    return ((a.pessimistic - a.optimistic) / 6.0) ^ 2.0
-end 
+function var(a::PertActivity)::Float64
+    return ((a.pessimistic - a.optimistic) / 6.0)^2.0
+end
 
-function Base.sum(activities::Vector{CpmActivity})::Float64 
+function Base.sum(activities::Vector{CpmActivity})::Float64
     return sum([x.time for x in activities])
 end
 
@@ -157,20 +157,23 @@ function var(as::Vector{PertActivity})::Float64
 end
 
 
-function findpertactivities(cpmpath::Vector{CpmActivity}, pertactivities::Vector{PertActivity})
+function findpertactivities(
+    cpmpath::Vector{CpmActivity},
+    pertactivities::Vector{PertActivity},
+)
     L = length(cpmpath)
-    perts = Array{PertActivity, 1}(undef, L)
-    for i in 1:L
+    perts = Array{PertActivity,1}(undef, L)
+    for i = 1:L
         currentcpmactivity = cpmpath[i]
         pertactivity = filter(x -> x.name == currentcpmactivity.name, pertactivities)[1]
         perts[i] = pertactivity
-    end 
+    end
     return perts
 end
 
 function perttocpm(a::PertActivity)::CpmActivity
     return CpmActivity(a.name, mean(a), perttocpm.(a.dependencies))
-end 
+end
 
 
 
@@ -209,10 +212,11 @@ julia> result.stddev
 """
 function pert(activities::Vector{PertActivity})
     L = length(activities)
-    cpmactivities = Array{CpmActivity, 1}(undef, L)
-    for i in 1:L
+    cpmactivities = Array{CpmActivity,1}(undef, L)
+    for i = 1:L
         current::PertActivity = activities[i]
-        cpmactivity = CpmActivity(current.name, mean(current), perttocpm.(current.dependencies))
+        cpmactivity =
+            CpmActivity(current.name, mean(current), perttocpm.(current.dependencies))
         cpmactivities[i] = cpmactivity
     end
     cpmresult = cpm(cpmactivities)
@@ -220,12 +224,8 @@ function pert(activities::Vector{PertActivity})
     pertactivities = findpertactivities(pertpath, activities)
     pertmean = sum(pertpath)
     stddev = sqrt(var(pertactivities))
-    
-    return PertResult(
-        pertactivities,
-        pertmean,
-        stddev
-    )
+
+    return PertResult(pertactivities, pertmean, stddev)
 end
 
 end # end of module Project 

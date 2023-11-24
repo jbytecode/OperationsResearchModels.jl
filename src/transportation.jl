@@ -35,7 +35,11 @@ function Base.show(io::IO, r::TransportationResult)
 end
 
 function copy(t::TransportationProblem)::TransportationProblem
-    return TransportationProblem(Base.copy(t.costs), Base.copy(t.demand), Base.copy(t.supply))
+    return TransportationProblem(
+        Base.copy(t.costs),
+        Base.copy(t.demand),
+        Base.copy(t.supply),
+    )
 end
 
 function isbalanced(t::TransportationProblem)::Bool
@@ -84,8 +88,8 @@ function solve(t::TransportationProblem)::TransportationResult
     @variable(model, x[1:n, 1:p])
     @objective(model, Min, sum(newt.costs .* x))
 
-    @constraint(model, sum(x[1:n, j] for j in 1:p) .== newt.supply)
-    @constraint(model, sum(x[i, 1:p] for i in 1:n) .== newt.demand)
+    @constraint(model, sum(x[1:n, j] for j = 1:p) .== newt.supply)
+    @constraint(model, sum(x[i, 1:p] for i = 1:n) .== newt.demand)
     @constraint(model, x .>= 0)
 
     optimize!(model)
@@ -93,12 +97,7 @@ function solve(t::TransportationProblem)::TransportationResult
     solution = value.(x)
     cost = JuMP.objective_value(model)
 
-    result = TransportationResult(
-        t,
-        newt,
-        solution,
-        cost
-    )
+    result = TransportationResult(t, newt, solution, cost)
     return result
 end
 

@@ -35,9 +35,9 @@
         result = solve(conns, problem = MaximumFlowProblem)
 
         @test result isa MaximumFlowResult
-        @test result.flow == 60.0 
+        @test result.flow == 60.0
         for element in result.path
             @test element in maxflowresult
-        end 
+        end
     end
 end

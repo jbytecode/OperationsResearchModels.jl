@@ -20,8 +20,8 @@
 
         @test result isa ShortestPathResult
         @test result.cost == 8.0
-        
-        for element in result.path 
+
+        for element in result.path
             @test element in CorrectShortestPath
         end
     end

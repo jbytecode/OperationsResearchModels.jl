@@ -1,14 +1,14 @@
-module MaximumFlow 
+module MaximumFlow
 
 using ..Network
 
 using JuMP, HiGHS
 
 
-struct MaximumFlowResult 
-    path::Array{Connection, 1}
+struct MaximumFlowResult
+    path::Array{Connection,1}
     flow::Float64
-end 
+end
 
 function solve(cns::Array{Connection,1})
 
@@ -49,7 +49,7 @@ function solve(cns::Array{Connection,1})
 
     model = Model(HiGHS.Optimizer)
     MOI.set(model, MOI.Silent(), true)
-    
+
     mynodes = nodes(cns)
     n = length(mynodes)
 
@@ -67,7 +67,7 @@ function solve(cns::Array{Connection,1})
     for nextnode in mynodes
         leftexpr = leftexpressions(nextnode, cns, model)
         rightexpr = rightexpressions(nextnode, cns, model)
-        if leftexpr == :f 
+        if leftexpr == :f
             @constraint(model, rightexpr == f)
         elseif rightexpr == :f
             @constraint(model, leftexpr == f)
@@ -78,8 +78,8 @@ function solve(cns::Array{Connection,1})
 
     for nd in cns
         @constraint(model, x[nd.from, nd.to] <= nd.value)
-         @constraint(model, x[nd.from, nd.to] >= 0)
-    end 
+        @constraint(model, x[nd.from, nd.to] >= 0)
+    end
 
     @constraint(model, f >= 0)
 
@@ -99,6 +99,6 @@ function solve(cns::Array{Connection,1})
     return MaximumFlowResult(solutionnodes, cost)
 end
 
-export solve 
+export solve
 
 end # end of module

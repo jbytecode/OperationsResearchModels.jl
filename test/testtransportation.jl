@@ -2,11 +2,14 @@
 
     @testset "Balance Check - Demand > Supply" begin
         t = TransportationProblem(
-            [1 1 1 1
+            [
+                1 1 1 1
                 2 2 2 2
-                3 3 3 3],
+                3 3 3 3
+            ],
             [100, 100, 100, 100], # Demands 
-            [100, 100, 100])      # Supplies 
+            [100, 100, 100],
+        )      # Supplies 
 
         balancedT = t |> balance
         @test isbalanced(t) == false
@@ -14,17 +17,21 @@
 
         @test isbalanced(balancedT) == true
         @test sum(balancedT.supply) == sum(balancedT.demand)
-        @test balancedT.costs[4, :] == zeros(eltype(balancedT.costs), length(balancedT.demand))
+        @test balancedT.costs[4, :] ==
+              zeros(eltype(balancedT.costs), length(balancedT.demand))
         @test balancedT.supply |> last == 100
     end
 
     @testset "Balance Check - Supply > Demand" begin
         t = TransportationProblem(
-            [1 1 1 1
+            [
+                1 1 1 1
                 2 2 2 2
-                3 3 3 3],
+                3 3 3 3
+            ],
             [100, 100, 100, 100], # Demands 
-            [200, 200, 200])      # Supplies 
+            [200, 200, 200],
+        )      # Supplies 
 
         balancedT = t |> balance
         @test isbalanced(t) == false
@@ -32,7 +39,8 @@
 
         @test isbalanced(balancedT) == true
         @test sum(balancedT.supply) == sum(balancedT.demand)
-        @test balancedT.costs[:, 5] == zeros(eltype(balancedT.costs), length(balancedT.supply))
+        @test balancedT.costs[:, 5] ==
+              zeros(eltype(balancedT.costs), length(balancedT.supply))
         @test balancedT.demand |> last == 200
     end
 
@@ -49,11 +57,14 @@
              = 2400
         =#
         t = TransportationProblem(
-            [1 5 7 8
+            [
+                1 5 7 8
                 2 6 4 9
-                3 10 11 12],
+                3 10 11 12
+            ],
             [100, 100, 100, 100],
-            [100, 100, 200])
+            [100, 100, 200],
+        )
 
         result = solve(t)
 
@@ -62,17 +73,21 @@
         @test result.solution == [
             0 100 0 0
             0 0 100 0
-            100 0 0 100]
+            100 0 0 100
+        ]
     end
 
     @testset "North-West Corner" begin
         @testset "Example 1" begin
             t = TransportationProblem(
-                [1 5 7 8
+                [
+                    1 5 7 8
                     2 6 4 9
-                    3 10 11 12],
+                    3 10 11 12
+                ],
                 [4, 6, 10, 15],
-                [9, 11, 15])
+                [9, 11, 15],
+            )
 
             result = northwestcorner(t)
             expected = Float64[
@@ -86,12 +101,15 @@
 
         @testset "Example 2" begin
             t = TransportationProblem(
-                [10 9 15
+                [
+                    10 9 15
                     7 19 9
                     11 21 11
-                    15 8 10],
+                    15 8 10
+                ],
                 [100, 100, 50],     # Demand
-                [100, 50, 60, 40])  # Supply
+                [100, 50, 60, 40],
+            )  # Supply
 
             result = northwestcorner(t)
             expected = Float64[

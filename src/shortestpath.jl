@@ -4,10 +4,10 @@ using JuMP, HiGHS
 
 using ..Network
 
-struct ShortestPathResult 
-    path::Array{Connection, 1}
+struct ShortestPathResult
+    path::Array{Connection,1}
     cost::Float64
-end 
+end
 
 
 
@@ -24,7 +24,7 @@ function solve(cns::Array{Connection,1})
             return 0
         end
         expr = @expression(model, 0)
-        for i = eachindex(lst)
+        for i in eachindex(lst)
             expr += x[lst[i].from, lst[i].to]
         end
         return expr
@@ -50,7 +50,7 @@ function solve(cns::Array{Connection,1})
 
     model = Model(HiGHS.Optimizer)
     MOI.set(model, MOI.Silent(), true)
-    
+
     mynodes = nodes(cns)
     n = length(mynodes)
 

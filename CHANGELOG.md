@@ -1,5 +1,6 @@
 ### 0.1.6 (Upcoming release) 
 
+- Add Latex support for Transportation tables
 - Pretty printing simplex iterations
 - Automatic calculation of objective value by iterations and manual calculation code is removed
 

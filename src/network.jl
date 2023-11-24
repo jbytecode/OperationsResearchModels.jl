@@ -1,7 +1,7 @@
-module Network 
+module Network
 
-export Connection 
-export nodes 
+export Connection
+export nodes
 export iseveronleft
 export iseveronright
 export finish
@@ -17,8 +17,8 @@ struct Connection
     Connection(from, to, value) = new(from, to, value, string("x", from, to))
 end
 
-struct ShortestPathProblem end 
-struct MaximumFlowProblem end 
+struct ShortestPathProblem end
+struct MaximumFlowProblem end
 
 function nodes(cns::Array{Connection,1})::Set{Int64}
     s = Set{Int64}()

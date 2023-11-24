@@ -2,12 +2,12 @@ module PMedian
 
 export pmedian
 
-using JuMP, HiGHS 
+using JuMP, HiGHS
 
 function euclidean(u, v)::Float64
     d = (u .- v)
-    return (d .* d) |> sum |> sqrt 
-end 
+    return (d .* d) |> sum |> sqrt
+end
 
 
 """
@@ -46,19 +46,19 @@ Dict{String, Any} with 5 entries:
 ``` 
 
 """
-function pmedian(data::Matrix, ncenters:: Int)
-    
+function pmedian(data::Matrix, ncenters::Int)
+
     n, p = size(data)
 
     distances = zeros(Float64, n, n)
 
-    for i in 1:n
-        for j in i:n
+    for i = 1:n
+        for j = i:n
             d = euclidean(data[i, :], data[j, :])
             distances[i, j] = d
             distances[j, i] = d
-        end 
-    end 
+        end
+    end
 
     model = Model(HiGHS.Optimizer)
     MOI.set(model, MOI.Silent(), true)
@@ -68,15 +68,15 @@ function pmedian(data::Matrix, ncenters:: Int)
 
     @constraint(model, sum(y) == ncenters)
 
-    for i in 1:n
-        for j in 1:n
+    for i = 1:n
+        for j = 1:n
             @constraint(model, z[i, j] .<= y[j])
-        end 
+        end
     end
 
-    for i in 1:n
+    for i = 1:n
         @constraint(model, sum(z[i, :]) == 1)
-    end 
+    end
 
     @objective(model, Min, sum(distances[1:n, 1:n] .* z[1:n, 1:n]))
 
@@ -87,8 +87,8 @@ function pmedian(data::Matrix, ncenters:: Int)
         "y" => value.(y),
         "centers" => findall(x -> x == 1, value.(y)),
         "objective" => JuMP.objective_value(model),
-        "model" => model
+        "model" => model,
     )
-end 
+end
 
 end # end of module

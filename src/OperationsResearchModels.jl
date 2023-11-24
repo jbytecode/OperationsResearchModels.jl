@@ -6,6 +6,7 @@ using HiGHS
 const theoptimizerpackage = Symbol("HiGHS")
 const theoptimizer = HiGHS.Optimizer
 
+include("utility.jl")
 include("network.jl")
 include("transportation.jl")
 include("assignment.jl")
@@ -16,6 +17,7 @@ include("mst.jl")
 include("pmedian.jl")
 include("cpm.jl")
 include("simplex.jl")
+include("latex.jl")
 
 import .Network
 import .Transportation
@@ -26,9 +28,12 @@ import .Game
 import .MinimumSpanningTree
 import .PMedian
 import .CPM
-import .Simplex 
+import .Simplex
+import .Latex
+import .Utility
 
-import .Transportation: TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
+import .Transportation:
+    TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
 import .ShortestPath: ShortestPathResult
 import .Network: Connection, ShortestPathProblem, MaximumFlowProblem, nodes
 import .MaximumFlow: MaximumFlowResult
@@ -38,6 +43,7 @@ import .MinimumSpanningTree: hasloop, mst, MstResult
 import .PMedian: pmedian
 import .CPM: cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 import .CPM: pert, PertActivity, PertResult
+import .Latex: latex
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
 export Connection, ShortestPathResult, MaximumFlowResult, nodes
@@ -49,6 +55,8 @@ export pmedian
 export cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 export pert, PertActivity, PertResult
 export Simplex
+export Utility
+export latex
 
 """
     solve(t)
@@ -143,7 +151,10 @@ solve(a::AssignmentProblem) = Assignment.solve(a)
 
 
 
-function solve(c::Vector{Connection}; problem::Union{Type{ShortestPathProblem},Type{MaximumFlowProblem}}=ShortestPathProblem)
+function solve(
+    c::Vector{Connection};
+    problem::Union{Type{ShortestPathProblem},Type{MaximumFlowProblem}} = ShortestPathProblem,
+)
     if problem == ShortestPathProblem
         return ShortestPath.solve(c)
     elseif problem == MaximumFlowProblem
