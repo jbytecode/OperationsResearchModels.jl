@@ -172,7 +172,7 @@ Suppose the problem is
 
 $$
 \begin{aligned}
-\max z = & 2x_1 + 3_x2 \\
+\max z = & 2x_1 + 3x_2 \\
 \text{Subject to:} & \\
 & x_1 + 2x_2 \le 100 \\
 & 2x_1 + x_2 \le 150 \\
