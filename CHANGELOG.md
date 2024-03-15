@@ -1,9 +1,11 @@
-### 0.1.6 (Upcoming release) 
+### 0.1.7 (Upcoming release) 
+
+### 0.1.6 
 
 - Add Latex support for Transportation tables
 - Pretty printing simplex iterations
 - Automatic calculation of objective value by iterations and manual calculation code is removed
-
+- Non-negativity conditions of models in the definition stage
 
 ### 0.1.5 
 

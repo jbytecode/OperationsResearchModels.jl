@@ -85,12 +85,11 @@ function solve(t::TransportationProblem)::TransportationResult
 
     n, p = size(newt.costs)
 
-    @variable(model, x[1:n, 1:p])
+    @variable(model, x[1:n, 1:p] .>= 0)
     @objective(model, Min, sum(newt.costs .* x))
 
     @constraint(model, sum(x[1:n, j] for j = 1:p) .== newt.supply)
     @constraint(model, sum(x[i, 1:p] for i = 1:n) .== newt.demand)
-    @constraint(model, x .>= 0)
 
     optimize!(model)
 

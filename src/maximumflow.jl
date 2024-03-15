@@ -40,7 +40,7 @@ function solve(cns::Array{Connection,1})
             return :f
         end
         expr = @expression(model, 0)
-        for i = 1:length(lst)
+        for i = eachindex(lst)
             expr += x[lst[i].from, lst[i].to]
         end
         return expr
@@ -58,7 +58,7 @@ function solve(cns::Array{Connection,1})
 
     # Variables 
     @variable(model, f)
-    @variable(model, x[1:n, 1:n])
+    @variable(model, x[1:n, 1:n] .>= 0)
 
     # Objective Function
     @objective(model, Max, f)
@@ -78,7 +78,6 @@ function solve(cns::Array{Connection,1})
 
     for nd in cns
         @constraint(model, x[nd.from, nd.to] <= nd.value)
-        @constraint(model, x[nd.from, nd.to] >= 0)
     end
 
     @constraint(model, f >= 0)
