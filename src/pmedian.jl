@@ -60,6 +60,32 @@ function pmedian(data::Matrix, ncenters::Int)
         end
     end
 
+    return pmedian_with_distances(distances, ncenters)
+end
+
+
+
+"""
+
+    pmedian_with_distances(distancematrix, ncenters)
+
+# Arguments 
+- `distancematrix::Matrix`: n x n matrix of distances
+- `ncenters::Int`: Number of centers 
+
+# Descriptions 
+`ncenters` locations are selected that minimizes the total distances to the nearest rows. 
+
+# Output 
+- `Dict{String, Any}`: The dictionary object that holds the results. 
+"""
+function pmedian_with_distances(distancematrix::Matrix, ncenters::Int)
+
+    n, _ = size(distancematrix)
+
+    distances = distancematrix
+
+
     model = Model(HiGHS.Optimizer)
     MOI.set(model, MOI.Silent(), true)
 

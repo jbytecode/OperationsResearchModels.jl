@@ -68,6 +68,10 @@ julia> result.flow
 OperationsResearchModels.pmedian
 ```
 
+```@docs 
+OperationsResearchModels.pmedian_with_distances
+```
+
 ## Minimum Spanning Tree
 ```@docs
 OperationsResearchModels.mst
