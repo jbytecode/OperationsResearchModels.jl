@@ -1,4 +1,10 @@
-### 0.1.7 (Upcoming release) 
+### 0.1.8 (Upcoming release) 
+
+
+### 0.1.7
+
+- Add pmedian_with_distances for calculating p-median problems with predefined distance matrices
+
 
 ### 0.1.6 
 
