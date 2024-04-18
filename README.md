@@ -114,7 +114,7 @@ julia> number_of_depots = 3;
 
 julia> result = pmedian_with_distances(distance_matrix, number_of_depots);
 
-ulia> result.objective
+julia> result.objective
 3.0
 
 julia> result.y

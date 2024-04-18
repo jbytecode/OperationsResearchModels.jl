@@ -471,7 +471,7 @@ function simplexpretty(s::SimplexProblem; maxiter::Int = 1000)::Nothing
     @info "The problem is converged"
     @info "Here is the result"
     varnames = copied.varnames[copied.basicvariableindex]
-    for i = 1:length(varnames)
+    for i = eachindex(varnames)
         @info "$(varnames[i]) = $(copied.rhs[i])"
     end
 
