@@ -44,7 +44,7 @@ end
 - `data::Matrix`: Coordinates of locations 
 - `ncenters::Int`: Number of centers 
 
-# Descriptions 
+# Description
 
 The function calculates Euclidean distances between all possible rows of the matrix data. 
 `ncenters` locations are then selected that minimizes the total distances to the nearest rows. 
@@ -79,7 +79,7 @@ julia> result.centers
 """
 function pmedian(data::Matrix, ncenters::Int)::PMedianResult
 
-    n, p = size(data)
+    n, _ = size(data)
 
     distances = zeros(Float64, n, n)
 
@@ -104,8 +104,9 @@ end
 - `distancematrix::Matrix`: n x n matrix of distances
 - `ncenters::Int`: Number of centers 
 
-# Descriptions 
-`ncenters` locations are selected that minimizes the total distances to the nearest rows. 
+# Description
+
+- `ncenters` locations are selected that minimizes the total distances to the nearest rows. 
 
 # Output 
 - `PMedianResult`: PMedianResult object. 
