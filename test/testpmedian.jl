@@ -11,9 +11,9 @@
         ]
 
         result = pmedian(coords, 2)
-        y = result["y"]
+        y = result.y
 
-        @test sort(result["centers"]) == [2, 6]
+        @test sort(result.centers) == [2, 6]
 
         @test iszero(y[1])
         @test isone(y[2])
@@ -30,8 +30,8 @@
 
         result = pmedian_with_distances(distance_matrix, number_of_depots)
 
-        @test sort(result["centers"]) == [1, 2]
-        @test result["objective"] == 5.0
-        @test result["z"] ≈ [1 0 0 0; 0 1 0 0; 1 0 0 0; 1 0 0 0]
+        @test sort(result.centers) == [1, 2]
+        @test result.objective == 5.0
+        @test result.z ≈ [1 0 0 0; 0 1 0 0; 1 0 0 0; 1 0 0 0]
     end 
 end

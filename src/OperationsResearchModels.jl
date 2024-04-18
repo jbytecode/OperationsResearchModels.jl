@@ -40,7 +40,7 @@ import .MaximumFlow: MaximumFlowResult
 import .Assignment: AssignmentProblem, AssignmentResult
 import .Game: game, GameResult
 import .MinimumSpanningTree: hasloop, mst, MstResult
-import .PMedian: pmedian, pmedian_with_distances
+import .PMedian: pmedian, pmedian_with_distances, PMedianResult
 import .CPM: cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 import .CPM: pert, PertActivity, PertResult
 import .Latex: latex
@@ -51,12 +51,13 @@ export ShortestPathProblem, MaximumFlowProblem
 export AssignmentProblem, AssignmentResult
 export game, GameResult
 export hasloop, mst, MstResult
-export pmedian, pmedian_with_distances
+export pmedian, pmedian_with_distances, PMedianResult
 export cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 export pert, PertActivity, PertResult
 export Simplex
 export Utility
 export latex
+
 
 """
     solve(t)

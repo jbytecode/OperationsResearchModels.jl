@@ -1,5 +1,6 @@
 ### 0.1.8 (Upcoming release) 
 
+- pmedian now returns a PMedianResult object rather than a Dict{String, Any}.
 
 ### 0.1.7
 
