@@ -102,6 +102,36 @@ result = game(mat)
 
 ## p-median for selecting location of facilities
 
+```julia
+julia> distance_matrix = Float64[
+            0 8 7 9 3;
+            8 0 2 6 1;
+            7 2 0 4 5;
+            9 6 4 0 10;
+            3 1 5 10 0]
+
+julia> number_of_depots = 3;
+
+julia> result = pmedian_with_distances(distance_matrix, number_of_depots);
+
+ulia> result.objective
+3.0
+
+julia> result.y
+5-element Vector{Float64}:
+  1.0
+  1.0
+ -0.0
+  1.0
+ -0.0
+
+julia> result.centers
+3-element Vector{Int64}:
+ 1
+ 2
+ 4
+```
+
 ## Minimum Spanning Tree 
 
 ```julia
