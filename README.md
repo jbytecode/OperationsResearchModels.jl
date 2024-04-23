@@ -5,6 +5,20 @@
 A package for Operations Research problems.
 
 
+# Installation 
+
+```julia
+julia> ]
+(@v1.xx) pkg> add OperationsResearchModels
+```
+
+or 
+
+```julia
+julia> using Pkg
+julia> Pkg.add("OperationsResearchModels")
+```
+
 
 
 # The Content
