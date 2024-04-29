@@ -89,5 +89,5 @@ OperationsResearchModels.pert
 
 ## Knapsack 
 ```@docs
-OperationsResearcModels.knapsack
+OperationsResearchModels.knapsack
 ```
