@@ -86,3 +86,8 @@ OperationsResearchModels.cpm
 ```@docs
 OperationsResearchModels.pert
 ```
+
+## Knapsack 
+```@docs
+OperationsResearcModels.knapsack
+```

@@ -14,4 +14,5 @@ include("testcpm.jl")
 include("testpert.jl")
 include("testsimplex.jl")
 include("testlatex.jl")
+include("testknapsack.jl")
 

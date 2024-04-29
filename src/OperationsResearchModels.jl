@@ -17,6 +17,7 @@ include("mst.jl")
 include("pmedian.jl")
 include("cpm.jl")
 include("simplex.jl")
+include("knapsack.jl")
 include("latex.jl")
 
 import .Network
@@ -29,6 +30,7 @@ import .MinimumSpanningTree
 import .PMedian
 import .CPM
 import .Simplex
+import .Knapsack
 import .Latex
 import .Utility
 
@@ -43,6 +45,7 @@ import .MinimumSpanningTree: hasloop, mst, MstResult
 import .PMedian: pmedian, pmedian_with_distances, PMedianResult
 import .CPM: cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 import .CPM: pert, PertActivity, PertResult
+import .Knapsack: knapsack, KnapsackResult
 import .Latex: latex
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
@@ -54,6 +57,7 @@ export hasloop, mst, MstResult
 export pmedian, pmedian_with_distances, PMedianResult
 export cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 export pert, PertActivity, PertResult
+export knapsack, KnapsackResult
 export Simplex
 export Utility
 export latex
