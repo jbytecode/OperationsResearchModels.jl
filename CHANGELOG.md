@@ -1,6 +1,10 @@
-### 0.1.8 (Upcoming release) 
+### 0.1.9 (Upcoming Release)
+
+
+### 0.1.8
 
 - pmedian now returns a PMedianResult object rather than a Dict{String, Any}.
+- Implement knapsack() for solving the classical Knapsack problem using mathematical optimization.
 
 ### 0.1.7
 

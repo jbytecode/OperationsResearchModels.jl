@@ -310,3 +310,26 @@ Status: CONVERGED!
 [ Info: Objective value: 183.33333333333334
 
 ```
+
+
+## The Classical Knapsack Problem
+
+```julia
+julia> using OperationsResearchModels
+
+julia> values = [1, 5, 89, 10];
+
+julia> weights = [5, 6, 3, 5];
+
+julia> result = knapsack(values, weights, 8);
+
+julia> result.selected
+4-element Vector{Bool}:
+ 0
+ 0
+ 1
+ 1
+
+julia> result.objective
+99.0
+```
