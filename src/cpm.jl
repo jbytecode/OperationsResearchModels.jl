@@ -1,18 +1,44 @@
 module CPM
 
-export cpm
+import ..OperationsResearchModels: solve
+
 export CpmActivity
+export CpmProblem
 export CpmResult
 export earliestfinishtime
 export longestactivity
 export PertActivity
+export PertProblem
 export PertResult
-export pert
 
+
+"""
+    CpmActivity(name::String, time::Float64, dependencies)
+
+# Description
+
+The object that represents an activity in CPM (Critical Path Method).
+
+# Arguments 
+- `name::String`: The name of the activity.
+- `time::Float64`: The time of the activity.
+- `dependencies`: The dependencies of the activity in type of `Vector{CpmActivity}`.
+
+# Example
+
+```julia
+julia> A = CpmActivity("A", 2, []);
+julia> B = CpmActivity("B", 3, []);
+julia> C = CpmActivity("C", 2, [A, B]);
+"""
 struct CpmActivity
     name::String
     time::Float64
     dependencies::Vector{CpmActivity}
+end
+
+struct CpmProblem
+    activities::Vector{CpmActivity}
 end
 
 struct CpmResult
@@ -26,6 +52,10 @@ struct PertActivity
     mostlikely::Float64
     pessimistic::Float64
     dependencies::Vector{PertActivity}
+end
+
+struct PertProblem
+    activities::Vector{PertActivity}
 end
 
 struct PertResult
@@ -86,18 +116,22 @@ function pathtostring(activities::Vector{CpmActivity})::Vector{String}
 end
 
 """
-    cpm(activities)
+    solve(problem)
 
 # Arguments 
-- `activities::Vector{CpmActivity}`
+
+- `problem::CpmProblem`: The problem in type of CpmProblem.
 
 # Output 
+
 - `::CpmResult`: The object holds the results 
 
 # Description 
+
 Calculates CPM (Critical Path Method) and reports the critical path for a given set of activities. 
 
 # Example 
+
 ```julia 
 julia> A = CpmActivity("A", 2);
 julia> B = CpmActivity("B", 3);
@@ -112,7 +146,9 @@ julia> J = CpmActivity("J", 2, [C, D]);
 
 julia> activities = [A, B, C, D, E, F, G, H, I, J];
 
-julia> result = cpm(activities);
+julia> problem = CpmProblem(activities);
+
+julia> result = solve(problem);
 
 julia> result.pathstr
 4-element Vector{String}:
@@ -125,7 +161,10 @@ julia> result.pathstr
 true
 ``` 
 """
-function cpm(activities::Vector{CpmActivity})::CpmResult
+function solve(problem::CpmProblem)::CpmResult
+
+    activities = problem.activities
+
     path = CpmActivity[]
 
     while true
@@ -178,12 +217,13 @@ end
 
 
 """
-    pert(activities)
+    solve(problem::PertProblem)::PertResult
 
 # Arguments 
-- `activities::Vector{PertActivity}`: Vector of Pert Activities. 
+- `problem::PertProblem`: The problem in type of PertProblem.
 
 # Example 
+
 ```julia
 julia> A = PertActivity("A", 1, 2, 3)
 PertActivity("A", 1.0, 2.0, 3.0, PertActivity[])
@@ -200,6 +240,8 @@ julia> activities = [A, B, C]
  PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])
  PertActivity("C", 5.0, 5.0, 5.0, PertActivity[PertActivity("A", 1.0, 2.0, 3.0, PertActivity[]), PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])])
 
+julia> problem = PertProblem(activities);
+
 julia> result = pert(activities)
 PertResult(PertActivity[PertActivity("B", 3.0, 3.0, 3.0, PertActivity[]), PertActivity("C", 5.0, 5.0, 5.0, PertActivity[PertActivity("A", 1.0, 2.0, 3.0, PertActivity[]), PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])])], 8.0, 0.0)
 
@@ -210,19 +252,29 @@ julia> result.stddev
 0.0
 ```
 """
-function pert(activities::Vector{PertActivity})
+function solve(problem::PertProblem)::PertResult
+
+    activities = problem.activities
+
     L = length(activities)
+
     cpmactivities = Array{CpmActivity,1}(undef, L)
+
     for i = 1:L
         current::PertActivity = activities[i]
         cpmactivity =
             CpmActivity(current.name, mean(current), perttocpm.(current.dependencies))
         cpmactivities[i] = cpmactivity
     end
-    cpmresult = cpm(cpmactivities)
+
+    cpmresult = solve(CpmProblem(cpmactivities))
+
     pertpath = cpmresult.path
+
     pertactivities = findpertactivities(pertpath, activities)
+
     pertmean = sum(pertpath)
+
     stddev = sqrt(var(pertactivities))
 
     return PertResult(pertactivities, pertmean, stddev)

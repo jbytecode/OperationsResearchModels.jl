@@ -37,12 +37,18 @@ OperationsResearchModels.pmedian_with_distances
 
 ## CPM (Critical Path Method)
 ```@docs
-OperationsResearchModels.cpm
+OperationsResearchModels.solve(problem::CpmProblem)
 ```
+
+### CPM Activity
+```@docs
+OperationsResearchModels.CpmActivity
+```
+
 
 ## PERT (Project Evalutation and Review Technique)
 ```@docs
-OperationsResearchModels.pert
+OperationsResearchModels.solve(problem::PertProblem)
 ```
 
 ## Knapsack 

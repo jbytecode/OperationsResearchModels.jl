@@ -6,7 +6,9 @@
 
         activities = [A, B, C]
 
-        result::PertResult = pert(activities)
+        problem = PertProblem(activities)
+
+        result::PertResult = solve(problem)
 
         @test result.mean == 8.0
         @test result.stddev == 0.0
@@ -23,7 +25,9 @@
 
         activities = [A, B, C]
 
-        result::PertResult = pert(activities)
+        problem = PertProblem(activities)
+
+        result::PertResult = solve(problem)
 
         @test result.mean == 10.0
         @test isapprox(result.stddev, 0.4714045207910317, atol = epsilon)
@@ -49,7 +53,10 @@
 
         activities = [A, B, C, D, E, F, G, H, I, J, K, L]
 
-        result = pert(activities)
+
+        problem = PertProblem(activities)   
+
+        result = solve(problem)
 
         @test result isa PertResult
         @test result.mean == 22.5

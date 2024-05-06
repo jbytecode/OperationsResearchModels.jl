@@ -30,7 +30,11 @@
 
         activities = CpmActivity[A, B, C, D, E, F]
 
-        result = cpm(activities)
+
+        problem = CpmProblem(activities)
+
+
+        result = solve(problem)
 
         @test result isa CpmResult
 
@@ -52,7 +56,10 @@
         J = CpmActivity("J", 2, [C, D])
 
         activities = [A, B, C, D, E, F, G, H, I, J]
-        result = cpm(activities)
+
+        problem = CpmProblem(activities)
+
+        result = solve(problem)
 
         @test result.pathstr == ["B", "E", "G", "I"]
         @test result.path == [B, E, G, I]

@@ -48,8 +48,8 @@ import .Assignment: AssignmentProblem, AssignmentResult
 import .Game: game, GameResult
 import .MinimumSpanningTree: hasloop, MstResult, MstProblem
 import .PMedian: pmedian, pmedian_with_distances, PMedianResult
-import .CPM: cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
-import .CPM: pert, PertActivity, PertResult
+import .CPM: CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmResult
+import .CPM: PertActivity, PertProblem, PertResult
 import .Knapsack: KnapsackResult, KnapsackProblem
 import .Latex: latex
 
@@ -60,8 +60,8 @@ export AssignmentProblem, AssignmentResult
 export game, GameResult
 export hasloop, MstResult, MstProblem
 export pmedian, pmedian_with_distances, PMedianResult
-export cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
-export pert, PertActivity, PertResult
+export CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmResult
+export PertActivity, PertProblem, PertResult
 export KnapsackResult, KnapsackProblem
 export Simplex
 export Utility
