@@ -30,6 +30,7 @@ The object that represents an activity in CPM (Critical Path Method).
 julia> A = CpmActivity("A", 2, []);
 julia> B = CpmActivity("B", 3, []);
 julia> C = CpmActivity("C", 2, [A, B]);
+````
 """
 struct CpmActivity
     name::String

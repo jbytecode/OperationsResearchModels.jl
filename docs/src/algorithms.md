@@ -51,6 +51,11 @@ OperationsResearchModels.CpmActivity
 OperationsResearchModels.solve(problem::PertProblem)
 ```
 
+### PERT Activity
+```@docs
+OperationsResearchModels.PertActivity
+```
+
 ## Knapsack 
 ```@docs
 OperationsResearchModels.solve(p::KnapsackProblem)
