@@ -1,6 +1,7 @@
 ### 0.2.1 (Upcoming Release)
 
 - Fix documentation of CpmActivity
+- Fix documentation of Knapsack solver
 
 ### 0.2.0 
 

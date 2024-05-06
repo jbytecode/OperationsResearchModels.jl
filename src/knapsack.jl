@@ -21,7 +21,7 @@ end
 
 
 """
-    knapsack(problem::KnapsackProblem)::KnapsackResult
+    solve(problem::KnapsackProblem)::KnapsackResult
 
 
 # Description
@@ -42,7 +42,7 @@ Solves the knapsack problem.
 julia> values = [10, 20, 30, 40, 50];
 julia> weights = [1, 2, 3, 4, 5];
 julia> capacity = 10;
-julia> knapsack(KnapsackProblem(values, weights, capacity));
+julia> solve(KnapsackProblem(values, weights, capacity));
 ```
 """
 function solve(problem::KnapsackProblem)::KnapsackResult
