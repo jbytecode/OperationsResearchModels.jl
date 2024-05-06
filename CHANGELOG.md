@@ -1,5 +1,6 @@
 ### 0.2.1 (Upcoming Release)
 
+- Fix documentation of CpmActivity
 
 ### 0.2.0 
 

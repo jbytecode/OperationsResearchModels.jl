@@ -33,7 +33,7 @@ julia> B = CpmActivity("B", 3, []);
 
 julia> C = CpmActivity("C", 2, [A, B]);
 
-````
+```
 """
 struct CpmActivity
     name::String
