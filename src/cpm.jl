@@ -47,6 +47,27 @@ struct CpmResult
     path::Vector{CpmActivity}
 end
 
+"""
+    PertActivity(name::String, o::Float64, m::Float64, p::Float64)::PertActivity
+
+# Description
+
+The object that represents an activity in PERT (Program Evaluation and Review Technique).
+
+# Arguments
+- `name::String`: The name of the activity.
+- `o::Float64`: The optimistic time of the activity.
+- `m::Float64`: The most likely time of the activity.
+- `p::Float64`: The pessimistic time of the activity.
+- `dependencies`: The dependencies of the activity in type of `Vector{PertActivity}`.
+
+# Example
+```julia
+julia> A = PertActivity("A", 1, 2, 3);
+julia> B = PertActivity("B", 3, 3, 4);
+julia> C = PertActivity("C", 5, 6, 7, [A, B]);
+```
+"""
 struct PertActivity
     name::String
     optimistic::Float64
