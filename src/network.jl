@@ -7,7 +7,7 @@ export iseveronright
 export finish
 export start
 export ShortestPathProblem
-export MaximumFlowProblem
+
 
 struct Connection
     from::Int64
@@ -17,8 +17,6 @@ struct Connection
     Connection(from, to, value) = new(from, to, value, string("x", from, to))
 end
 
-struct ShortestPathProblem end
-struct MaximumFlowProblem end
 
 function nodes(cns::Array{Connection,1})::Set{Int64}
     s = Set{Int64}()

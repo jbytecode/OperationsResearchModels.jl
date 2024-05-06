@@ -6,6 +6,10 @@ using HiGHS
 const theoptimizerpackage = Symbol("HiGHS")
 const theoptimizer = HiGHS.Optimizer
 
+solve() = nothing 
+
+export solve 
+
 include("utility.jl")
 include("network.jl")
 include("transportation.jl")
@@ -36,16 +40,17 @@ import .Utility
 
 import .Transportation:
     TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
-import .ShortestPath: ShortestPathResult
-import .Network: Connection, ShortestPathProblem, MaximumFlowProblem, nodes
-import .MaximumFlow: MaximumFlowResult
+import .ShortestPath: ShortestPathResult, ShortestPathProblem
+
+import .Network: Connection, nodes
+import .MaximumFlow: MaximumFlowResult, MaximumFlowProblem
 import .Assignment: AssignmentProblem, AssignmentResult
 import .Game: game, GameResult
-import .MinimumSpanningTree: hasloop, mst, MstResult
+import .MinimumSpanningTree: hasloop, MstResult, MstProblem
 import .PMedian: pmedian, pmedian_with_distances, PMedianResult
 import .CPM: cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 import .CPM: pert, PertActivity, PertResult
-import .Knapsack: knapsack, KnapsackResult
+import .Knapsack: KnapsackResult, KnapsackProblem
 import .Latex: latex
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
@@ -53,122 +58,16 @@ export Connection, ShortestPathResult, MaximumFlowResult, nodes
 export ShortestPathProblem, MaximumFlowProblem
 export AssignmentProblem, AssignmentResult
 export game, GameResult
-export hasloop, mst, MstResult
+export hasloop, MstResult, MstProblem
 export pmedian, pmedian_with_distances, PMedianResult
 export cpm, CpmActivity, earliestfinishtime, longestactivity, CpmResult
 export pert, PertActivity, PertResult
-export knapsack, KnapsackResult
+export KnapsackResult, KnapsackProblem
 export Simplex
 export Utility
 export latex
 
 
-"""
-    solve(t)
 
-# Arguments 
-`a::TransportationProblem`: The problem in type of TransportationProblem
-
-# Output 
-`TransportationResult`: The custom data type that holds problem, solution, and optimum cost. 
-
-# Description 
-Solves a transportation problem given by an object of in type `TransportationProblem`.
-
-# Example 
-
-```julia
-julia> t = TransportationProblem(
-                   [   1 1 1 1; 
-                       2 2 2 2; 
-                       3 3 3 3], 
-                   [100, 100, 100, 100], # Demands 
-                   [100, 100, 100])      # Supplies 
-Transportation Problem:
-Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3]
-Demand: [100, 100, 100, 100]
-Supply: [100, 100, 100]
-
-julia> isbalanced(t)
-false
-
-julia> result = solve(t)
-Transportation Results:
-Main problem:
-Transportation Problem:
-Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3]
-Demand: [100, 100, 100, 100]
-Supply: [100, 100, 100]
-
-Balanced problem:
-Transportation Problem:
-Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3; 0 0 0 0]
-Demand: [100, 100, 100, 100]
-Supply: [100, 100, 100, 100]
-
-Cost:
-600.0
-Solution:
-[-0.0 -0.0 -0.0 100.0; 100.0 -0.0 -0.0 -0.0; -0.0 -0.0 100.0 -0.0; -0.0 100.0 -0.0 -0.0]
-```
-"""
-solve(t::TransportationProblem) = Transportation.solve(t)
-
-
-"""
-    solve(a)
-
-# Arguments 
-`a::AssignmentProblem`: The problem in type of AssignmentProblem
-
-# Output 
-`AssignmentResult`: The custom data type that holds problem, solution, and optimum cost. 
-
-# Description 
-Solves an assignment problem given by an object of in type `AssignmentProblem`.
-
-# Example 
-
-```julia
-julia> mat = [
-                   4 8 1;
-                   3 1 9;
-                   1 6 7;
-               ];
-
-julia> problem = AssignmentProblem(mat);
-
-julia> result = solve(problem);
-
-julia> result.solution
-
-3×3 Matrix{Float64}:
- 0.0  0.0  1.0
- 0.0  1.0  0.0
- 1.0  0.0  0.0
-
-julia> result.cost
-
-3.0
-```
-"""
-solve(a::AssignmentProblem) = Assignment.solve(a)
-
-
-
-function solve(
-    c::Vector{Connection};
-    problem::Union{Type{ShortestPathProblem},Type{MaximumFlowProblem}} = ShortestPathProblem,
-)
-    if problem == ShortestPathProblem
-        return ShortestPath.solve(c)
-    elseif problem == MaximumFlowProblem
-        return MaximumFlow.solve(c)
-    else
-        error(string("Could not find problem type: ", string(problem)))
-    end
-end
-
-export solve
 
 end # end of module

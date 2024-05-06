@@ -2,6 +2,15 @@ module Transportation
 
 using JuMP, HiGHS
 
+
+
+export TransportationProblem
+export TransportationResult
+
+import ..OperationsResearchModels: solve
+
+
+
 mutable struct TransportationProblem{T<:Real}
     costs::Array{T,2}
     demand::Array{T,1}
@@ -77,6 +86,57 @@ function addSupplyCentre!(t::TransportationProblem, amount::T) where {T<:Real}
     push!(t.supply, amount)
 end
 
+
+
+"""
+    solve(t)
+
+# Arguments 
+`a::TransportationProblem`: The problem in type of TransportationProblem
+
+# Output 
+`TransportationResult`: The custom data type that holds problem, solution, and optimum cost. 
+
+# Description 
+Solves a transportation problem given by an object of in type `TransportationProblem`.
+
+# Example 
+
+```julia
+julia> t = TransportationProblem(
+                   [   1 1 1 1; 
+                       2 2 2 2; 
+                       3 3 3 3], 
+                   [100, 100, 100, 100], # Demands 
+                   [100, 100, 100])      # Supplies 
+Transportation Problem:
+Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3]
+Demand: [100, 100, 100, 100]
+Supply: [100, 100, 100]
+
+julia> isbalanced(t)
+false
+
+julia> result = solve(t)
+Transportation Results:
+Main problem:
+Transportation Problem:
+Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3]
+Demand: [100, 100, 100, 100]
+Supply: [100, 100, 100]
+
+Balanced problem:
+Transportation Problem:
+Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3; 0 0 0 0]
+Demand: [100, 100, 100, 100]
+Supply: [100, 100, 100, 100]
+
+Cost:
+600.0
+Solution:
+[-0.0 -0.0 -0.0 100.0; 100.0 -0.0 -0.0 -0.0; -0.0 -0.0 100.0 -0.0; -0.0 100.0 -0.0 -0.0]
+```
+"""
 function solve(t::TransportationProblem)::TransportationResult
     newt = balance(t)
 

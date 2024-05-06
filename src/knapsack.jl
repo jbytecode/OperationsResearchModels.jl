@@ -1,5 +1,7 @@
 module Knapsack
 
+import ..OperationsResearchModels: solve
+
 export knapsack
 export KnapsackResult
 
@@ -11,27 +13,44 @@ struct KnapsackResult
     objective::Float64
 end 
 
+struct KnapsackProblem
+    values::Vector{Float64}
+    weights::Vector{Float64}
+    capacity::Float64
+end
+
 
 """
-    knapsack(values, weights, capacity)
+    knapsack(problem::KnapsackProblem)::KnapsackResult
 
 
 # Description
 
 Solves the knapsack problem.
 
+
 # Arguments
 
-- `values::Vector{Float64}`: Values of items.
-- `weights::Vector{Float64}`: Weights of items.
-- `capacity::Float64`: Capacity of the knapsack.
+- `problem::KnapsackProblem`: The problem in type of KnapsackProblem.
 
 # Output
 
 - `KnapsackResult`: The custom data type that holds selected items, model, and objective value.
 
+# Example
+```julia
+julia> values = [10, 20, 30, 40, 50];
+julia> weights = [1, 2, 3, 4, 5];
+julia> capacity = 10;
+julia> knapsack(KnapsackProblem(values, weights, capacity));
+```
 """
-function knapsack(values, weights, capacity)::KnapsackResult
+function solve(problem::KnapsackProblem)::KnapsackResult
+
+    values = problem.values
+    weights = problem.weights
+    capacity = problem.capacity
+
 
     n = length(values)
     model = Model(HiGHS.Optimizer)

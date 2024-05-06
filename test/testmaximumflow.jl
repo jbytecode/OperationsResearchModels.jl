@@ -32,10 +32,15 @@
             Connection(4, 3, 5),
         ]
 
-        result = solve(conns, problem = MaximumFlowProblem)
+
+        problem = MaximumFlowProblem(conns)
+
+        result = solve(problem)
 
         @test result isa MaximumFlowResult
+        
         @test result.flow == 60.0
+
         for element in result.path
             @test element in maxflowresult
         end

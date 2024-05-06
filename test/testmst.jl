@@ -77,14 +77,14 @@
     end
 
 
-    @testset "mst()" begin
+    @testset "solve mst problem" begin
         conns = Connection[
             Connection(1, 2, 10),
             Connection(2, 3, 10),
             Connection(3, 4, 10),
             Connection(1, 4, 10),
         ]
-        result = mst(conns)
+        result = solve(MstProblem(conns))
         @test result isa MstResult
         @test result.distance == 30.0
         @test !hasloop(result.connections)
@@ -103,7 +103,7 @@
             Connection(3, 6, 10),
             Connection(5, 6, 11),
         ]
-        result = mst(conns)
+        result = solve(MstProblem(conns))
         @test result.distance == 31.0
         @test length(result.connections) == 5
 
@@ -138,7 +138,7 @@
             Connection(6, 7, 15),
         ]
 
-        result = mst(conns)
+        result = solve(MstProblem(conns))
 
         @test result.distance == 32.0
 
@@ -159,7 +159,7 @@
                 push!(connections, Connection(i, j, rand()))
             end
         end
-        result = mst(connections)
+        result = solve(MstProblem(connections))
 
         allnodes = nodes(result.connections)
 

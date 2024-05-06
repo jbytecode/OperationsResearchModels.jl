@@ -3,6 +3,11 @@ module MaximumFlow
 using ..Network
 
 using JuMP, HiGHS
+import ..OperationsResearchModels: solve
+
+
+export MaximumFlowProblem
+export MaximumFlowResult
 
 
 struct MaximumFlowResult
@@ -10,7 +15,59 @@ struct MaximumFlowResult
     flow::Float64
 end
 
-function solve(cns::Array{Connection,1})
+struct MaximumFlowProblem
+    connections::Array{Connection,1}
+end
+
+
+"""
+
+    solve(problem)
+
+# Arguments
+
+`problem::MaximumFlowProblem`: The problem in type of MaximumFlowProblem
+
+# Output
+
+`MaximumFlowResult`: The custom data type that holds path and flow.
+
+# Example
+
+```julia
+julia> conns = [
+                   Connection(1, 2, 3),
+                   Connection(1, 3, 2),
+                   Connection(1, 4, 4),
+                   Connection(2, 5, 3),
+                   Connection(3, 5, 1),
+                   Connection(3, 6, 1),
+                   Connection(4, 6, 2),
+                   Connection(5, 7, 6),
+                   Connection(6, 7, 5),
+               ];
+julia> problem = MaximumFlowProblem(conns)
+julia> result = solve(problem);
+
+julia> result.path
+9-element Vector{Connection}:
+ Connection(1, 2, 3.0, "x12")
+ Connection(1, 3, 2.0, "x13")
+ Connection(1, 4, 2.0, "x14")
+ Connection(2, 5, 3.0, "x25")
+ Connection(3, 5, 1.0, "x35")
+ Connection(3, 6, 1.0, "x36")
+ Connection(4, 6, 2.0, "x46")
+ Connection(5, 7, 4.0, "x57")
+ Connection(6, 7, 3.0, "x67")
+
+julia> result.flow
+7.0
+```
+"""
+function solve(problem::MaximumFlowProblem)
+
+    cns = problem.connections
 
     function leftexpressions(node::Int64, nodes::Array{Connection,1}, model)
         lst = []
@@ -98,6 +155,6 @@ function solve(cns::Array{Connection,1})
     return MaximumFlowResult(solutionnodes, cost)
 end
 
-export solve
+
 
 end # end of module

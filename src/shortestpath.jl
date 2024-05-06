@@ -2,7 +2,18 @@ module ShortestPath
 
 using JuMP, HiGHS
 
+import ..OperationsResearchModels: solve
+
 using ..Network
+
+
+export ShortestPathProblem
+export ShortestPathResult
+
+
+struct ShortestPathProblem 
+    connections::Array{Connection,1}
+end 
 
 struct ShortestPathResult
     path::Array{Connection,1}
@@ -11,7 +22,51 @@ end
 
 
 
-function solve(cns::Array{Connection,1})
+"""
+    solve(problem)
+
+# Description
+
+Solves a shortest path problem given by an object of in type `ShortestPathProblem`.
+
+# Arguments
+
+`problem::ShortestPathProblem`: The problem in type of ShortestPathProblem
+
+# Output
+
+`ShortestPathResult`: The custom data type that holds path and cost.
+
+# Example
+
+```julia 
+julia> conns = [
+                   Connection(1, 2, 3),
+                   Connection(1, 3, 2),
+                   Connection(1, 4, 4),
+                   Connection(2, 5, 3),
+                   Connection(3, 5, 1),
+                   Connection(3, 6, 1),
+                   Connection(4, 6, 2),
+                   Connection(5, 7, 6),
+                   Connection(6, 7, 5),
+               ];
+
+julia> solve(ShortestPathProblem(conns));
+
+julia> result.path
+3-element Vector{Connection}:
+ Connection(1, 3, 2, "x13")
+ Connection(3, 6, 1, "x36")
+ Connection(6, 7, 5, "x67")
+
+julia> result.cost
+8.0
+```
+"""
+function solve(problem::ShortestPathProblem)
+
+    cns = problem.connections
 
     function leftexpressions(node::Int64, nodes::Array{Connection,1}, model)
         lst = []
@@ -95,6 +150,6 @@ function solve(cns::Array{Connection,1})
     return ShortestPathResult(solutionnodes, cost)
 end
 
-export solve
+
 
 end # end of module Shortest Path

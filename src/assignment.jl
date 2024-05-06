@@ -2,9 +2,17 @@ module Assignment
 
 using JuMP, HiGHS
 
+
+export AssignmentProblem
+export AssignmentResult
+
+import ..OperationsResearchModels: solve
+
+
 struct AssignmentProblem{T<:Real}
     costs::Array{T,2}
 end
+
 
 struct AssignmentResult
     problem::AssignmentProblem
@@ -13,6 +21,44 @@ struct AssignmentResult
 end
 
 
+
+"""
+    solve(a)
+
+# Arguments 
+`a::AssignmentProblem`: The problem in type of AssignmentProblem
+
+# Output 
+`AssignmentResult`: The custom data type that holds problem, solution, and optimum cost. 
+
+# Description 
+Solves an assignment problem given by an object of in type `AssignmentProblem`.
+
+# Example 
+
+```julia
+julia> mat = [
+                   4 8 1;
+                   3 1 9;
+                   1 6 7;
+               ];
+
+julia> problem = AssignmentProblem(mat);
+
+julia> result = solve(problem);
+
+julia> result.solution
+
+3×3 Matrix{Float64}:
+ 0.0  0.0  1.0
+ 0.0  1.0  0.0
+ 1.0  0.0  0.0
+
+julia> result.cost
+
+3.0
+```
+"""
 function solve(a::AssignmentProblem)::AssignmentResult
     model = JuMP.Model(HiGHS.Optimizer)
     MOI.set(model, MOI.Silent(), true)
@@ -35,8 +81,6 @@ function solve(a::AssignmentProblem)::AssignmentResult
     return result
 end
 
-export solve
-export AssignmentProblem
-export AssignmentResult
+
 
 end # end of module 

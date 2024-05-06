@@ -4,7 +4,11 @@
         values = [1, 2, 3, 4, 5]
         weights = [1, 2, 3, 4, 5]
         capacity = 10
-        result = knapsack(values, weights, capacity)
+        
+        problem = KnapsackProblem(values, weights, capacity)
+
+        result = solve(problem)
+
         @test result.objective == 10.0
         @test result.selected == [1, 0, 0, 1, 1]
     end
@@ -14,7 +18,12 @@
         values = [1, 2, 3, 4, 5]
         weights = [1, 2, 3, 4, 5]
         capacity = 5
-        result = knapsack(values, weights, capacity)
+        
+
+        problem = KnapsackProblem(values, weights, capacity)
+
+        result = solve(problem)
+        
         @test result.objective == 5.0
         @test result.selected == [0, 0, 0, 0, 1]
     end

@@ -2,14 +2,22 @@ module MinimumSpanningTree
 
 import ..Network: Connection, nodes
 
+import ..OperationsResearchModels: solve
+
 export hasloop
 export mst
 export MstResult
+export MstProblem
 
 struct MstResult
     connections::Vector{Connection}
     distance::Float64
 end
+
+struct MstProblem
+    connections::Vector{Connection}
+end
+
 
 function hasloop(conns::Vector{Connection})::Bool
     if length(conns) <= 1
@@ -84,10 +92,10 @@ end
 
 
 """
-    mst(connections)
+    solve(problem::MstProblem)
 
 # Arguments 
-- `connections::Vector{Connection}`: Vector of Connections 
+- `problem::MstProblem`: The problem in type of MstProblem
 
 # Description
 
@@ -112,7 +120,7 @@ julia> conns = Connection[
  Connection(3, 4, 10, "x34")
  Connection(1, 4, 10, "x14")
 
- julia> result = mst(conns)
+ julia> result = solve(MstProblem(conns))
  MstResult(Connection[Connection(3, 4, 10, "x34"), Connection(1, 4, 10, "x14"), Connection(2, 3, 10, "x23")], 30.0)
  
  julia> result.distance
@@ -125,7 +133,9 @@ julia> conns = Connection[
   Connection(2, 3, 10, "x23")
 ```
 """
-function mst(conns::Vector{Connection})::MstResult
+function solve(problem::MstProblem)::MstResult
+
+    conns = problem.connections
 
     totaldist = 0.0
 

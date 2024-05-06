@@ -1,4 +1,9 @@
-### 0.1.9 (Upcoming Release)
+### 0.2.0 (Upcoming Release)
+
+- Iterations for single `solve()` method for many problems to provide a uniform way, e.g., `solve(p)` and `solve(r)` should work at the same time where `p` and `r` would be `TransportationProblem`, `AssignmentProblem`, `ShortestPathProblem`, `MaximumFlowProblem`, `MstProblem`, `KnapsackProblem`, etc.
+
+- In the release iterations, some of the methods will be removed so this release is planned to be a breaking one.
+
 
 
 ### 0.1.8
