@@ -1,10 +1,6 @@
 module OperationsResearchModels
 
-
-# Default Optimizer 
-using HiGHS
-const theoptimizerpackage = Symbol("HiGHS")
-const theoptimizer = HiGHS.Optimizer
+using JuMP, HiGHS
 
 solve() = nothing 
 
@@ -66,6 +62,8 @@ export KnapsackResult, KnapsackProblem
 export Simplex
 export Utility
 export latex
+
+export JuMP, HiGHS
 
 
 

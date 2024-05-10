@@ -1,5 +1,6 @@
 ### 0.2.1 (Upcoming Release)
 
+- Export JuMP and HiGHS for external use
 - Fix documentation of CpmActivity
 - Fix documentation of Knapsack solver
 

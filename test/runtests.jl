@@ -3,6 +3,7 @@ using OperationsResearchModels
 using OperationsResearchModels.Simplex
 
 include("testutility.jl")
+include("testjump.jl")
 include("testtransportation.jl")
 include("testassignment.jl")
 include("testshortestpath.jl")
