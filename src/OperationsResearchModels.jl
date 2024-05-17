@@ -50,7 +50,7 @@ import .CPM: CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmRe
 import .CPM: PertActivity, PertProblem, PertResult
 import .Knapsack: KnapsackResult, KnapsackProblem
 import .Latex: latex
-import .Johnsons: JohnsonResult, johnsons
+import .Johnsons: JohnsonResult, johnsons, JohnsonException
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
 export Connection, ShortestPathResult, MaximumFlowResult, nodes
@@ -65,7 +65,7 @@ export KnapsackResult, KnapsackProblem
 export Simplex
 export Utility
 export latex
-export JohnsonResult, johnsons
+export JohnsonResult, johnsons, JohnsonException
 
 export JuMP, HiGHS
 

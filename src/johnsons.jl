@@ -1,13 +1,20 @@
 module Johnsons
 
-export JohnsonResult, johnsons
+export JohnsonResult, JohnsonException, johnsons
 
 # TODO: Add makespan calculation 
+
+struct JohnsonException <: Exception
+    message::String
+end
+
 
 struct JohnsonResult
     permutation::Vector{Int}
     # makespan::Float64
 end
+
+
 
 """
     johnsons(times::Matrix)
@@ -25,6 +32,8 @@ at least one of the following conditions must be satisfied:
 
 - min(A) >= max(B, C)
 - min(D) >= max(B, C)
+
+The function throws a JohnsonException if the problem cannot be reduced to a 2-machine problem.
 
 # Arguments
 
@@ -102,7 +111,9 @@ function johnsons_nmachines(times::Matrix)::JohnsonResult
     minlast = minimum(times[:, end])
     maxothers = maximum(times[:, 2:(end-1)])
 
-    @assert (minfirst >= maxothers) || (minlast >= maxothers)
+    if !((minfirst >= maxothers) || (minlast >= maxothers))
+        throw(JohnsonException("The problem cannot be reduced to a 2-machine problem: minfirst >= maxothers and/or minlast >= maxothers"))
+    end
 
     Gcollection = times[:, 1:(end-1)]
     Hcollection = times[:, 2:end]

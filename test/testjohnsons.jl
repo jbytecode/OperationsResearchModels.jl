@@ -71,4 +71,19 @@
     end
 
 
+    @testset "Cannot reduce to 2-machines" begin 
+
+            times = Float64[
+                3 3 5 2;
+                8 4 8 3;
+                7 2 10 4;
+                5 1 7 5;
+                2 5 6 6
+            ]
+
+            @test_throws JohnsonException johnsons(times)
+
+    end
+
+
 end
