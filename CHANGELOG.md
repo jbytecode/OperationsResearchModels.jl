@@ -3,6 +3,7 @@
 - Export JuMP and HiGHS for external use
 - Fix documentation of CpmActivity
 - Fix documentation of Knapsack solver
+- Implement Johnson's Rule for Flow Shop Scheduling problems
 
 ### 0.2.0 
 

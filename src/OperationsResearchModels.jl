@@ -19,6 +19,7 @@ include("cpm.jl")
 include("simplex.jl")
 include("knapsack.jl")
 include("latex.jl")
+include("johnsons.jl")
 
 import .Network
 import .Transportation
@@ -33,6 +34,7 @@ import .Simplex
 import .Knapsack
 import .Latex
 import .Utility
+import .Johnsons
 
 import .Transportation:
     TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
@@ -48,6 +50,7 @@ import .CPM: CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmRe
 import .CPM: PertActivity, PertProblem, PertResult
 import .Knapsack: KnapsackResult, KnapsackProblem
 import .Latex: latex
+import .Johnsons: JohnsonResult, johnsons
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
 export Connection, ShortestPathResult, MaximumFlowResult, nodes
@@ -62,6 +65,7 @@ export KnapsackResult, KnapsackProblem
 export Simplex
 export Utility
 export latex
+export JohnsonResult, johnsons
 
 export JuMP, HiGHS
 

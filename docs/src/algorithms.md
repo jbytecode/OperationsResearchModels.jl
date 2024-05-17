@@ -60,3 +60,8 @@ OperationsResearchModels.PertActivity
 ```@docs
 OperationsResearchModels.solve(p::KnapsackProblem)
 ```
+
+## Johnson's Rule
+```@docs
+OperationsResearchModels.johnsons
+```

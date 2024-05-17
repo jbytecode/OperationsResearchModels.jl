@@ -2,6 +2,7 @@ using Test
 using OperationsResearchModels
 using OperationsResearchModels.Simplex
 
+include("testjohnsons.jl")
 include("testutility.jl")
 include("testjump.jl")
 include("testtransportation.jl")
