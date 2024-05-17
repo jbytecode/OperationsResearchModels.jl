@@ -1,9 +1,13 @@
 ### 0.2.1 (Upcoming Release)
 
+
+### 0.2.1
+
 - Export JuMP and HiGHS for external use
 - Fix documentation of CpmActivity
 - Fix documentation of Knapsack solver
-- Implement Johnson's Rule for Flow Shop Scheduling problems
+- Implement Johnson's Rule for Flow Shop Scheduling problems (for m = 2, 3, ... machines)
+
 
 ### 0.2.0 
 
