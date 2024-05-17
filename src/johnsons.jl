@@ -2,6 +2,8 @@ module Johnsons
 
 export JohnsonResult, johnsons
 
+# TODO: Add makespan calculation 
+
 struct JohnsonResult
     permutation::Vector{Int}
     # makespan::Float64
@@ -10,7 +12,19 @@ end
 """
     johnsons(times::Matrix)
 
-Given a matrix of times, returns a JohnsonResult with the permutation of the jobs
+Given a matrix of times, returns a JohnsonResult with the permutation of the jobs. 
+If number of machines is 2, it uses the Johnson's algorithm for 2 machines.
+If number of machines is greater than 2, it uses the Johnson's algorithm by transforming the 
+problem into a 2-machine problem.
+In order to reduce the original problem to a 2-machine problem, the algorithm checks if the minimum time
+of the first machine is greater or equal than the maximum time of the other machines and/or if the minimum time of the 
+last machine is greater or equal than the maximum time of the other machines.
+
+For example if we have 4 machines, namely, A, B, C, and D 
+at least one of the following conditions must be satisfied:
+
+- min(A) >= max(B, C)
+- min(D) >= max(B, C)
 
 # Arguments
 
