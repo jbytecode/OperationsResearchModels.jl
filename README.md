@@ -210,6 +210,15 @@ julia> result.path
 
 ```
 
+
+## Johnson's Rule for Job Scheduling (Ordering) Problems 
+
+Function `johnson()` implements 2-machine, 3-machine, and $n$-machine versions of the Johnson's Rule.
+If possible, the problem with higher number of machines can be transformed into 2-machine problems.
+`makespan()` function calculates the total time elapsed in the production. Please see the documentation
+for details.
+
+
 ## Simplex with iterations 
 
 Suppose the problem is 

@@ -1,6 +1,10 @@
 module Johnsons
 
-export JohnsonResult, JohnsonException, johnsons
+export JohnsonResult
+export JohnsonException
+export johnsons
+export makespan 
+
 
 # TODO: Add makespan calculation 
 
@@ -13,6 +17,13 @@ struct JohnsonResult
     permutation::Vector{Int}
     # makespan::Float64
 end
+
+struct Process
+    start
+    duration
+    finish
+end 
+
 
 
 
@@ -125,6 +136,68 @@ function johnsons_nmachines(times::Matrix)::JohnsonResult
     H = sum(Hcollection, dims=2)
 
     return johnsons_2machines([G H])
+end
+
+
+
+
+"""
+    makespan(times::Matrix, permutation::Vector{Int})
+
+    Given a matrix of times and a permutation of the jobs, returns the makespan of the jobs.
+
+# Arguments
+
+- `times::Matrix`: a matrix of times
+- `permutation::Vector{Int}`: a permutation of the jobs
+
+# Returns
+- `Float64`: the makespan of the jobs
+
+# Example
+
+```julia
+
+julia> times = Float64[
+    3 3 5;
+    8 4 8;
+    7 2 10;
+    5 1 7;
+    2 5 6    
+]
+
+julia> result = makespan(times, [1, 4, 5, 3, 2])
+```
+"""
+function makespan(times::Matrix, permutation::Vector{Int})::Float64
+
+    n, m = size(times)
+
+    timetable = Array{Process,2}(undef, m, n)
+
+    for machine_id in 1:m
+        for task_id in 1:n
+            current_task = permutation[task_id]
+            if machine_id == 1
+                if task_id == 1
+                    start = 0
+                else
+                    start = timetable[machine_id, task_id-1].finish
+                end
+            else
+                if task_id == 1
+                    start = timetable[machine_id-1, task_id].finish
+                else
+                    start = max(timetable[machine_id, task_id-1].finish, timetable[machine_id-1, task_id].finish)
+                end
+            end
+            duration = times[current_task, machine_id]
+            finish = start + duration
+            timetable[machine_id, task_id] = Process(start, duration, finish)
+        end
+    end
+
+    return timetable[end, end].finish
 end
 
 end # end of module Johnsons

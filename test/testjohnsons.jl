@@ -17,7 +17,7 @@
         end
 
 
-        @testset "Example 2 with 2-machines" begin 
+        @testset "Example 2 with 2-machines" begin
             times = Float64[
                 4 7;
                 8 3;
@@ -29,63 +29,75 @@
 
             result = johnsons(times)
 
+            time_elapsed = makespan(times, result.permutation)
+
             @test result.permutation == [1, 3, 5, 6, 4, 2]
-        end 
+
+            @test time_elapsed == 41
+        end
     end
 
 
-    @testset "Three machines" verbose = true begin 
+    @testset "Three machines" verbose = true begin
 
-        @testset "Example 1 for 3-machines" begin 
+        @testset "Example 1 for 3-machines" begin
 
             times = Float64[
                 3 3 5;
                 8 4 8;
                 7 2 10;
                 5 1 7;
-                2 5 6    
+                2 5 6
             ]
 
             result = johnsons(times)
 
+            time_elapsed = makespan(times, result.permutation)
+
             @test result.permutation == [1, 4, 5, 3, 2]
-        end 
-    end 
+
+            @test time_elapsed == 42
+        end
+    end
 
 
-    @testset "Five machines" verbose = true begin 
+    @testset "Five machines" verbose = true begin
 
-        @testset "Example 1 for 5-machines" begin 
+        @testset "Example 1 for 5-machines" begin
 
             times = Float64[
                 7 5 2 3 9;
                 6 6 4 5 10;
                 5 4 5 6 8;
-                8 3 3 2 6   
+                8 3 3 2 6
             ]
 
             result = johnsons(times)
 
+            time_elapsed = makespan(times, result.permutation)
+
             @test result.permutation == [1, 3, 2, 4]
-        end 
+
+            @test time_elapsed == 51
+        end
     end
 
 
-    @testset "Cannot reduce to 2-machines" begin 
+    @testset "Cannot reduce to 2-machines" begin
 
-            times = Float64[
-                3 3 5 2;
-                8 4 8 3;
-                7 2 10 4;
-                5 1 7 5;
-                2 5 6 6
-            ]
+        times = Float64[
+            3 3 5 2;
+            8 4 8 3;
+            7 2 10 4;
+            5 1 7 5;
+            2 5 6 6
+        ]
 
-            @test_throws JohnsonException johnsons(times)
+        @test_throws JohnsonException johnsons(times)
 
     end
 
-    @testset "Other types of matrices (Int)" begin 
+    @testset "Other types of matrices (Int)" begin
 
         mat = rand(1:10, 10, 2)
 
@@ -93,16 +105,59 @@
 
         # expect no error 
         @test true
-    end 
+    end
 
-    @testset "Other types of matrices (UInt8)" begin 
+    @testset "Other types of matrices (UInt8)" begin
 
-        mat = convert(Array{UInt8, 2}, rand(1:10, 10, 2))
+        mat = convert(Array{UInt8,2}, rand(1:10, 10, 2))
 
         result = johnsons(mat)
 
         # expect no error 
         @test true
     end
+
+
+
+    @testset "makespan" begin
+
+        best_permutation = [1, 4, 5, 3, 2]
+        best_makespan = 42
+
+
+        times = Float64[
+            3 3 5;
+            8 4 8;
+            7 2 10;
+            5 1 7;
+            2 5 6
+        ]
+
+    
+        ms = Float64[
+            makespan(times, [1, 2, 3, 4, 5]),
+            makespan(times, [1, 2, 3, 5, 4]),
+            makespan(times, [1, 2, 4, 3, 5]),
+            makespan(times, [1, 2, 4, 5, 3]),
+            makespan(times, [1, 2, 5, 3, 4]),
+            makespan(times, [1, 2, 5, 4, 3]),
+            makespan(times, [1, 3, 2, 4, 5]),
+            makespan(times, [1, 3, 2, 5, 4]),
+            makespan(times, [1, 3, 4, 2, 5]),
+            makespan(times, [1, 3, 4, 5, 2]),
+            makespan(times, [1, 3, 5, 2, 4]),
+            makespan(times, [1, 3, 5, 4, 2]),
+            makespan(times, [1, 4, 2, 3, 5]),
+            makespan(times, [1, 4, 2, 5, 3]),
+            makespan(times, [1, 4, 3, 2, 5]),
+            makespan(times, [1, 4, 3, 5, 2]),
+            makespan(times, [1, 4, 5, 2, 3]),
+            makespan(times, [1, 4, 5, 3, 2])
+        ]
+
+        @test minimum(ms) == best_makespan
+    end
+
+
 
 end

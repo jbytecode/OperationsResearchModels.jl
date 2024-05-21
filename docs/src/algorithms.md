@@ -65,3 +65,8 @@ OperationsResearchModels.solve(p::KnapsackProblem)
 ```@docs
 OperationsResearchModels.johnsons
 ```
+
+### Makespan
+```@docs
+OperationsResearchModels.makespan
+```
