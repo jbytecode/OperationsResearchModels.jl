@@ -1,5 +1,7 @@
 ### 0.2.1 (Upcoming Release)
 
+- Typed Inf used instead of Inf64 in Johnson's rule.
+
 
 ### 0.2.1
 

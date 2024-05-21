@@ -92,6 +92,9 @@ function johnsons_2machines(timesmatrix::Matrix)::JohnsonResult
     times = copy(timesmatrix)
     n, m = size(times)
     @assert m == 2
+
+    typed_inf = typemax(eltype(times))
+
     permutation = [-1 for i in 1:n]
     for i in 1:n
         locrow, loccol = argmin(times).I
@@ -100,7 +103,7 @@ function johnsons_2machines(timesmatrix::Matrix)::JohnsonResult
         else
             dolast!(locrow, permutation)
         end
-        times[locrow, :] .= Inf
+        times[locrow, :] .= typed_inf
     end
     return JohnsonResult(permutation)
 end

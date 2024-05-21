@@ -85,5 +85,24 @@
 
     end
 
+    @testset "Other types of matrices (Int)" begin 
+
+        mat = rand(1:10, 10, 2)
+
+        result = johnsons(mat)
+
+        # expect no error 
+        @test true
+    end 
+
+    @testset "Other types of matrices (UInt8)" begin 
+
+        mat = convert(Array{UInt8, 2}, rand(1:10, 10, 2))
+
+        result = johnsons(mat)
+
+        # expect no error 
+        @test true
+    end
 
 end
