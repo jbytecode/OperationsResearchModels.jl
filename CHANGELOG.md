@@ -1,7 +1,11 @@
-### 0.2.1 (Upcoming Release)
+### 0.2.3 (Upcoming Release)
+
+
+
+### 0.2.2
 
 - Typed Inf used instead of Inf64 in Johnson's rule.
-- Implement makespan for Johnson's rule.
+- Implement `makespan(timetable, combination)` for Johnson's rule.
 
 
 ### 0.2.1
