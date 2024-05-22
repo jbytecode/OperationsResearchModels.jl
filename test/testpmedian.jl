@@ -74,12 +74,16 @@
         result3 = pmedian_with_distances(distance_matrix, 4)
 
 
+        # We have two optimal solutions for 2 centers
+        # [3, 4] and [1, 2] are alternatives
         @test (sort(result1.centers) == [3, 4]) || (sort(result1.centers) == [1, 2])
         @test result1.objective == 22.0
 
+        # We have a unique optimal solution for 3 centers
         @test sort(result2.centers) == [3, 4, 5]
         @test result2.objective == 13.0
 
+        # We have a unique optimal solution for 4 centers
         @test sort(result3.centers) == [2, 3, 4, 5]
         @test result3.objective == 6.0
     end

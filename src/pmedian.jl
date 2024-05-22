@@ -115,28 +115,33 @@ function pmedian_with_distances(distancematrix::Matrix, ncenters::Int)::PMedianR
 
     n, _ = size(distancematrix)
 
-    distances = distancematrix
-
+    # M is a big number enough to make sure that the constraint is always satisfied
     M = 100000.0 * n
 
-
+    # Utilize the optimizer 
     model = Model(HiGHS.Optimizer)
+
+    # Set the optimizer to be silent
     MOI.set(model, MOI.Silent(), true)
 
     @variable(model, z[1:n, 1:n], Bin)
     @variable(model, y[1:n], Bin)
 
+    # We ensure that we have exactly ncenters of depots
     @constraint(model, sum(y) == ncenters)
 
+    # We ensure that if a point is connected to another point, then the other point is a depot
     for i = 1:n
         @constraint(model, sum(z[:, i]) <= M * y[i])
     end
 
+    # We ensure that if a point is a depot, then it is connected to at least one point
     for i = 1:n
         @constraint(model, sum(z[i, :]) == 1)
     end
 
-    @objective(model, Min, sum(distances[1:n, 1:n] .* z[1:n, 1:n]))
+    # If a point is connected to a center then we have some cost
+    @objective(model, Min, sum(distancematrix[1:n, 1:n] .* z[1:n, 1:n]))
 
     optimize!(model)
 
