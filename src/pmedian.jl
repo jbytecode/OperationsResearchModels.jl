@@ -117,6 +117,8 @@ function pmedian_with_distances(distancematrix::Matrix, ncenters::Int)::PMedianR
 
     distances = distancematrix
 
+    M = 100000.0 * n
+
 
     model = Model(HiGHS.Optimizer)
     MOI.set(model, MOI.Silent(), true)
@@ -127,9 +129,7 @@ function pmedian_with_distances(distancematrix::Matrix, ncenters::Int)::PMedianR
     @constraint(model, sum(y) == ncenters)
 
     for i = 1:n
-        for j = 1:n
-            @constraint(model, z[i, j] .<= y[j])
-        end
+        @constraint(model, sum(z[:, i]) <= M * y[i])
     end
 
     for i = 1:n

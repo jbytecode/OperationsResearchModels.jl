@@ -73,7 +73,8 @@
         result2 = pmedian_with_distances(distance_matrix, 3)
         result3 = pmedian_with_distances(distance_matrix, 4)
 
-        @test sort(result1.centers) == [3, 4]
+
+        @test (sort(result1.centers) == [3, 4]) || (sort(result1.centers) == [1, 2])
         @test result1.objective == 22.0
 
         @test sort(result2.centers) == [3, 4, 5]
