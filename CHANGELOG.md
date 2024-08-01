@@ -1,5 +1,7 @@
 ### 0.2.3 (Upcoming Release)
 
+- Implement Random key genetic algorithm for permutation optimization problems
+- Implement a GA based search for Job-Shop Scheduling problems that can't be solved by Johnson's rule
 
 
 ### 0.2.2
