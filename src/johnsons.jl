@@ -1,12 +1,14 @@
 module Johnsons
 
+
+import ..RandomKeyGA: run_ga, Chromosome, Population, generation, run_ga
+
 export JohnsonResult
 export JohnsonException
 export johnsons
 export makespan 
+export johnsons_ga 
 
-
-# TODO: Add makespan calculation 
 
 struct JohnsonException <: Exception
     message::String
@@ -24,6 +26,19 @@ struct Process
     finish
 end 
 
+
+function johnsons_ga(times::Matrix; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::JohnsonResult
+
+    n, m = size(times)
+    
+    function costfn(perm::Vector{Int})
+        return makespan(times, perm)
+    end 
+
+    finalpop = run_ga(popsize, n, costfn, ngen, pcross, pmutate, nelites)
+
+    return JohnsonResult(sortperm(finalpop.chromosomes[1].values))
+end
 
 
 

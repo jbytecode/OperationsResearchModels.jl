@@ -133,7 +133,7 @@
             2 5 6
         ]
 
-    
+
         ms = Float64[
             makespan(times, [1, 2, 3, 4, 5]),
             makespan(times, [1, 2, 3, 5, 4]),
@@ -160,4 +160,100 @@
 
 
 
-end
+    @testset "GA" verbose = true begin
+
+        @testset "Two machines - with ga" verbose = true begin
+
+            @testset "Example 1 with 2-machines with ga" begin
+                times = Float64[
+                    3.2 4.2;
+                    4.7 1.5;
+                    2.2 5.0;
+                    5.8 4.0;
+                    3.1 2.8
+                ]
+
+                result = johnsons_ga(times)
+
+                @test makespan(times, result.permutation) == 20.5
+            end
+
+
+            @testset "Example 2 with 2-machines with ga" begin
+                times = Float64[
+                    4 7;
+                    8 3;
+                    5 8;
+                    6 4;
+                    8 5;
+                    7 4
+                ]
+
+                result = johnsons_ga(times)
+
+                time_elapsed = makespan(times, result.permutation)
+
+                @test time_elapsed == 41
+            end
+        end
+
+
+        @testset "Three machines - with ga" verbose = true begin
+
+            @testset "Example 1 for 3-machines with ga" begin
+
+                times = Float64[
+                    3 3 5;
+                    8 4 8;
+                    7 2 10;
+                    5 1 7;
+                    2 5 6
+                ]
+
+                result = johnsons_ga(times)
+
+                time_elapsed = makespan(times, result.permutation)
+
+                @test time_elapsed == 42
+            end
+        end
+
+        @testset "Five machines - with ga" verbose = true begin
+
+            @testset "Example 1 for 5-machines - with ga " begin
+
+                times = Float64[
+                    7 5 2 3 9;
+                    6 6 4 5 10;
+                    5 4 5 6 8;
+                    8 3 3 2 6
+                ]
+
+                result = johnsons_ga(times)
+
+                time_elapsed = makespan(times, result.permutation)
+
+                @test time_elapsed == 51
+            end
+        end
+
+        @testset "Cannot reduce to 2-machine - but solvable with GA" begin
+
+            times = Float64[
+                3 3 5 2;
+                8 4 8 3;
+                7 2 10 4;
+                5 1 7 5;
+                2 5 6 6
+            ]
+
+            result = johnsons_ga(times)
+
+            time_elapsed = makespan(times, result.permutation)
+
+            @test time_elapsed == 44
+        end
+
+    end # end of GA testset
+
+end # end of Johnson's algorithm testset

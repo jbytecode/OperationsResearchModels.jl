@@ -19,6 +19,7 @@ include("cpm.jl")
 include("simplex.jl")
 include("knapsack.jl")
 include("latex.jl")
+include("randomkeyga.jl")
 include("johnsons.jl")
 
 import .Network
@@ -34,7 +35,9 @@ import .Simplex
 import .Knapsack
 import .Latex
 import .Utility
+import .RandomKeyGA
 import .Johnsons
+
 
 import .Transportation:
     TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
@@ -50,7 +53,8 @@ import .CPM: CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmRe
 import .CPM: PertActivity, PertProblem, PertResult
 import .Knapsack: KnapsackResult, KnapsackProblem
 import .Latex: latex
-import .Johnsons: JohnsonResult, johnsons, JohnsonException, makespan
+import .Johnsons: JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
+import .RandomKeyGA: Chromosome, run_ga
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
 export Connection, ShortestPathResult, MaximumFlowResult, nodes
@@ -65,7 +69,8 @@ export KnapsackResult, KnapsackProblem
 export Simplex
 export Utility
 export latex
-export JohnsonResult, johnsons, JohnsonException, makespan
+export Chromosome, run_ga
+export JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
 
 export JuMP, HiGHS
 
