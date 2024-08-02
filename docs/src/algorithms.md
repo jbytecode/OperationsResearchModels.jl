@@ -75,3 +75,9 @@ OperationsResearchModels.johnsons_ga
 ```@docs
 OperationsResearchModels.makespan
 ```
+
+
+## Traveling Salesman
+```@docs
+OperationsResearchModels.travelingsalesman
+```
