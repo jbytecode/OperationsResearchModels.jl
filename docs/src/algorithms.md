@@ -66,6 +66,11 @@ OperationsResearchModels.solve(p::KnapsackProblem)
 OperationsResearchModels.johnsons
 ```
 
+### Genetic Algorithm for the problems that cannot be solved with using Johnson's Rule
+```@docs
+OperationsResearchModels.johnsons_ga
+```
+
 ### Makespan
 ```@docs
 OperationsResearchModels.makespan

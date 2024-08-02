@@ -27,6 +27,45 @@ struct Process
 end 
 
 
+"""
+    johnsons_ga(times::Matrix; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::JohnsonResult
+
+Given a matrix of times, returns a JohnsonResult with the permutation of the jobs.
+The function uses a genetic algorithm to find the best permutation of the jobs. 
+The genetic algorithm is implemented in the RandomKeyGA module.
+
+# Arguments
+
+- `times::Matrix`: a matrix of times
+- `popsize::Int`: the population size. Default is 100
+- `ngen::Int`: the number of generations. Default is 1000
+- `pcross::Float64`: the crossover probability. Default is 0.8
+- `pmutate::Float64`: the mutation probability. Default is 0.01
+- `nelites::Int`: the number of elites. Default is 1
+
+# Returns
+
+- `JohnsonResult`: a custom data type that holds the permutation of the jobs
+
+
+# Example
+
+```julia
+times = Float64[
+    3.1 2.8;
+    4.0 7.0;
+    8.0 3.0;
+    5.0 8.0;
+    6.0 4.0;
+    8.0 5.0;
+    7.0 4.0
+]
+
+result = johnsons(times)
+
+println(result.permutation)
+```
+"""
 function johnsons_ga(times::Matrix; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::JohnsonResult
 
     n, m = size(times)
