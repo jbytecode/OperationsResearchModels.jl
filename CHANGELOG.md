@@ -2,6 +2,7 @@
 
 - Implement Random key genetic algorithm for permutation optimization problems
 - Implement a GA based search for Job-Shop Scheduling problems that can't be solved by Johnson's rule
+- Implement traveling salesman problem solver with using the random key genetic algorithm
 
 
 ### 0.2.2

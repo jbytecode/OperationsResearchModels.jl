@@ -21,6 +21,7 @@ include("knapsack.jl")
 include("latex.jl")
 include("randomkeyga.jl")
 include("johnsons.jl")
+include("travelingsalesman.jl")
 
 import .Network
 import .Transportation
@@ -37,6 +38,7 @@ import .Latex
 import .Utility
 import .RandomKeyGA
 import .Johnsons
+import .TravelingSalesman
 
 
 import .Transportation:
@@ -55,6 +57,7 @@ import .Knapsack: KnapsackResult, KnapsackProblem
 import .Latex: latex
 import .Johnsons: JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
 import .RandomKeyGA: Chromosome, run_ga
+import .TravelingSalesman: TravelinSalesmenResult, travelingsalesman
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
 export Connection, ShortestPathResult, MaximumFlowResult, nodes
@@ -71,6 +74,7 @@ export Utility
 export latex
 export Chromosome, run_ga
 export JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
+export TravelinSalesmenResult, travelingsalesman
 
 export JuMP, HiGHS
 
