@@ -84,6 +84,6 @@ OperationsResearchModels.travelingsalesman
 
 ## Simplex
 ```@docs 
-OperationsResearchModels.Simplex.simplexiterations
+OperationsResearchModels.simplexiterations
 ```
 
