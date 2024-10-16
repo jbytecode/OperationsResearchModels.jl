@@ -313,7 +313,7 @@ function standardform!(s::SimplexProblem)
     s.isinstandardform = true
 end
 
-function mmethodcorrection(s::SimplexProblem)
+function mmethodcorrection!(s::SimplexProblem)
     M = s.biggestvalue
     n, p = size(s.lhs)
     for i = 1:n
@@ -414,7 +414,7 @@ end
 function solve!(s::SimplexProblem)::SimplexProblem
     standardform!(s)
 
-    mmethodcorrection(s)
+    mmethodcorrection!(s)
 
     while !s.converged
         singleiteration!(s)
@@ -431,7 +431,7 @@ function simplexiterations(s::SimplexProblem)::Vector{SimplexProblem}
     push!(iterations, s1)
 
     s2 = copy(s1)
-    mmethodcorrection(s2)
+    mmethodcorrection!(s2)
     push!(iterations, s2)
 
     while !s2.converged
@@ -455,7 +455,7 @@ function simplexpretty(s::SimplexProblem; maxiter::Int = 1000)::Nothing
     println(copied)
 
     @info "M Method corrections:"
-    mmethodcorrection(copied)
+    mmethodcorrection!(copied)
     println(copied)
 
 

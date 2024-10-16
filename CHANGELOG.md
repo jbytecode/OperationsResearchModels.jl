@@ -1,5 +1,6 @@
 ### 0.2.4 (Upcoming Release)
 
+- Rename `mmethodcorrection()` to `mmethodcorrection!()` just because the function mutates its input.
 
 ### 0.2.3 
 
