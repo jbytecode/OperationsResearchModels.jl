@@ -524,11 +524,6 @@ opttype = Maximize
 
 s = createsimplexproblem(obj, amat, rhs, dir, opttype)
 iters = simplexiterations(s)
-
-for i = 1:length(iters)
-    println("Iteration $i")
-    println(iters[i])
-end
 ```
 """
 function createsimplexproblem(
