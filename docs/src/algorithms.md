@@ -84,6 +84,6 @@ OperationsResearchModels.travelingsalesman
 
 ## Simplex
 ```@docs 
-OperationsResearchModels.simplexiterations
+OperationsResearchModels.createsimplexproblem
 ```
 
