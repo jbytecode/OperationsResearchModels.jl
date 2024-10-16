@@ -35,6 +35,7 @@ julia> Pkg.add("OperationsResearchModels")
 - [Johnson's Rule for Flow-Shop Scheduling](https://jbytecode.github.io/OperationsResearchModels.jl/dev/algorithms/#Johnson's-Rule)
 - [Flow-shop Scheduling using Permutation Encoded Genetic Algorithms (using a Random Key Genetic Algorithm)](https://jbytecode.github.io/OperationsResearchModels.jl/dev/algorithms/#Genetic-Algorithm-for-the-problems-that-cannot-be-solved-with-using-Johnson's-Rule)
 - [Traveling Salesman with Random Key Genetic Algorithm](https://jbytecode.github.io/OperationsResearchModels.jl/dev/algorithms/#Traveling-Salesman)
+- [Simplex Method with Real Valued Decision Variables](https://jbytecode.github.io/OperationsResearchModels.jl/dev/algorithms/#Simplex)
 
 
 # Notes for the users
