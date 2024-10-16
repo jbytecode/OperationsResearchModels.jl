@@ -480,6 +480,57 @@ function simplexpretty(s::SimplexProblem; maxiter::Int = 1000)::Nothing
 end
 
 
+"""
+    createsimplexproblem(obj::Vector, amat::Matrix, rhs::Vector, dir::Vector, opttype::OptimizationType)::SimplexProblem
+
+Description:
+
+    This function creates a SimplexProblem object from the given parameters. 
+
+Arguments:
+
+- obj::Vector: The objective function coefficients.
+- amat::Matrix: The LHS of the constraints.
+- rhs::Vector: The RHS of the constraints.
+- dir::Vector: The directions of the constraints. Can be a vector of LE (<=), GE (>=), or EQ (==).
+- opttype::OptimizationType: The type of the optimization. Can be Maximize or Minimize.
+
+Returns:
+
+    A SimplexProblem object.
+
+Example:
+
+Suppose the linear programming problem is as follows:
+
+```
+Maximize: 1.0x1 + 2.0x2 + 3.0x3
+Subject to:
+1.0x1 + 2.0x2 + 3.0x3 <= 10.0
+3.0x1 + 1.0x2 + 5.0x3 <= 15.0
+x1, x2 >= 0
+```
+
+The following code creates a SimplexProblem object for the above problem:
+
+```julia
+using OperationsResearch.Simplex
+
+obj = Float64[1.0, 2.0, 3.0]
+amat = Float64[1.0 2.0 3.0; 3.0 1.0 5.0]
+rhs = Float64[10.0, 15.0]
+dir = [LE, LE]
+opttype = Maximize
+
+s = createsimplexproblem(obj, amat, rhs, dir, opttype)
+iters = simplexiterations(s)
+
+for i = 1:length(iters)
+    println("Iteration $i")
+    println(iters[i])
+end
+```
+"""
 function createsimplexproblem(
     obj::Vector,
     amat::Matrix,

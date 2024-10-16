@@ -81,3 +81,9 @@ OperationsResearchModels.makespan
 ```@docs
 OperationsResearchModels.travelingsalesman
 ```
+
+## Simplex
+```@docs 
+OperationsResearchModels.simplexiterations
+```
+
