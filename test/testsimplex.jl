@@ -13,10 +13,10 @@
         solve!(s)
 
         @test s.converged
-        @test isapprox(s.rhs[1], 16.666666666666664, atol = eps)
-        @test isapprox(s.rhs[2], 66.66666666666667, atol = eps)
+        @test isapprox(s.rhs[1], 16.666666666666664, atol=eps)
+        @test isapprox(s.rhs[2], 66.66666666666667, atol=eps)
 
-        @test isapprox(s.objective_value, 183.33333, atol = eps)
+        @test isapprox(s.objective_value, 183.33333, atol=eps)
 
     end
 
@@ -37,13 +37,43 @@
         solve!(s)
 
         @test s.converged
-        @test isapprox(s.rhs[1], 0.3333333333, atol = eps)
-        @test isapprox(s.rhs[2], 1.3333333333, atol = eps)
+        @test isapprox(s.rhs[1], 0.3333333333, atol=eps)
+        @test isapprox(s.rhs[2], 1.3333333333, atol=eps)
 
-        @test isapprox(s.objective_value, 183.33333, atol = eps)
-
+        @test isapprox(s.objective_value, 183.33333, atol=eps)
     end
 
+    @testset "Maximization problem with single equality constraint" begin
+
+        # Maximize 3x + 5y
+        # subject to x + y = 10
+        # x, y >= 0
+        # Result:
+        # x = 0.0
+        # y = 5.0
+        # Objective value = 50.0
+
+        obj = [3.0, 5.0]
+        amat = [1.0 1.0]
+        rhs = [10.0]
+        dirs = [EQ]
+        opt = Maximize
+
+        s = SimplexProblem()
+        setobjectivecoefs(s, obj)
+        setlhs(s, amat)
+        setrhs(s, rhs)
+        setdirections(s, dirs)
+        setopttype(s, opt)
+        setautomaticvarnames(s)
+
+        solve!(s)
+
+        @test s.converged
+        @test isapprox(s.rhs[1], 10.0)
+        @test isapprox(s.objective_value, 50.0)
+
+    end
 
 
 
