@@ -77,4 +77,39 @@
 
 
 
+    @testset "Mini Transportation Problem" begin 
+
+        eps = 0.001
+        # Mini Transportation Problem
+        #           M1       M2      M3     Supply 
+        # F1        10       15      20      200
+        # F2        17       13       9      100
+        # Demand    110      80      110      -
+        obj = Float64[10, 15, 20, 17, 13, 9]
+        amat = Float64[
+            1 1 1 0 0 0;
+            0 0 0 1 1 1;
+            1 0 0 1 0 0;
+            0 1 0 0 1 0;
+            0 0 1 0 0 1
+        ]
+        rhs = Float64[200, 100, 110, 80, 110]
+        dirs = [EQ, EQ, EQ, EQ, EQ]
+        opt = Minimize
+
+        problem::SimplexProblem = createsimplexproblem(obj, amat, rhs, dirs, opt)
+
+        iters = simplexiterations(problem)
+
+        lastiter = iters[end]
+
+        @test lastiter.converged
+        @test isapprox(lastiter.objective_value, 3400.0, atol=eps)
+        @test sort(lastiter.basicvariableindex) == [1, 2, 3, 6, 11]
+        @test sort(lastiter.artificialvariableindices) == [7, 8, 9, 10, 11]
+        @test isapprox(lastiter.rhs, [10.0, 100.0, 110.0, 80.0, 0.0], atol = eps)
+    end 
+
+
+
 end # end of test set Simplex

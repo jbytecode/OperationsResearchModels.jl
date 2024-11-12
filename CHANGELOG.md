@@ -2,6 +2,8 @@
 
 - Rename `mmethodcorrection()` to `mmethodcorrection!()` just because the function mutates its input.
 - Add documentation for `simplexiterations`.
+- Add additional tests for Simplex
+
 
 ### 0.2.3 
 
