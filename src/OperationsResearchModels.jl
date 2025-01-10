@@ -58,7 +58,7 @@ import .Latex: latex
 import .Johnsons: JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
 import .RandomKeyGA: Chromosome, run_ga
 import .TravelingSalesman: TravelinSalesmenResult, travelingsalesman
-import .Simplex: SimplexProblem, simplexiterations, createsimplexproblem
+import .Simplex: SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
 export Connection, ShortestPathResult, MaximumFlowResult, nodes
@@ -76,7 +76,7 @@ export latex
 export Chromosome, run_ga
 export JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
 export TravelinSalesmenResult, travelingsalesman
-export simplexiterations, SimplexProblem, createsimplexproblem
+export simplexiterations, SimplexProblem, createsimplexproblem, gaussjordan
 
 export JuMP, HiGHS
 

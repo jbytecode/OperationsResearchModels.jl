@@ -12,6 +12,7 @@ export simplexiterations
 export simplexpretty
 export createsimplexproblem
 export solve!
+export gaussjordan
 
 import ..Utility: numround
 
@@ -543,6 +544,53 @@ function createsimplexproblem(
     setautomaticvarnames(s)
 
     return s
+end
+
+"""
+    gaussjordan(A::Matrix; verbose::Bool = true)::Matrix
+
+Description:
+
+    Attaches an Identity matrix to the right of the given matrix A and applies the Gauss-Jordan elimination method to find the inverse of the given matrix.
+
+Arguments:
+
+- A::Matrix: The matrix to find the inverse.
+- verbose::Bool: If true, the intermediate steps are displayed. Default is true.
+
+Returns:
+
+    The inverse of the given matrix.
+
+Example:
+
+```julia
+julia> A = [1.0 2.0 3.0; 4.0 5.0 6.0; 7.0 8.0 10.0]
+julia> invA = gaussjordan(A, verbose = false)
+3×3 Matrix{Float64}:
+ -0.666667  -1.33333   1.0
+ -0.666667   3.66667  -2.0
+  1.0       -2.0       1.0
+```
+"""
+function gaussjordan(A::Matrix{Float64}; verbose::Bool = true)::Matrix{Float64}
+    n, p = size(A)
+    b = zeros(Float64,n, n)
+    for i in 1:n
+        b[i, i] = 1.0
+    end
+    Z = Float64[A b]
+    @inbounds @fastmath @simd for i in 1:n
+        @fastmath @simd for j in 1:n
+            if i != j 
+                Z[j, :] .= view(Z, j, :) .- (Z[j, i] / Z[i, i]) .* view(Z, i, :)
+            else
+                Z[j, :] .= (1.0 / Z[i, j]) .* view(Z, j, :)
+            end
+            verbose && display(Z)
+        end
+    end
+    return Z[:, (p+1):end]
 end
 
 

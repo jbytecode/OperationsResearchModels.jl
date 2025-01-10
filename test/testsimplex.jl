@@ -1,4 +1,20 @@
 @testset "Simplex" begin
+
+    @testset "Gauss Jordan" begin 
+
+        m = Float64[1.0 2 7; -1 6 5; 9 8 -3]
+
+        expected = [
+            0.142157  -0.151961    0.0784314;
+            -0.102941   0.161765    0.0294118;
+             0.151961  -0.0245098  -0.0196078           
+        ]
+
+        result = gaussjordan(m, verbose = false)
+
+        @test isapprox(result, expected, atol = 0.0001)
+    end 
+
     @testset "Maximization Problem" begin
 
         eps = 0.0001

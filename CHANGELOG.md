@@ -1,8 +1,12 @@
-### 0.2.4 (Upcoming Release)
+### 0.2.5 (Upcoming Release)
+
+
+### 0.2.4
 
 - Rename `mmethodcorrection()` to `mmethodcorrection!()` just because the function mutates its input.
 - Add documentation for `simplexiterations`.
-- Add additional tests for Simplex
+- Add additional tests for Simplex.
+- Add `gaussjordan()` method to calculate the inverse of a matrix with iteration steps.
 
 
 ### 0.2.3 
