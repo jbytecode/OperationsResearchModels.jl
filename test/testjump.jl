@@ -1,4 +1,4 @@
-@testset "JuMP and HiGHS" begin 
+@testset "JuMP and HiGHS" verbose = true begin 
 
     eps = 0.001
 

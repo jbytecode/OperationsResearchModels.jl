@@ -1,4 +1,4 @@
-@testset "Minimum Spanning Tree" begin
+@testset "Minimum Spanning Tree" verbose = true begin
 
     @testset "hasloop()" begin
         @testset "Empty network" begin

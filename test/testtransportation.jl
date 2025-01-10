@@ -1,4 +1,4 @@
-@testset "Transportation" begin
+@testset "Transportation" verbose = true begin
 
     @testset "Balance Check - Demand > Supply" begin
         t = TransportationProblem(

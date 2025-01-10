@@ -1,4 +1,4 @@
-@testset "Maximum Flow" begin
+@testset "Maximum Flow" verbose = true begin
     @testset "Basic Maximum Flow example" begin
         # x12 = 20
         # x13 = 30

@@ -1,4 +1,4 @@
-@testset "CPM" begin
+@testset "CPM" verbose = true begin
 
     @testset "earliest finishing times of activities" begin
         A = CpmActivity("A", 3)

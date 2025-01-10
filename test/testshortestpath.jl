@@ -1,4 +1,4 @@
-@testset "Shortest Path" begin
+@testset "Shortest Path" verbose = true begin
 
     @testset "Simple Problem 1" begin
 

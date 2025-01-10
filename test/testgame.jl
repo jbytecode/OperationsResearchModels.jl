@@ -1,4 +1,4 @@
-@testset "Game Test" begin
+@testset "Game Test" verbose = true begin
     @testset "Two-players zero-sum game example" begin
         tol = 0.00001
 

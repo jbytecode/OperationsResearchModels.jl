@@ -1,4 +1,4 @@
-@testset "Latex converter" begin
+@testset "Latex converter" verbose = true begin
 
     @testset "Transportation Table to Latex" begin
 

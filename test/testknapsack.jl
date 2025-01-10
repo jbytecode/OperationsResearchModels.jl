@@ -1,4 +1,4 @@
-@testset "Knapsack" begin
+@testset "Knapsack" verbose = true begin
 
     @testset "Problem 1" begin
         values = [1, 2, 3, 4, 5]

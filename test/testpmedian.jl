@@ -1,4 +1,4 @@
-@testset "p-median" begin
+@testset "p-median" verbose = true begin
 
     @testset "2-d example" begin
         coords = Float64[

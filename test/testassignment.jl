@@ -1,4 +1,4 @@
-@testset "Assignment Problem" begin
+@testset "Assignment Problem" verbose = true begin
 
     @testset "Simple Assigment Problem" begin
         mat = [

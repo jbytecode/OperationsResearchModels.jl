@@ -1,4 +1,4 @@
-@testset "Pert" begin
+@testset "Pert" verbose = true begin
     @testset "Basic Pert" begin
         A = PertActivity("A", 1, 2, 3)
         B = PertActivity("B", 3, 3, 3)

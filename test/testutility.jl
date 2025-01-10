@@ -1,6 +1,6 @@
 using OperationsResearchModels.Utility 
 
-@testset "Utility" begin 
+@testset "Utility" verbose = true begin 
 
     @testset "numround" begin 
         @test numround(123.123456789) == 123.123      
