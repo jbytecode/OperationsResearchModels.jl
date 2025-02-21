@@ -44,7 +44,7 @@
         @test balancedT.demand |> last == 200
     end
 
-    @testset "Solution" begin
+    @testset "Solution - 1" begin
         #=
         |        |  D1       |  D2      |  D3      |  D4       |  Supply  |
         |  S1    |  1        |  5 (100) |  7       |  8        |  100     |
@@ -76,6 +76,18 @@
             100 0 0 100
         ]
     end
+
+    @testset "Solution - 2" begin 
+        t = TransportationProblem(
+            Float64[10 20 25; 12 15 7],
+            Float64[190, 40, 20],
+            Float64[150, 100])
+
+        result = solve(t)
+
+        @test result.cost == 2720.0
+        @test result.solution == [150.0 0.0 0.0; 40.0 40.0 20.0]
+    end 
 
     @testset "North-West Corner" begin
         @testset "Example 1" begin
