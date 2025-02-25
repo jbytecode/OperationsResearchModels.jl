@@ -27,3 +27,5 @@ Manifest.toml
 # test.jl file is created for development purposes only
 test.jl
 
+.vscode/
+

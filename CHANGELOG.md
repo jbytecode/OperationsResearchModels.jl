@@ -1,5 +1,7 @@
 ### 0.2.5 (Upcoming Release)
 
+- Add new tests for CPM
+
 
 ### 0.2.4
 

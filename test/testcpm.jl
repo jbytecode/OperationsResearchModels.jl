@@ -1,5 +1,22 @@
 @testset "CPM" verbose = true begin
 
+    @testset "Mini CPM Problem" begin 
+        A = CpmActivity("A", 5)
+        B = CpmActivity("B", 10)
+        C = CpmActivity("C", 8, [A, B])
+
+        problem = CpmProblem([A, B, C])
+
+        result = solve(problem)
+
+        @test result isa CpmResult
+        @test result.pathstr == ["B", "C"]
+        @test result.path == [B, C]
+        @test earliestfinishtime(A) == 5
+        @test earliestfinishtime(B) == 10
+        @test earliestfinishtime(C) == 18
+    end 
+
     @testset "earliest finishing times of activities" begin
         A = CpmActivity("A", 3)
         B = CpmActivity("B", 2)
