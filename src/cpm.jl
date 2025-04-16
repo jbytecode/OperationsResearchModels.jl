@@ -116,11 +116,11 @@ function earliestfinishtime(activity::CpmActivity)
     return maximum(v) + activity.time
 end
 
-function longestactivity(activies::Vector{CpmActivity})::CpmActivity
+function longestactivity(activities::Vector{CpmActivity})::CpmActivity
     activity = CpmActivity("", -1, CpmActivity[])
     maxval = typemin(Float64)
 
-    for a in activies
+    for a in activities
         ea = earliestfinishtime(a)
         if ea > maxval
             maxval = ea

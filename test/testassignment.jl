@@ -1,6 +1,6 @@
 @testset "Assignment Problem" verbose = true begin
 
-    @testset "Simple Assigment Problem" begin
+    @testset "Simple Assignment Problem" begin
         mat = [
             4 8 1
             3 1 9

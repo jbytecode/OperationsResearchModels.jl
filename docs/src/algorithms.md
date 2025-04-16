@@ -46,7 +46,7 @@ OperationsResearchModels.CpmActivity
 ```
 
 
-## PERT (Project Evalutation and Review Technique)
+## PERT (Project Evaluation and Review Technique)
 ```@docs
 OperationsResearchModels.solve(problem::PertProblem)
 ```
