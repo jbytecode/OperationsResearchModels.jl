@@ -134,5 +134,19 @@
             @test result.cost == 3510
         end
     end
+    
+    @testset "Big Example - Check if it is solved in reasonable times" verbose = true begin
+        
+        t = TransportationProblem(
+            rand(10:1000, 350, 450) * 1.0,
+            rand(1:100, 450) * 1.0,
+            rand(1:100, 350) * 1.0,
+        )
 
+
+        result = solve(t)
+        
+        @test result.cost > 0
+
+    end
 end
