@@ -151,6 +151,13 @@ function solve(t::TransportationProblem)::TransportationResult
     @constraint(model, sum(x[1:n, j] for j = 1:p) .== newt.supply)
     @constraint(model, sum(x[i, 1:p] for i = 1:n) .== newt.demand)
 
+    initial_solution = northwestcorner(newt).solution 
+    for i in 1:n
+        for j in 1:p
+            JuMP.set_start_value(x[i, j], initial_solution[i, j])
+        end
+    end
+
     optimize!(model)
 
     solution = value.(x)
