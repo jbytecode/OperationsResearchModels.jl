@@ -6,6 +6,10 @@ using JuMP, HiGHS
 
 export TransportationProblem
 export TransportationResult
+export northwestcorner
+export leastcost
+export isbalanced
+export balance
 
 import ..OperationsResearchModels: solve
 
@@ -151,7 +155,7 @@ function solve(t::TransportationProblem)::TransportationResult
     @constraint(model, sum(x[1:n, j] for j = 1:p) .== newt.supply)
     @constraint(model, sum(x[i, 1:p] for i = 1:n) .== newt.demand)
 
-    initial_solution = northwestcorner(newt).solution 
+    initial_solution = northwestcorner(newt).solution
     JuMP.set_start_value.(x, initial_solution)
 
     optimize!(model)
@@ -198,6 +202,33 @@ function northwestcorner(t::TransportationProblem)::TransportationResult
     return result
 end
 
+function leastcost(t::TransportationProblem)::TransportationResult
+    problem = t
+    if !isbalanced(t)
+        problem = balance(t)
+    end
+    supply = Base.copy(problem.supply)
+    demand = Base.copy(problem.demand)
+    n, m = size(problem.costs)
+    asgnmatrix = zeros(Float64, n, m)
+    cost = 0.0
+    while (sum(supply) > 0) && (sum(demand) > 0)
+        mincost = minimum(problem.costs)
+        mincostrow, mincostcol = argmin(problem.costs).I
+        amount = min(supply[mincostrow], demand[mincostcol])
+        asgnmatrix[mincostrow, mincostcol] = amount
+        supply[mincostrow] -= amount
+        demand[mincostcol] -= amount
+        if supply[mincostrow] == 0
+            problem.costs[mincostrow, :] .= Inf
+        elseif demand[mincostcol] == 0
+            problem.costs[:, mincostcol] .= Inf
+        end
+        cost += amount * mincost
+    end
+    result = TransportationResult(t, problem, asgnmatrix, cost)
+    return result
+end
 
 
 end # end of module  

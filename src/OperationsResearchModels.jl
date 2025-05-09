@@ -42,7 +42,12 @@ import .TravelingSalesman
 
 
 import .Transportation:
-    TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
+    TransportationProblem, 
+    TransportationResult, 
+    balance, isbalanced, 
+    northwestcorner, 
+    leastcost
+
 import .ShortestPath: ShortestPathResult, ShortestPathProblem
 
 import .Network: Connection, nodes
@@ -60,7 +65,7 @@ import .RandomKeyGA: Chromosome, run_ga
 import .TravelingSalesman: TravelinSalesmenResult, travelingsalesman
 import .Simplex: SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan
 
-export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner
+export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner, leastcost
 export Connection, ShortestPathResult, MaximumFlowResult, nodes
 export ShortestPathProblem, MaximumFlowProblem
 export AssignmentProblem, AssignmentResult

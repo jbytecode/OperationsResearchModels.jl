@@ -3,12 +3,12 @@ using OperationsResearchModels
 using OperationsResearchModels.Simplex
 
 
+include("testtransportation.jl")
 include("testrandomkeyga.jl")
 include("testtravelingsalesman.jl")
 include("testjohnsons.jl")
 include("testutility.jl")
 include("testjump.jl")
-include("testtransportation.jl")
 include("testassignment.jl")
 include("testshortestpath.jl")
 include("testmaximumflow.jl")
@@ -20,4 +20,5 @@ include("testpert.jl")
 include("testlatex.jl")
 include("testknapsack.jl")
 include("testsimplex.jl")
+
 

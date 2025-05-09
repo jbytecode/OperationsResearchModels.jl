@@ -2,6 +2,7 @@
 
 - Add new tests for CPM
 - Feed an initial feasible solution (with North-West Corner Method) to a Transportation Problem. That makes it 10x faster
+- Implement least cost method for constructing a feasible initial solution to the transportation problems.
 
 
 ### 0.2.4
