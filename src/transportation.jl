@@ -167,6 +167,20 @@ function solve(t::TransportationProblem)::TransportationResult
     return result
 end
 
+"""
+    northwestcorner(a::TransportationProblem)::TransportationResult
+
+# Description
+
+The northwest corner method is a heuristic for finding an initial basic feasible solution to a transportation problem. It starts at the northwest corner of the cost matrix and allocates as much as possible to the cell, then moves either down or right depending on whether the supply or demand has been met.
+The method continues until all supply and demand constraints are satisfied.
+
+# Arguments
+- `a::TransportationProblem`: The problem in type of TransportationProblem
+
+# Output
+- `TransportationResult`: The custom data type that holds problem, solution, and optimum cost.
+"""
 function northwestcorner(t::TransportationProblem)::TransportationResult
     problem = t
     if !isbalanced(t)
@@ -202,6 +216,20 @@ function northwestcorner(t::TransportationProblem)::TransportationResult
     return result
 end
 
+
+"""
+    leastcost(a::TransportationProblem)::TransportationResult
+
+# Description
+
+The least cost method is a heuristic for finding an initial basic feasible solution to a transportation problem. It starts by selecting the cell with the lowest cost and allocating as much as possible to that cell, then it moves to the next lowest cost cell and repeats the process until all supply and demand constraints are satisfied.
+
+# Arguments
+- `a::TransportationProblem`: The problem in type of TransportationProblem
+
+# Output
+- `TransportationResult`: The custom data type that holds problem, solution, and optimum cost.
+"""
 function leastcost(t::TransportationProblem)::TransportationResult
     problem = t
     if !isbalanced(t)

@@ -6,9 +6,25 @@ OperationsResearchModels.solve(a::AssignmentProblem)
 ```
 
 ## Transportation Problem
+
 ```@docs
 OperationsResearchModels.solve(t::TransportationProblem)
 ```
+
+### Initial basic solutions for a transportation problem 
+
+#### North-west Corner Method 
+
+```@docs
+OperationsResearchModels.northwestcorner
+```
+
+#### The Least Cost Method 
+
+```@docs
+OperationsResearchModels.leastcost
+```
+
 
 ## Shortest Path
 ```@docs
