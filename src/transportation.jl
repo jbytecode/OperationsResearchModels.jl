@@ -14,13 +14,40 @@ export balance
 import ..OperationsResearchModels: solve
 
 
+"""
+    TransportationProblem
 
+# Arguments
+
+- `costs::Array{T,2}`: The cost matrix of the transportation problem.
+- `demand::Array{T,1}`: The demand vector of the transportation problem.
+- `supply::Array{T,1}`: The supply vector of the transportation problem.
+
+# Description
+
+The `TransportationProblem` struct represents a transportation problem with a cost matrix, demand vector, and supply vector.
+"""
 mutable struct TransportationProblem{T<:Real}
     costs::Array{T,2}
     demand::Array{T,1}
     supply::Array{T,1}
 end
 
+
+"""
+    TransportationResult(problem, balancedProblem, solution, cost)
+
+# Arguments
+
+- `problem::TransportationProblem`: The original transportation problem.
+- `balancedProblem::TransportationProblem`: The balanced transportation problem.
+- `solution::Matrix`: The solution matrix of the transportation problem.
+- `cost::Real`: The optimal cost of the transportation problem.
+
+# Description
+The `TransportationResult` struct represents the result of solving a transportation problem.
+It contains the original problem, the balanced problem, the solution matrix, and the optimal cost.
+"""
 struct TransportationResult
     originalProblem::TransportationProblem
     balancedProblem::TransportationProblem

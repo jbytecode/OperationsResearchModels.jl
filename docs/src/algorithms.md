@@ -5,10 +5,26 @@
 OperationsResearchModels.solve(a::AssignmentProblem)
 ```
 
+```@docs
+OperationsResearchModels.AssignmentProblem
+```
+
+```@docs
+OperationsResearchModels.AssignmentResult
+```
+
 ## Transportation Problem
 
 ```@docs
 OperationsResearchModels.solve(t::TransportationProblem)
+```
+
+```@docs
+OperationsResearchModels.TransportationProblem
+```
+
+```@docs
+OperationsResearchModels.TransportationResult
 ```
 
 ### Initial basic solutions for a transportation problem 

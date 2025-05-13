@@ -9,11 +9,37 @@ export AssignmentResult
 import ..OperationsResearchModels: solve
 
 
+"""
+    AssignmentProblem
+
+# Arguments
+
+- `costs::Array{T,2}`: The cost matrix of the assignment problem.
+
+# Description
+
+The `AssignmentProblem` struct represents an assignment problem with a cost matrix.
+"""
 struct AssignmentProblem{T<:Real}
     costs::Array{T,2}
 end
 
 
+
+"""
+    AssignmentResult(problem, solution, cost) 
+
+# Arguments
+
+- `problem::AssignmentProblem`: The original assignment problem.
+- `solution::Matrix`: The solution matrix of the assignment problem.
+- `cost::Real`: The optimal cost of the assignment.
+
+# Description
+
+The `AssignmentResult` struct represents the result of solving an assignment problem.
+It contains the original problem, the solution matrix, and the optimal cost.
+"""
 struct AssignmentResult
     problem::AssignmentProblem
     solution::Matrix

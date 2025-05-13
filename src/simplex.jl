@@ -490,11 +490,11 @@ Description:
 
 Arguments:
 
-- obj::Vector: The objective function coefficients.
-- amat::Matrix: The LHS of the constraints.
-- rhs::Vector: The RHS of the constraints.
-- dir::Vector: The directions of the constraints. Can be a vector of LE (<=), GE (>=), or EQ (==).
-- opttype::OptimizationType: The type of the optimization. Can be Maximize or Minimize.
+- `obj::Vector`: The objective function coefficients.
+- `amat::Matrix`: The LHS of the constraints.
+- `rhs::Vector`: The RHS of the constraints.
+- `dir::Vector`: The directions of the constraints. Can be a vector of LE (<=), GE (>=), or EQ (==).
+- `opttype::OptimizationType`: The type of the optimization. Can be Maximize or Minimize.
 
 Returns:
 
@@ -555,8 +555,8 @@ Description:
 
 Arguments:
 
-- A::Matrix: The matrix to find the inverse.
-- verbose::Bool: If true, the intermediate steps are displayed. Default is true.
+- `A::Matrix`: The matrix to find the inverse.
+- `verbose::Bool`: If true, the intermediate steps are displayed. Default is true.
 
 Returns:
 
