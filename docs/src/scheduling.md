@@ -6,13 +6,13 @@
 OperationsResearchModels.johnsons
 ```
 
-### Genetic Algorithm for the problems that cannot be solved with using Johnson's Rule
+## Genetic Algorithm for the problems that cannot be solved with using Johnson's Rule
 
 ```@docs
 OperationsResearchModels.johnsons_ga
 ```
 
-### Makespan
+## Makespan
 
 ```@docs
 OperationsResearchModels.makespan

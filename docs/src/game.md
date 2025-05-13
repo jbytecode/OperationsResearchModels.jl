@@ -1,4 +1,4 @@
-# Zero-Sum Games
+## Zero-Sum Games
 
 ```@docs 
 OperationsResearchModels.game
