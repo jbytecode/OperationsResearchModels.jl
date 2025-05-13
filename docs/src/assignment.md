@@ -1,15 +1,18 @@
+# Assignment Problem 
+
 ## Assignment Problem Solver
 
 ```@docs
 OperationsResearchModels.solve(a::AssignmentProblem)
 ```
 
-## Assignment Problem 
+## AssignmentProblem 
+
 ```@docs
 OperationsResearchModels.AssignmentProblem
 ```
 
-## Assignment Result
+## AssignmentResult
 
 ```@docs
 OperationsResearchModels.AssignmentResult

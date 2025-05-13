@@ -1,5 +1,8 @@
 # Transportation Problem
 
+
+# The Solver 
+
 ```@docs
 OperationsResearchModels.solve(t::TransportationProblem)
 ```
