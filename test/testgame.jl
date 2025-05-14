@@ -13,12 +13,12 @@
         @test isa(result, Array{GameResult,1})
         @test length(result) == 2
 
-        @test isapprox(result[1].value, 0.6666666666666661, atol = tol)
+        @test isapprox(result[1].value, 0.6666666666666661, atol=tol)
 
         @test isapprox(
             result[1].probabilities,
             [0.4666667, 0.5333333, 0.0000000],
-            atol = tol,
+            atol=tol,
         )
     end
 
@@ -39,11 +39,33 @@
 
         @test result[1].value == 0.0
 
-        @test isapprox(result[1].probabilities, [0.333333, 0.333333, 0.33333], atol = tol)
+        @test isapprox(result[1].probabilities, [0.333333, 0.333333, 0.33333], atol=tol)
 
         @test result[2].value == 0.0
 
-        @test isapprox(result[2].probabilities, [0.333333, 0.333333, 0.33333], atol = tol)
+        @test isapprox(result[2].probabilities, [0.333333, 0.333333, 0.33333], atol=tol)
 
+    end
+
+    @testset "Simple Game" begin
+
+        mat = [
+            3 7;
+            5 4
+        ]
+
+        result = game(mat)
+
+        @test isa(result, Array{GameResult,1})
+
+        @test length(result) == 2
+
+        @test result[1].value == 4.6
+
+        @test result[2].value == -4.6
+
+        @test isapprox(result[1].probabilities, [0.2, 0.8], atol=0.00001)
+
+        @test isapprox(result[2].probabilities, [0.6, 0.4], atol=0.00001)
     end
 end
