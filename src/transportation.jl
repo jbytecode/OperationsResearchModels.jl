@@ -45,6 +45,7 @@ end
 - `cost::Real`: The optimal cost of the transportation problem.
 
 # Description
+
 The `TransportationResult` struct represents the result of solving a transportation problem.
 It contains the original problem, the balanced problem, the solution matrix, and the optimal cost.
 """
@@ -120,16 +121,23 @@ end
 
 
 """
-    solve(t)
+    solve(t, initial = NoInitial)
 
 # Arguments 
-`a::TransportationProblem`: The problem in type of TransportationProblem
+
+- `a::TransportationProblem`: The problem in type of TransportationProblem
 
 # Output 
-`TransportationResult`: The custom data type that holds problem, solution, and optimum cost. 
+- `TransportationResult`: The custom data type that holds problem, solution, and optimum cost. 
+- `initial::TransportationResult`: The initial solution of the transportation problem (optional).
 
 # Description 
+
 Solves a transportation problem given by an object of in type `TransportationProblem`.
+
+initial is used to store the initial solution of the transportation problem. Any custom 
+implementation should take a `TransportationProblem` and return a `TransportationResult` object.
+Currently, `northwestcorner` and `leastcost` are implemented as custom initial solutions.
 
 # Example 
 
@@ -168,7 +176,7 @@ Solution:
 [-0.0 -0.0 -0.0 100.0; 100.0 -0.0 -0.0 -0.0; -0.0 -0.0 100.0 -0.0; -0.0 100.0 -0.0 -0.0]
 ```
 """
-function solve(t::TransportationProblem)::TransportationResult
+function solve(t::TransportationProblem; initial::Function = NoInitial)::TransportationResult
     newt = balance(t)
 
     model = JuMP.Model(HiGHS.Optimizer)
@@ -182,7 +190,7 @@ function solve(t::TransportationProblem)::TransportationResult
     @constraint(model, sum(x[1:n, j] for j = 1:p) .== newt.supply)
     @constraint(model, sum(x[i, 1:p] for i = 1:n) .== newt.demand)
 
-    initial_solution = northwestcorner(newt).solution
+    initial_solution = initial(newt).solution
     JuMP.set_start_value.(x, initial_solution)
 
     optimize!(model)
@@ -193,6 +201,8 @@ function solve(t::TransportationProblem)::TransportationResult
     result = TransportationResult(t, newt, solution, cost)
     return result
 end
+
+
 
 """
     northwestcorner(a::TransportationProblem)::TransportationResult
@@ -284,6 +294,11 @@ function leastcost(t::TransportationProblem)::TransportationResult
     result = TransportationResult(t, problem, asgnmatrix, cost)
     return result
 end
+
+
+function NoInitial(t::TransportationProblem)::TransportationResult
+    TransportationResult(t, t, zeros(size(t.costs)), 0.0)
+end 
 
 
 end # end of module  

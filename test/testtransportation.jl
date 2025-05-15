@@ -175,7 +175,7 @@
 
 
 
-    @testset "Big Example - Check if it is solved in reasonable times" verbose = true begin
+    @testset "Big Example with Nortwest-corner initial solution - Check if it is solved in reasonable times" verbose = true begin
 
         t = TransportationProblem(
             rand(10:1000, 350, 450) * 1.0,
@@ -184,7 +184,22 @@
         )
 
 
-        result = solve(t)
+        result = solve(t, initial = northwestcorner)
+
+        @test result.cost > 0
+
+    end
+
+    @testset "Big Example with least cost initial solution - Check if it is solved in reasonable times" verbose = true begin
+
+        t = TransportationProblem(
+            rand(10:1000, 350, 450) * 1.0,
+            rand(1:100, 450) * 1.0,
+            rand(1:100, 350) * 1.0,
+        )
+
+
+        result = solve(t, initial = leastcost)
 
         @test result.cost > 0
 
