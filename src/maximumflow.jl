@@ -26,11 +26,11 @@ end
 
 # Arguments
 
-`problem::MaximumFlowProblem`: The problem in type of MaximumFlowProblem
+- `problem::MaximumFlowProblem`: The problem in type of MaximumFlowProblem
 
 # Output
 
-`MaximumFlowResult`: The custom data type that holds path and flow.
+- `MaximumFlowResult`: The custom data type that holds path and flow.
 
 # Example
 

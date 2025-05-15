@@ -95,6 +95,7 @@ end
     solve(problem::MstProblem)
 
 # Arguments 
+
 - `problem::MstProblem`: The problem in type of MstProblem
 
 # Description
@@ -102,6 +103,7 @@ end
 Obtains the minimum spanning tree. 
 
 # Output 
+
 - `::MstResult`: A MstResult object that holds the results. 
 
 # Examples 

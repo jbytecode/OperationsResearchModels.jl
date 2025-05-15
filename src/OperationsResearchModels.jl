@@ -2,6 +2,13 @@ module OperationsResearchModels
 
 using JuMP, HiGHS
 
+# This function has several methods to solve different types of problems including: 
+# solve(t::TransportationProblem)::TransportationResult
+# solve(s::ShortestPathProblem)::ShortestPathResult
+# solve(m::MaximumFlowProblem)::MaximumFlowResult
+# solve(a::AssignmentProblem)::AssignmentResult
+# solve(g::Game)::GameResult
+# solve(m::MstProblem)::MstResult
 solve() = nothing 
 
 export solve 

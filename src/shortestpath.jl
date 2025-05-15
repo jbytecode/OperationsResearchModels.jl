@@ -31,11 +31,11 @@ Solves a shortest path problem given by an object of in type `ShortestPathProble
 
 # Arguments
 
-`problem::ShortestPathProblem`: The problem in type of ShortestPathProblem
+- `problem::ShortestPathProblem`: The problem in type of ShortestPathProblem
 
 # Output
 
-`ShortestPathResult`: The custom data type that holds path and cost.
+- `ShortestPathResult`: The custom data type that holds path and cost.
 
 # Example
 
