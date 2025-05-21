@@ -15,6 +15,7 @@ OperationsResearchModels.game_solver
 ```
 
 ## GameResult
+
 ```@docs 
 OperationsResearchModels.GameResult
 ```

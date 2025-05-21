@@ -36,6 +36,7 @@ julia> Pkg.add("OperationsResearchModels")
 - [Flow-shop Scheduling using Permutation Encoded Genetic Algorithms (using a Random Key Genetic Algorithm)](https://jbytecode.github.io/OperationsResearchModels.jl/dev/scheduling/#Genetic-Algorithm-for-the-problems-that-cannot-be-solved-with-using-Johnson's-Rule)
 - [Traveling Salesman with Random Key Genetic Algorithm](https://jbytecode.github.io/OperationsResearchModels.jl/dev/travelingsalesman/)
 - [Simplex Method with Real Valued Decision Variables](https://jbytecode.github.io/OperationsResearchModels.jl/dev/simplex/)
+- [2-player zero-sum game solver](https://jbytecode.github.io/OperationsResearchModels.jl/dev/game/)
 
 
 # Notes for the users
