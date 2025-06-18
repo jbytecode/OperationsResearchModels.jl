@@ -39,6 +39,16 @@ julia> Pkg.add("OperationsResearchModels")
 - [2-player zero-sum game solver](https://jbytecode.github.io/OperationsResearchModels.jl/dev/game/)
 
 
+# How to contribute
+
+Please 
+
+- First open an issue and share you idea 
+- Discuss what is your purpose, what is the implementation details 
+- Please provide tests from text books and any other problems that the result is known
+- Use methods of `solve()` function if possible. That requires defining a structure of the given problem
+
+
 # Notes for the users
 
 The package is implemented for mostly academic purposes. The implementations are not optimized for large-scale problems. The users are encouraged to use the package for educational purposes and small-scale problems. 
