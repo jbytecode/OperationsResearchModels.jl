@@ -1,7 +1,7 @@
 ### 0.2.6 (Upcoming Release)
 
 - Make initial solution optional in Transportation problems 
-
+- Add tests for the shortest problem problem
 
 ### 0.2.5 
 
