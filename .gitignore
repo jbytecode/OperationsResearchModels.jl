@@ -28,4 +28,5 @@ Manifest.toml
 test.jl
 
 .vscode/
-
+paper/paper.pdf
+paper/jats
