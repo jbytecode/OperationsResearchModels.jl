@@ -19,6 +19,10 @@ julia> using Pkg
 julia> Pkg.add("OperationsResearchModels")
 ```
 
+# Documentation 
+
+Please visit [https://jbytecode.github.io/OperationsResearchModels.jl/dev/](The Documentation Page). 
+This page includes both the API documentation and examples.
 
 
 # Implemented Problems and Algorithms
