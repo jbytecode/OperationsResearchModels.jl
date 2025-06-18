@@ -19,6 +19,15 @@ julia> using Pkg
 julia> Pkg.add("OperationsResearchModels")
 ```
 
+If you want to install latest source that is not registered yet, you can 
+
+```julia
+julia> ]
+(@1.xx) pkg> add https://github.com/jbytecode/OperationsResearchModels.jl
+```
+
+but it's not recommended.
+
 # Documentation 
 
 Please visit [The Documentation Page](https://jbytecode.github.io/OperationsResearchModels.jl/dev/). 
