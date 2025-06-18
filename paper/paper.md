@@ -20,7 +20,7 @@ bibliography: paper.bib
 
 # Summary
 
-`OperationsResearchModels.jl` is a Julia package [@julia] that offers comprehensive implementations for numerous topics typically covered in an Operations Research curriculum. Its primary objective during development was to serve academic and pedagogical purposes, providing a clear and accessible platform for learning and applying OR concepts. While not optimized for high-performance computing, the package leverages JuMP for its underlying mathematical modeling, which inherently provides a reasonable level of computational efficiency. This design allows the package to deliver a suite of functions that solve classical operations research problems with remarkable ease and consistency, simplifying the process for students and researchers alike.
+`OperationsResearchModels.jl` is a Julia package [@julia] that offers comprehensive implementations for numerous topics typically covered in an Operations Research (OR) curriculum. Its primary objective during development was to serve academic and pedagogical purposes, providing a clear and accessible platform for learning and applying OR concepts. While not optimized for high-performance computing, the package leverages JuMP for its underlying mathematical modeling, which inherently provides a reasonable level of computational efficiency. This design allows the package to deliver a suite of functions that solve classical operations research problems with remarkable ease and consistency, simplifying the process for students and researchers alike.
 
 # Statement of Need
 
@@ -32,8 +32,8 @@ Although the majority of computations are performed by the HiGHS optimizer [@HiG
 
 # An Example
 
-The example below defines a linear transportation problem with a given cost matrix 
-for transportation cost between sources and targets, demand vector of targets, and 
+The example below defines a linear transportation problem with a given matrix 
+of transportation costs between sources and targets, demand vector of targets, and 
 supply vector of sources. 
 
 ```Julia
@@ -60,5 +60,6 @@ julia> result.solution
 
 # Acknowledgements
 
+Our deepest appreciation goes to the Julia core and package developers for creating such a powerful computational tool and supportive environment.
 
 # References
