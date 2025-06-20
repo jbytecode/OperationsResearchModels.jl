@@ -58,7 +58,6 @@
 
         result = solve(problem)
 
-        display(result)
         @test result isa ShortestPathResult
         @test result.cost == 15.0
 
