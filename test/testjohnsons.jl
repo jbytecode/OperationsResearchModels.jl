@@ -109,7 +109,7 @@
 
     @testset "Other types of matrices (UInt8)" begin
 
-        mat = convert(Array{UInt8,2}, rand(1:10, 10, 2))
+        mat = convert(Matrix{UInt8}, rand(1:10, 10, 2))
 
         result = johnsons(mat)
 

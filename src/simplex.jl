@@ -47,7 +47,7 @@ end
 
 function SimplexProblem()::SimplexProblem
     SimplexProblem(
-        Array{Float64,2}(undef, 0, 0),   # LHS 
+        Matrix{Float64}(undef, 0, 0),    # LHS 
         Float64[],                       # RHS 
         Float64[],                       # z 
         Maximize,                        # opttype
@@ -108,7 +108,7 @@ end
 
 function setautomaticvarnames(s::SimplexProblem)
     _, p = size(s.lhs)
-    s.varnames = Array{String,1}(undef, p)
+    s.varnames = Vector{String}(undef, p)
     for i = 1:p
         s.varnames[i] = string("x", i)
     end
@@ -425,7 +425,7 @@ function solve!(s::SimplexProblem)::SimplexProblem
 end
 
 function simplexiterations(s::SimplexProblem)::Vector{SimplexProblem}
-    iterations = Array{SimplexProblem,1}(undef, 0)
+    iterations = Vector{SimplexProblem}(undef, 0)
 
     s1 = copy(s)
     standardform!(s1)

@@ -19,18 +19,18 @@ import ..OperationsResearchModels: solve
 
 # Arguments
 
-- `costs::Array{T,2}`: The cost matrix of the transportation problem.
-- `demand::Array{T,1}`: The demand vector of the transportation problem.
-- `supply::Array{T,1}`: The supply vector of the transportation problem.
+- `costs::Matrix{T}`: The cost matrix of the transportation problem.
+- `demand::Vector{T}`: The demand vector of the transportation problem.
+- `supply::Vector{T}`: The supply vector of the transportation problem.
 
 # Description
 
 The `TransportationProblem` struct represents a transportation problem with a cost matrix, demand vector, and supply vector.
 """
 mutable struct TransportationProblem{T<:Real}
-    costs::Array{T,2}
-    demand::Array{T,1}
-    supply::Array{T,1}
+    costs::Matrix{T}
+    demand::Vector{T}
+    supply::Vector{T}
 end
 
 

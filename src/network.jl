@@ -18,7 +18,7 @@ struct Connection
 end
 
 
-function nodes(cns::Array{Connection,1})::Set{Int64}
+function nodes(cns::Vector{Connection})::Set{Int64}
     s = Set{Int64}()
     for conn in cns
         push!(s, conn.from)
@@ -27,7 +27,7 @@ function nodes(cns::Array{Connection,1})::Set{Int64}
     return s
 end
 
-function iseveronleft(cns::Array{Connection,1}, n::Int64)::Bool
+function iseveronleft(cns::Vector{Connection}, n::Int64)::Bool
     for conn in cns
         if conn.from == n
             return true
@@ -36,7 +36,7 @@ function iseveronleft(cns::Array{Connection,1}, n::Int64)::Bool
     return false
 end
 
-function iseveronright(cns::Array{Connection,1}, n::Int64)::Bool
+function iseveronright(cns::Vector{Connection}, n::Int64)::Bool
     for conn in cns
         if conn.to == n
             return true
@@ -45,7 +45,7 @@ function iseveronright(cns::Array{Connection,1}, n::Int64)::Bool
     return false
 end
 
-function finish(cns::Array{Connection,1})::Int64
+function finish(cns::Vector{Connection})::Int64
     nodeset = nodes(cns)
     for n in nodeset
         if !iseveronleft(cns, n)
@@ -55,7 +55,7 @@ function finish(cns::Array{Connection,1})::Int64
     error("No finish node found in connection list.")
 end
 
-function start(cns::Array{Connection,1})::Int64
+function start(cns::Vector{Connection})::Int64
     nodeset = nodes(cns)
     for n in nodeset
         if !iseveronright(cns, n)

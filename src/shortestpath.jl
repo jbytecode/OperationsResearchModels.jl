@@ -12,11 +12,11 @@ export ShortestPathResult
 
 
 struct ShortestPathProblem 
-    connections::Array{Connection,1}
+    connections::Vector{Connection}
 end 
 
 struct ShortestPathResult
-    path::Array{Connection,1}
+    path::Vector{Connection}
     cost::Float64
 end
 
@@ -68,7 +68,7 @@ function solve(problem::ShortestPathProblem)
 
     cns = problem.connections
 
-    function leftexpressions(node::Int64, nodes::Array{Connection,1}, model)
+    function leftexpressions(node::Int64, nodes::Vector{Connection}, model)
         lst = []
         for conn in nodes
             if conn.to == node
@@ -85,7 +85,7 @@ function solve(problem::ShortestPathProblem)
         return expr
     end
 
-    function rightexpressions(node::Int64, nodes::Array{Connection,1}, model)
+    function rightexpressions(node::Int64, nodes::Vector{Connection}, model)
         lst = []
         for conn in nodes
             if conn.from == node

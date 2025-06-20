@@ -14,14 +14,14 @@ import ..OperationsResearchModels: solve
 
 # Arguments
 
-- `costs::Array{T,2}`: The cost matrix of the assignment problem.
+- `costs::Matrix{T}`: The cost matrix of the assignment problem.
 
 # Description
 
 The `AssignmentProblem` struct represents an assignment problem with a cost matrix.
 """
 struct AssignmentProblem{T<:Real}
-    costs::Array{T,2}
+    costs::Matrix{T}
 end
 
 

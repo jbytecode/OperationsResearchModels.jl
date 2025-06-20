@@ -227,7 +227,7 @@ function makespan(times::Matrix, permutation::Vector{Int})::Float64
 
     n, m = size(times)
 
-    timetable = Array{Process,2}(undef, m, n)
+    timetable = Matrix{Process}(undef, m, n)
 
     for machine_id in 1:m
         for task_id in 1:n

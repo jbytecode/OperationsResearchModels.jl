@@ -226,7 +226,7 @@ function findpertactivities(
     pertactivities::Vector{PertActivity},
 )
     L = length(cpmpath)
-    perts = Array{PertActivity,1}(undef, L)
+    perts = Vector{PertActivity}(undef, L)
     for i = 1:L
         currentcpmactivity = cpmpath[i]
         pertactivity = filter(x -> x.name == currentcpmactivity.name, pertactivities)[1]
@@ -284,7 +284,7 @@ function solve(problem::PertProblem)::PertResult
 
     L = length(activities)
 
-    cpmactivities = Array{CpmActivity,1}(undef, L)
+    cpmactivities = Vector{CpmActivity}(undef, L)
 
     for i = 1:L
         current::PertActivity = activities[i]

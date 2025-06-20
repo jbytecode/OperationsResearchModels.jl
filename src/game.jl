@@ -24,7 +24,7 @@ end
 
 
 """
-    game(decisionMatrix::Matrix{<:Real}; verbose::Bool = false)::Array{GameResult,1}
+    game(decisionMatrix::Matrix{<:Real}; verbose::Bool = false)::Vector{GameResult}
 
     Solves a zero-sum game using the simplex method.
 
@@ -36,7 +36,7 @@ end
 # Returns
 - An array of `GameResult` objects containing the probabilities and value of the game.
 """
-function game(decisionMatrix::Matrix{<:Real}; verbose::Bool = false)::Array{GameResult,1}
+function game(decisionMatrix::Matrix{<:Real}; verbose::Bool = false)::Vector{GameResult}
     rowplayers_result = game_solver(decisionMatrix, verbose = verbose)
     columnplayers_result = game_solver(Matrix(decisionMatrix') * -1.0, verbose = verbose)
     return [rowplayers_result, columnplayers_result]

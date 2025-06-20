@@ -10,7 +10,7 @@
 
         result = game(mat)
 
-        @test isa(result, Array{GameResult,1})
+        @test isa(result, Vector{GameResult})
         @test length(result) == 2
 
         @test isapprox(result[1].value, 0.6666666666666661, atol=tol)
@@ -34,7 +34,7 @@
 
         result = game(mat)
 
-        @test isa(result, Array{GameResult,1})
+        @test isa(result, Vector{GameResult})
         @test length(result) == 2
 
         @test result[1].value == 0.0
@@ -56,7 +56,7 @@
 
         result = game(mat)
 
-        @test isa(result, Array{GameResult,1})
+        @test isa(result, Vector{GameResult})
 
         @test length(result) == 2
 
