@@ -2,6 +2,8 @@
 
 - Make initial solution optional in Transportation problems 
 - Add tests for the shortest problem problem
+- Add a 100x100 test problem for assignment
+
 
 ### 0.2.5 
 
