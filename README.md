@@ -1,4 +1,5 @@
 [![Doc](https://img.shields.io/badge/docs-dev-blue.svg)](https://jbytecode.github.io/OperationsResearchModels.jl/dev/)
+[![status](https://joss.theoj.org/papers/0f312c63cdc147d43c2b899478461769/status.svg)](https://joss.theoj.org/papers/0f312c63cdc147d43c2b899478461769)
 
 # OperationsResearchModels.jl
 
