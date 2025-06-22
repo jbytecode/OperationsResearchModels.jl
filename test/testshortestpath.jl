@@ -66,4 +66,36 @@
         end
         
     end 
+
+    @testset "Simple Problem - Two way connections" begin 
+        problem = ShortestPathProblem(
+            Connection[
+                Connection(1, 2, 4),    #1
+                Connection(1, 3, 15),   #2 
+
+                # Two way connection
+                Connection(2, 3, 2),    #3
+                Connection(3, 2, 3),    #4
+
+                Connection(2, 4, 15),   #5
+                Connection(3, 4, 6),    #6
+            ]
+        )
+
+        # Shortest path: 1 -> 2 -> 3 -> 4
+        CorrectShortestPath = [
+            problem.connections[1], 
+            problem.connections[3], 
+            problem.connections[6]]
+
+        result = solve(problem)
+
+        @test result isa ShortestPathResult
+        @test result.cost == 12.0
+
+        for element in result.path
+            @test element in CorrectShortestPath
+        end
+        
+    end
 end
