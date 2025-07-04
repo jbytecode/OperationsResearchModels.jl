@@ -19,6 +19,7 @@ include("transportation.jl")
 include("assignment.jl")
 include("shortestpath.jl")
 include("maximumflow.jl")
+include("minimumcostflow.jl")
 include("game.jl")
 include("mst.jl")
 include("pmedian.jl")
@@ -35,6 +36,7 @@ import .Transportation
 import .Assignment
 import .ShortestPath
 import .MaximumFlow
+import .MinimumCostFlow
 import .Game
 import .MinimumSpanningTree
 import .PMedian
@@ -59,7 +61,7 @@ import .ShortestPath: ShortestPathResult, ShortestPathProblem
 
 import .Network: Connection, nodes
 import .MaximumFlow: MaximumFlowResult, MaximumFlowProblem
-import .MaximumFlow: MinimumCostFlowProblem, MinimumCostFlowResult
+import .MinimumCostFlow: MinimumCostFlowProblem, MinimumCostFlowResult
 import .Assignment: AssignmentProblem, AssignmentResult
 import .Game: game, GameResult, game_solver
 import .MinimumSpanningTree: hasloop, MstResult, MstProblem

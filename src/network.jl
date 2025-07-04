@@ -1,5 +1,7 @@
 module Network
 
+using JuMP
+
 export Connection
 export nodes
 export iseveronleft
@@ -7,6 +9,10 @@ export iseveronright
 export finish
 export start
 export ShortestPathProblem
+export rightexpressions
+export leftexpressions
+export hassameorder
+
 
 
 struct Connection
@@ -63,6 +69,61 @@ function start(cns::Vector{Connection})::Int64
         end
     end
     error("No start node found in connection list.")
+end
+
+
+
+function rightexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)
+    lst = []
+    for conn in nodes
+        if conn.from == node
+            push!(lst, conn)
+        end
+    end
+    if length(lst) == 0
+        return :f
+    end
+    expr = @expression(model, 0)
+    for i = eachindex(lst)
+        expr += x[lst[i].from, lst[i].to]
+    end
+    return expr
+end
+
+
+
+function leftexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)
+    lst = []
+    for conn in nodes
+        if conn.to == node
+            push!(lst, conn)
+        end
+    end
+    if length(lst) == 0
+        return :f
+    end
+    expr = @expression(model, 0)
+    for i = eachindex(lst)
+        expr += x[lst[i].from, lst[i].to]
+    end
+    return expr
+end
+
+
+
+function hassameorder(a::Vector{Connection}, b::Vector{Connection})::Bool
+
+    if length(a) != length(b)
+        return false
+    end
+
+    for i = 1:length(a)
+        if a[i].from != b[i].from || a[i].to != b[i].to
+            return false
+        end
+    end
+
+    return true
 end
 
 
