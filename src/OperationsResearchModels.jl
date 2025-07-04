@@ -6,6 +6,9 @@ using JuMP, HiGHS
 # solve(t::TransportationProblem)::TransportationResult
 # solve(s::ShortestPathProblem)::ShortestPathResult
 # solve(m::MaximumFlowProblem)::MaximumFlowResult
+# solve(m::MinimumCostFlowProblem)::MinimumCostFlowResult
+# solve(m::CpmProblem)::CpmResult
+# solve(m: PertProblem)::PertResult
 # solve(a::AssignmentProblem)::AssignmentResult
 # solve(g::Game)::GameResult
 # solve(m::MstProblem)::MstResult
