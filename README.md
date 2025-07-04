@@ -41,6 +41,7 @@ This page includes both the API documentation and examples.
 - [Transportation Problem](https://jbytecode.github.io/OperationsResearchModels.jl/dev/transportation/)
 - [The Shortest Path](https://jbytecode.github.io/OperationsResearchModels.jl/dev/network/#Shortest-Path)
 - [Maximum Flow](https://jbytecode.github.io/OperationsResearchModels.jl/dev/network/#Maximum-Flow)
+- [Minimum Cost-Flow](https://jbytecode.github.io/OperationsResearchModels.jl/dev/network/#Minimum-Cost-Flow)
 - [Minimum Spanning Tree](https://jbytecode.github.io/OperationsResearchModels.jl/dev/network/#Minimum-Spanning-Tree)
 - [p-median for Location Selection](https://jbytecode.github.io/OperationsResearchModels.jl/dev/locationselection/)
 - [CPM - Critical Path Method](https://jbytecode.github.io/OperationsResearchModels.jl/dev/project/#CPM-(Critical-Path-Method))
