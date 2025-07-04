@@ -59,6 +59,7 @@ import .ShortestPath: ShortestPathResult, ShortestPathProblem
 
 import .Network: Connection, nodes
 import .MaximumFlow: MaximumFlowResult, MaximumFlowProblem
+import .MaximumFlow: MinimumCostFlowProblem, MinimumCostFlowResult
 import .Assignment: AssignmentProblem, AssignmentResult
 import .Game: game, GameResult, game_solver
 import .MinimumSpanningTree: hasloop, MstResult, MstProblem
@@ -73,8 +74,8 @@ import .TravelingSalesman: TravelinSalesmenResult, travelingsalesman
 import .Simplex: SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner, leastcost
-export Connection, ShortestPathResult, MaximumFlowResult, nodes
-export ShortestPathProblem, MaximumFlowProblem
+export Connection, ShortestPathResult, MaximumFlowResult, MinimumCostFlowResult, nodes
+export ShortestPathProblem, MaximumFlowProblem, MinimumCostFlowProblem
 export AssignmentProblem, AssignmentResult
 export game, GameResult, game_solver
 export hasloop, MstResult, MstProblem

@@ -6,8 +6,8 @@ using JuMP, HiGHS
 import ..OperationsResearchModels: solve
 
 
-export MaximumFlowProblem
-export MaximumFlowResult
+export MaximumFlowProblem, MaximumFlowResult
+export MinimumCostFlowProblem, MinimumCostFlowResult
 
 
 struct MaximumFlowResult
@@ -19,6 +19,66 @@ struct MaximumFlowProblem
     connections::Vector{Connection}
 end
 
+struct MinimumCostFlowProblem
+    connections::Vector{Connection}
+    costs::Vector{Connection}
+end
+
+struct MinimumCostFlowResult 
+    path::Vector{Connection}
+    cost::Float64
+end 
+
+
+function leftexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)
+    lst = []
+    for conn in nodes
+        if conn.to == node
+            push!(lst, conn)
+        end
+    end
+    if length(lst) == 0
+        return :f
+    end
+    expr = @expression(model, 0)
+    for i = eachindex(lst)
+        expr += x[lst[i].from, lst[i].to]
+    end
+    return expr
+end
+
+function rightexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)
+    lst = []
+    for conn in nodes
+        if conn.from == node
+            push!(lst, conn)
+        end
+    end
+    if length(lst) == 0
+        return :f
+    end
+    expr = @expression(model, 0)
+    for i = eachindex(lst)
+        expr += x[lst[i].from, lst[i].to]
+    end
+    return expr
+end
+
+
+function hassameorder(a::Vector{Connection}, b::Vector{Connection})::Bool
+
+    if length(a) != length(b)
+        return false
+    end
+
+    for i = 1:length(a)
+        if a[i].from != b[i].from || a[i].to != b[i].to
+            return false
+        end
+    end
+
+    return true
+end
 
 """
 
@@ -65,44 +125,9 @@ julia> result.flow
 7.0
 ```
 """
-function solve(problem::MaximumFlowProblem)
+function solve(problem::MaximumFlowProblem)::MaximumFlowResult
 
     cns = problem.connections
-
-    function leftexpressions(node::Int64, nodes::Vector{Connection}, model)
-        lst = []
-        for conn in nodes
-            if conn.to == node
-                push!(lst, conn)
-            end
-        end
-        if length(lst) == 0
-            return :f
-        end
-        expr = @expression(model, 0)
-        for i = eachindex(lst)
-            expr += x[lst[i].from, lst[i].to]
-        end
-        return expr
-    end
-
-    function rightexpressions(node::Int64, nodes::Vector{Connection}, model)
-        lst = []
-        for conn in nodes
-            if conn.from == node
-                push!(lst, conn)
-            end
-        end
-        if length(lst) == 0
-            return :f
-        end
-        expr = @expression(model, 0)
-        for i = eachindex(lst)
-            expr += x[lst[i].from, lst[i].to]
-        end
-        return expr
-    end
-
 
     model = Model(HiGHS.Optimizer)
     MOI.set(model, MOI.Silent(), true)
@@ -122,8 +147,8 @@ function solve(problem::MaximumFlowProblem)
 
     # Constraints 
     for nextnode in mynodes
-        leftexpr = leftexpressions(nextnode, cns, model)
-        rightexpr = rightexpressions(nextnode, cns, model)
+        leftexpr = leftexpressions(x, nextnode, cns, model)
+        rightexpr = rightexpressions(x, nextnode, cns, model)
         if leftexpr == :f
             @constraint(model, rightexpr == f)
         elseif rightexpr == :f
@@ -156,5 +181,102 @@ function solve(problem::MaximumFlowProblem)
 end
 
 
+
+"""
+    solve(problem, flow)
+
+# Description
+
+This function solves the Minimum Cost Flow problem given a flow value.
+
+# Arguments
+
+- `problem::MinimumCostFlowProblem`: The problem in type of MinimumCostFlowProblem
+- `flow::Float64`: The flow value to be used in the problem.
+
+
+"""
+function solve(problem::MinimumCostFlowProblem, flow::Float64)::MinimumCostFlowResult
+    cns = problem.connections
+    costs = problem.costs
+
+    if !hassameorder(cns, costs)
+        throw(ArgumentError("Connections and costs must have the same order."))
+    end
+
+    model = Model(HiGHS.Optimizer)
+    MOI.set(model, MOI.Silent(), true)
+
+    mynodes = nodes(cns)
+    n = length(mynodes)
+
+    startnode = start(cns)
+    finishnode = finish(cns)
+
+    # Variables 
+    @variable(model, x[1:n, 1:n] .>= 0)
+
+    # Objective Function
+    @objective(model, Max, sum(x[conn.from, conn.to] * conn.value for conn in costs))
+
+    # Constraints 
+    for nextnode in mynodes
+        leftexpr = leftexpressions(x, nextnode, cns, model)
+        rightexpr = rightexpressions(x, nextnode, cns, model)
+        if leftexpr == :f
+            @constraint(model, rightexpr == flow)
+        elseif rightexpr == :f
+            @constraint(model, leftexpr == flow)
+        else
+            @constraint(model, leftexpr - rightexpr == 0)
+        end
+    end
+
+    for nd in cns
+        @constraint(model, x[nd.from, nd.to] <= nd.value)
+    end
+
+    optimize!(model)
+
+    xs = value.(x)
+    cost = JuMP.objective_value(model)
+    solutionnodes = []
+    for i = 1:n
+        for j = 1:n
+            if xs[i, j] > 0
+                push!(solutionnodes, Connection(i, j, xs[i, j]))
+            end
+        end
+    end
+
+    return MinimumCostFlowResult(solutionnodes, cost)
+end 
+
+
+"""
+    solve(problem)
+
+# Description
+
+This function solves the Minimum Cost Flow problem by first solving the Maximum Flow problem and 
+then using the flow value to solve the Minimum Cost Flow problem.
+
+# Arguments
+
+- `problem::MinimumCostFlowProblem`: The problem in type of MinimumCostFlowProblem
+
+"""
+function solve(problem::MinimumCostFlowProblem)::MinimumCostFlowResult
+
+    maximumflowproblem = MaximumFlowProblem(problem.connections)
+
+    maximumflowresult = solve(maximumflowproblem)
+
+    f = maximumflowresult.flow
+
+    result::MinimumCostFlowResult = solve(problem, f)
+    
+    return result
+end 
 
 end # end of module
