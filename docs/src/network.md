@@ -12,6 +12,17 @@ OperationsResearchModels.solve(t::ShortestPathProblem)
 OperationsResearchModels.solve(t::MaximumFlowProblem)
 ```
 
+## Minimum Cost Flow 
+
+```@docs
+OperationsResearchModels.solve(t::MinimumCostFlowProblem)
+```
+
+
+```@docs
+OperationsResearchModels.solve(t::MinimumCostFlowProblem, flow::Float64)
+```
+
 ## Minimum Spanning Tree
 
 ```@docs
