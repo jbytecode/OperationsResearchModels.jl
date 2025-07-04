@@ -217,7 +217,7 @@ function solve(problem::MinimumCostFlowProblem, flow::Float64)::MinimumCostFlowR
     @variable(model, x[1:n, 1:n] .>= 0)
 
     # Objective Function
-    @objective(model, Max, sum(x[conn.from, conn.to] * conn.value for conn in costs))
+    @objective(model, Min, sum(x[conn.from, conn.to] * conn.value for conn in costs))
 
     # Constraints 
     for nextnode in mynodes
