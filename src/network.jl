@@ -8,7 +8,6 @@ export iseveronleft
 export iseveronright
 export finish
 export start
-export ShortestPathProblem
 export rightexpressions
 export leftexpressions
 export hassameorder
