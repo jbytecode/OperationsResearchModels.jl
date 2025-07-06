@@ -72,7 +72,7 @@ end
 
 
 
-function rightexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)
+function rightexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)::Union{JuMP.AffExpr, Symbol}
     lst = []
     for conn in nodes
         if conn.from == node
@@ -91,7 +91,7 @@ end
 
 
 
-function leftexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)
+function leftexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)::Union{JuMP.AffExpr, Symbol}
     lst = []
     for conn in nodes
         if conn.to == node
