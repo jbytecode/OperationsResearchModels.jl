@@ -151,6 +151,7 @@
 
         @test result.problem isa AssignmentProblem
         @test result.cost == 2.0
+        @test size(result.solution) == (3, 3)
         @test result.solution == [
             0 0 1
             0 1 0
@@ -168,12 +169,11 @@
 
         @test result.problem isa AssignmentProblem
         @test result.cost == 2.0
-        @test result.solution == [
-            0 0 1 0
-            0 1 0 0
-            0 0 0 1
-            1 0 0 0
-        ]
+        @test size(result.solution) == (4, 4)
+        
+        # Problem has alternative solutions.
+        @test result.solution[1, 3] == 1
+        @test result.solution[2, 2] == 1
     end
 
     @testset "Solve Unbalanced Assignment Problem (3x2)" begin
@@ -187,6 +187,7 @@
 
         @test result.problem isa AssignmentProblem
         @test result.cost == 2.0
+        @test size(result.solution) == (3, 3)
         @test result.solution == [
             0 0 1
             0 1 0 
@@ -206,11 +207,12 @@
 
         @test result.problem isa AssignmentProblem
         @test result.cost == 2.0
-        @test result.solution == [
-            0 0 0 1
-            0 1 0 0
-            1 0 0 0
-            0 0 1 0
-        ]
+    
+
+        @test size(result.solution) == (4, 4)
+
+        # Problem has alternative solutions.
+        @test result.solution[2, 2] == 1
+        @test result.solution[3, 1] == 1
     end
 end
