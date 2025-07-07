@@ -14,7 +14,19 @@ using JuMP, HiGHS
 # solve(m::MstProblem)::MstResult
 solve() = nothing 
 
+# balance(m::TransportationProblem)::TransportationProblem
+# balance(a::AssignmentProblem)::AssignmentProblem
+balance() = nothing
+
+# isbalanced(m::TransportationProblem)::Bool
+# isbalanced(a::AssignmentProblem)::Bool
+isbalanced() = nothing
+
+
 export solve 
+export balance
+export isbalanced 
+
 
 include("utility.jl")
 include("network.jl")
@@ -65,7 +77,7 @@ import .ShortestPath: ShortestPathResult, ShortestPathProblem
 import .Network: Connection, nodes
 import .MaximumFlow: MaximumFlowResult, MaximumFlowProblem
 import .MinimumCostFlow: MinimumCostFlowProblem, MinimumCostFlowResult
-import .Assignment: AssignmentProblem, AssignmentResult
+import .Assignment: AssignmentProblem, AssignmentResult, isbalanced, balance
 import .Game: game, GameResult, game_solver
 import .MinimumSpanningTree: hasloop, MstResult, MstProblem
 import .PMedian: pmedian, pmedian_with_distances, PMedianResult
@@ -81,7 +93,7 @@ import .Simplex: SimplexProblem, simplexiterations, createsimplexproblem, gaussj
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner, leastcost
 export Connection, ShortestPathResult, MaximumFlowResult, MinimumCostFlowResult, nodes
 export ShortestPathProblem, MaximumFlowProblem, MinimumCostFlowProblem
-export AssignmentProblem, AssignmentResult
+export AssignmentProblem, AssignmentResult, isbalanced, balance
 export game, GameResult, game_solver
 export hasloop, MstResult, MstProblem
 export pmedian, pmedian_with_distances, PMedianResult

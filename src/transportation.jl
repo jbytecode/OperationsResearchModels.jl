@@ -11,7 +11,7 @@ export leastcost
 export isbalanced
 export balance
 
-import ..OperationsResearchModels: solve
+import ..OperationsResearchModels: solve, balance, isbalanced
 
 
 """
