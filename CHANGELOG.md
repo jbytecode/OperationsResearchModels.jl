@@ -5,7 +5,7 @@
 ### 0.2.6
 
 - Make initial solution optional in Transportation problems 
-- Add tests for the shortest problem problem
+- Add tests for the shortest path problem
 - Add a 100x100 test problem for assignment
 - Replace `Array{Type, 1}` and `Array{Type, 2}` with `Vector{T}` and `Matrix{Type}`, respectively
 - Implement `isbalanced` and `balance` for Assignment Problem
