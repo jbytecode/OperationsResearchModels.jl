@@ -24,7 +24,9 @@ bibliography: paper.bib
 
 # State of the field
 
-Gurobi OptiMods is an open-source Python package that provides pre-implemented optimization use cases built on the Gurobi solver. Each module includes comprehensive documentation detailing its application and the underlying mathematical model [@gurobi-optimods]. Julia's `Graphs.jl` [@Graphs2021] package provides efficient methods for important network analysis topics such as minimal spanning tree and the shortest path. 
+Gurobi OptiMods is an open-source Python package that provides pre-implemented optimization use cases built on the Gurobi solver. Each module includes comprehensive documentation detailing its application and the underlying mathematical model [@gurobi-optimods]. Julia's `Graphs.jl` [@Graphs2021] package provides efficient methods for important network analysis topics such as minimal spanning tree and the shortest path. Google's OR-Tools is an open-source suite for solving optimization problems of Operations Research area. It provides a unified interface to various high-performance solvers and offers numerous examples for a wide range of applications, including vehicle routing, scheduling, and network flow. This makes it a versatile platform for researchers and practitioners to develop and implement advanced optimization solutions [@ortools]. Although many software packages offer solvers for optimization, a comprehensive and educational data-driven solution is not readily available, at least for the Julia language.
+
+`Julia Programming for Operations Research` [@kwon2019julia], a pioneering book in its field, serves as a testament to the fact that most topics in Operations Research courses can be addressed using only the Julia language, the JuMP [@JuMP] package, and a selection of solvers. The `OperationsResearch.jl` package, in turn, provides a data-driven approach to this tooling.
 
 # Statement of Need
 
