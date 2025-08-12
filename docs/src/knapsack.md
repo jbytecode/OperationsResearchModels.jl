@@ -1,6 +1,12 @@
 # The Classical Knapsack Problem Solver
 
 
+## KnapsackProblem 
+
+```@docs 
+OperationsResearchModels.KnapsackProblem
+```
+
 
 ## The Solver 
 
@@ -8,12 +14,6 @@
 OperationsResearchModels.solve(p::KnapsackProblem)
 ```
 
-
-## KnapsackProblem 
-
-```@docs 
-OperationsResearchModels.KnapsackProblem
-```
 
 ## KnapsackResult
 

@@ -4,11 +4,11 @@
 # The Solver 
 
 ```@docs
-OperationsResearchModels.solve(t::TransportationProblem)
+OperationsResearchModels.TransportationProblem
 ```
 
 ```@docs
-OperationsResearchModels.TransportationProblem
+OperationsResearchModels.solve(t::TransportationProblem)
 ```
 
 ```@docs
