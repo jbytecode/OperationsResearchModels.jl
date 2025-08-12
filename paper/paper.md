@@ -22,6 +22,10 @@ bibliography: paper.bib
 
 `OperationsResearchModels.jl` is a Julia package [@julia] that offers comprehensive implementations for numerous topics typically covered in an Operations Research (OR) curriculum. Its primary objective during development was to serve academic and pedagogical purposes, providing a clear and accessible platform for learning and applying OR concepts. While not optimized for high-performance computing, the package leverages JuMP for its underlying mathematical modeling, which inherently provides a reasonable level of computational efficiency. This design allows the package to deliver a suite of functions that solve classical operations research problems with remarkable ease and consistency, simplifying the process for students and researchers alike.
 
+# State of the field
+
+Gurobi OptiMods is an open-source Python package that provides pre-implemented optimization use cases built on the Gurobi solver. Each module includes comprehensive documentation detailing its application and the underlying mathematical model [@gurobi-optimods]. Julia's `Graphs.jl` [Graphs2021] package provides efficient methods for important network analysis topics such as minimal spanning tree and the shortest path. 
+
 # Statement of Need
 
 JuMP [@JuMP] provides an excellent interface and macros for uniformly accessing optimizer functionality. Any mathematical optimization problem can be assembled with three core components: the objective function (`@objective`), variable definitions (`@variable`), and constraints (`@constraints`). The researcher's role is to formulate the original problem as a mathematical optimization problem and then translate it using JuMP's macros.
