@@ -125,17 +125,18 @@ end
 
 # Arguments 
 
-- `a::TransportationProblem`: The problem in type of TransportationProblem
+- `t::TransportationProblem`: The problem in type of TransportationProblem
+- `initial::TransportationResult`: The initial solution of the transportation problem (optional). The default is `NoInitial`.
 
 # Output 
+
 - `TransportationResult`: The custom data type that holds problem, solution, and optimum cost. 
-- `initial::TransportationResult`: The initial solution of the transportation problem (optional).
 
 # Description 
 
 Solves a transportation problem given by an object of in type `TransportationProblem`.
 
-initial is used to store the initial solution of the transportation problem. Any custom 
+`initial`` is used to store the initial solution of the transportation problem. Any custom 
 implementation should take a `TransportationProblem` and return a `TransportationResult` object.
 Currently, `northwestcorner` and `leastcost` are implemented as custom initial solutions.
 
