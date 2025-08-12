@@ -136,7 +136,7 @@ end
 
 Solves a transportation problem given by an object of in type `TransportationProblem`.
 
-`initial`` is used to store the initial solution of the transportation problem. Any custom 
+`initial` is used to store the initial solution of the transportation problem. Any custom 
 implementation should take a `TransportationProblem` and return a `TransportationResult` object.
 Currently, `northwestcorner` and `leastcost` are implemented as custom initial solutions.
 
