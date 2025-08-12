@@ -24,7 +24,7 @@ bibliography: paper.bib
 
 # State of the field
 
-Gurobi OptiMods is an open-source Python package that provides pre-implemented optimization use cases built on the Gurobi solver. Each module includes comprehensive documentation detailing its application and the underlying mathematical model [@gurobi-optimods]. Julia's `Graphs.jl` [Graphs2021] package provides efficient methods for important network analysis topics such as minimal spanning tree and the shortest path. 
+Gurobi OptiMods is an open-source Python package that provides pre-implemented optimization use cases built on the Gurobi solver. Each module includes comprehensive documentation detailing its application and the underlying mathematical model [@gurobi-optimods]. Julia's `Graphs.jl` [@Graphs2021] package provides efficient methods for important network analysis topics such as minimal spanning tree and the shortest path. 
 
 # Statement of Need
 
