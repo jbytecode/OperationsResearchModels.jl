@@ -38,9 +38,20 @@ Although the majority of computations are performed by the HiGHS optimizer [@HiG
 
 # An Example
 
-The example below defines a linear transportation problem with a given matrix 
-of transportation costs between sources and targets, demand vector of targets, and 
-supply vector of sources. 
+The example shown in **Table 1** defines a linear transportation problem with a given matrix 
+of transportation costs between three sources and four targets, demand values of targets, and 
+supply values of sources. 
+
+|           | Target 1  | Target 2  | Target 3  | Target 4  |  Supply  |
+| :-------- | :-------: | :-------: | :-------: | :-------: | :------: |
+| Source 1  | 1         | 5         | 7         | 8         | 100      |
+| Source 2  | 2         | 6         | 4         | 9         | 100      |
+| Source 3  | 3         | 10        | 11        | 12        | 200      |
+| Demand    | 100       | 100       | 100       | 100       |          |
+
+Table: Example transportation problem
+
+The Julia formulation of the problem is given below.
 
 ```Julia
 julia> problem = TransportationProblem(
@@ -63,6 +74,17 @@ julia> result.cost
 julia> result.solution
 [0.0 100.0 0.0 0.0; 0.0 0.0 100.0 0.0; 100.0 -0.0 -0.0 100.0]
 ```
+
+The `solution` matrix represents the amounts sent from the sources to corresponding targets. **Table 2** represents the problem with its solution:
+
+|           | Target 1  | Target 2  | Target 3  | Target 4  |  Supply  |
+| :-------- | :-------: | :-------: | :-------: | :-------: | :------: |
+| Source 1  | 1         | 5  (100)  | 7         | 8         | 100      |
+| Source 2  | 2         | 6         | 4 (100)   | 9         | 100      |
+| Source 3  | 3  (100)  | 10        | 11        | 12 (100)  | 200      |
+| Demand    | 100       | 100       | 100       | 100       |          |
+
+Table: Example transportation problem with its solution
 
 # Acknowledgements
 
