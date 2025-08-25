@@ -83,7 +83,7 @@ import .Network: Connection, nodes
 import .MaximumFlow: MaximumFlowResult, MaximumFlowProblem
 import .MinimumCostFlow: MinimumCostFlowProblem, MinimumCostFlowResult
 import .Assignment: AssignmentProblem, AssignmentResult, isbalanced, balance
-import .Game: game, GameResult, game_solver
+import .Game: GameProblem, GameResult
 import .MinimumSpanningTree: hasloop, MstResult, MstProblem
 import .PMedian: pmedian, pmedian_with_distances, PMedianResult
 import .CPM: CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmResult
@@ -99,7 +99,7 @@ export TransportationProblem, TransportationResult, balance, isbalanced, northwe
 export Connection, ShortestPathResult, MaximumFlowResult, MinimumCostFlowResult, nodes
 export ShortestPathProblem, MaximumFlowProblem, MinimumCostFlowProblem
 export AssignmentProblem, AssignmentResult, isbalanced, balance
-export game, GameResult, game_solver
+export GameProblem, GameResult
 export hasloop, MstResult, MstProblem
 export pmedian, pmedian_with_distances, PMedianResult
 export CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmResult

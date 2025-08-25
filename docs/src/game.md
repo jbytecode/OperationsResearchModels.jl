@@ -1,10 +1,16 @@
 # Zero-Sum Games
 
 
+## Game Problem 
+
+```@docs 
+OperationsResearchModels.GameProblem
+```
+
 ## Game solver for the row player 
 
 ```@docs 
-OperationsResearchModels.game
+OperationsResearchModels.solve(g::GameProblem)
 ```
 
 

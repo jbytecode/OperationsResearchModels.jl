@@ -3,6 +3,25 @@ module Game
 using JuMP, HiGHS
 
 
+import ..OperationsResearchModels: solve
+
+
+"""
+    GameProblem 
+
+# Description
+
+Defines the problem of a zero-sum game.
+
+# Fields
+
+- `decisionMatrix::Matrix{<:Real}`: The payoff matrix of the game designed for the row player.
+"""
+struct GameProblem 
+    decisionMatrix::Matrix{<:Real}
+end 
+
+
 """
     GameResult
 
@@ -24,40 +43,27 @@ end
 
 
 """
-    game(decisionMatrix::Matrix{<:Real}; verbose::Bool = false)::Vector{GameResult}
+    solve(p::GameProblem; verbose::Bool = false)::Vector{GameResult}
 
     Solves a zero-sum game using the simplex method.
 
 # Arguments
 
-- `decisionMatrix`: The payoff matrix of the game.
+- `p::GameProblem`: The problem instance containing the decision matrix.
 - `verbose`: If true, prints the model information.
 
 # Returns
 - An array of `GameResult` objects containing the probabilities and value of the game.
 """
-function game(decisionMatrix::Matrix{<:Real}; verbose::Bool = false)::Vector{GameResult}
-    rowplayers_result = game_solver(decisionMatrix, verbose = verbose)
-    columnplayers_result = game_solver(Matrix(decisionMatrix') * -1.0, verbose = verbose)
+function solve(p::GameProblem; verbose::Bool = false)::Vector{GameResult}
+    rowplayers_result = game_solver(p.decisionMatrix, verbose = verbose)
+    columnplayers_result = game_solver(Matrix(p.decisionMatrix') * -1.0, verbose = verbose)
     return [rowplayers_result, columnplayers_result]
 end
 
 
 
-"""
-    game_solver(gamematrix::Matrix{<:Real}; verbose::Bool = false)::GameResult
 
-    Solves a zero-sum game using the simplex method.
-
-# Arguments
-
-- `gamematrix`: The payoff matrix of the game.
-- `verbose`: If true, prints the model information.
-
-# Returns
-
-- A `GameResult` object containing the probabilities and value of the game.
-"""
 function game_solver(gamematrix::Matrix{<:Real}; verbose::Bool = false)::GameResult
 
     nrow, ncol = size(gamematrix)

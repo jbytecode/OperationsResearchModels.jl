@@ -8,7 +8,9 @@
             -1 2 4
         ]
 
-        result = game(mat)
+        problem = GameProblem(mat)
+
+        result = solve(problem)
 
         @test isa(result, Vector{GameResult})
         @test length(result) == 2
@@ -32,7 +34,9 @@
             -1 1 0
         ]
 
-        result = game(mat)
+        problem = GameProblem(mat)
+
+        result = solve(problem)
 
         @test isa(result, Vector{GameResult})
         @test length(result) == 2
@@ -54,7 +58,9 @@
             5 4
         ]
 
-        result = game(mat)
+        problem = GameProblem(mat)
+
+        result = solve(problem)
 
         @test isa(result, Vector{GameResult})
 
