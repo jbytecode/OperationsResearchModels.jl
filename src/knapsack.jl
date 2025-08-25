@@ -30,7 +30,7 @@ end
 
 
 """
-    knapsack(values::Vector{Float64}, weights::Vector{Float64}, capacity::Float64)::KnapsackResult
+    KnapsackProblem
 
 # Description
 
