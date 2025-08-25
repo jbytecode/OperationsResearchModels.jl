@@ -12,7 +12,11 @@ using JuMP, HiGHS
 # solve(a::AssignmentProblem)::AssignmentResult
 # solve(g::Game)::GameResult
 # solve(m::MstProblem)::MstResult
+# solve(t::TravelingSalesmanProblem)::TravelingSalesmanResult
 solve() = nothing 
+
+# solve!(s::SimplexProblem)::SimplexProblem
+solve!() = nothing
 
 # balance(m::TransportationProblem)::TransportationProblem
 # balance(a::AssignmentProblem)::AssignmentProblem
@@ -24,6 +28,7 @@ isbalanced() = nothing
 
 
 export solve 
+export solve!
 export balance
 export isbalanced 
 
@@ -88,7 +93,7 @@ import .Latex: latex
 import .Johnsons: JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
 import .RandomKeyGA: Chromosome, run_ga
 import .TravelingSalesman: TravelingSalesmanResult, TravelingSalesmanProblem
-import .Simplex: SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan
+import .Simplex: SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan, OptimizationType
 
 export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner, leastcost
 export Connection, ShortestPathResult, MaximumFlowResult, MinimumCostFlowResult, nodes
@@ -106,7 +111,7 @@ export latex
 export Chromosome, run_ga
 export JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
 export TravelingSalesmanResult, TravelingSalesmanProblem
-export simplexiterations, SimplexProblem, createsimplexproblem, gaussjordan
+export simplexiterations, SimplexProblem, createsimplexproblem, gaussjordan, OptimizationType
 
 export JuMP, HiGHS
 

@@ -11,11 +11,11 @@ export singleiteration!
 export simplexiterations
 export simplexpretty
 export createsimplexproblem
-export solve!
 export gaussjordan
 
-import ..Utility: numround
 
+import ..Utility: numround
+import ..OperationsResearchModels: solve!
 
 @enum OptimizationType begin
     Maximize
@@ -412,6 +412,22 @@ function singleiteration!(s::SimplexProblem)
     update!(s, enteringvariableindex, rowindex)
 end
 
+"""
+    solve!(s::SimplexProblem)::SimplexProblem
+
+# Description 
+
+    Solves the given SimplexProblem using the Simplex algorithm. The `solve!` function 
+    modifies the input SimplexProblem in place.
+
+# Arguments
+
+- `s::SimplexProblem`: The SimplexProblem to solve.
+
+# Returns
+
+- `SimplexProblem`: The solved SimplexProblem.
+"""
 function solve!(s::SimplexProblem)::SimplexProblem
     standardform!(s)
 
@@ -424,6 +440,24 @@ function solve!(s::SimplexProblem)::SimplexProblem
     return s
 end
 
+
+"""
+    simplexiterations(s::SimplexProblem)::Vector{SimplexProblem}
+
+# Description 
+
+    This function performs the Simplex iterations on the given SimplexProblem and returns the 
+    history of SimplexProblem states.
+
+# Arguments
+
+- `s::SimplexProblem`: The SimplexProblem to iterate.
+
+# Returns
+
+- `Vector{SimplexProblem}`: The history of SimplexProblem states (by iterations).
+
+"""
 function simplexiterations(s::SimplexProblem)::Vector{SimplexProblem}
     iterations = Vector{SimplexProblem}(undef, 0)
 
@@ -484,11 +518,11 @@ end
 """
     createsimplexproblem(obj::Vector, amat::Matrix, rhs::Vector, dir::Vector, opttype::OptimizationType)::SimplexProblem
 
-Description:
+# Description
 
     This function creates a SimplexProblem object from the given parameters. 
 
-Arguments:
+# Arguments
 
 - `obj::Vector`: The objective function coefficients.
 - `amat::Matrix`: The LHS of the constraints.
@@ -496,11 +530,11 @@ Arguments:
 - `dir::Vector`: The directions of the constraints. Can be a vector of LE (<=), GE (>=), or EQ (==).
 - `opttype::OptimizationType`: The type of the optimization. Can be Maximize or Minimize.
 
-Returns:
+# Returns
 
     A SimplexProblem object.
 
-Example:
+# Example
 
 Suppose the linear programming problem is as follows:
 
@@ -549,20 +583,20 @@ end
 """
     gaussjordan(A::Matrix; verbose::Bool = true)::Matrix
 
-Description:
+# Description
 
     Attaches an Identity matrix to the right of the given matrix A and applies the Gauss-Jordan elimination method to find the inverse of the given matrix.
 
-Arguments:
+# Arguments
 
 - `A::Matrix`: The matrix to find the inverse.
 - `verbose::Bool`: If true, the intermediate steps are displayed. Default is true.
 
-Returns:
+# Returns
 
     The inverse of the given matrix.
 
-Example:
+# Example
 
 ```julia
 julia> A = [1.0 2.0 3.0; 4.0 5.0 6.0; 7.0 8.0 10.0]

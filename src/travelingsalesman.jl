@@ -16,7 +16,8 @@ export TravelingSalesmanResult
     A data structure to hold the problem definition of the traveling salesman problem.
 
 # Fields
-    - `distancematrix::Matrix{Real}`: The distance matrix representing the distances between cities.
+
+- `distancematrix::Matrix{Real}`: The distance matrix representing the distances between cities.
 """
 struct TravelingSalesmanProblem
     distancematrix::Matrix{Real}
@@ -32,8 +33,8 @@ end
     A data structure to hold the result of the traveling salesman problem.
 
 # Fields
-    - `route::Vector{Int}`: The best route found.
-    - `cost::Float64`: The cost of the best route.
+- `route::Vector{Int}`: The best route found.
+- `cost::Float64`: The cost of the best route.
 """
 struct TravelingSalesmanResult
     route::Vector{Int}
