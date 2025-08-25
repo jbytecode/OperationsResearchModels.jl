@@ -20,7 +20,9 @@ export MstProblem
 - `connections::Vector{Connection}`: The connections (edges) in the network. 
 
 # Note 
-    The Connection object defined a directed edge, but for the minimum spanning tree problem, the edges are considered undirected.
+
+    The Connection object defines a directed edge, but for the minimum spanning tree problem, 
+    the edges are considered undirected.
 """
 struct MstProblem
     connections::Vector{Connection}
