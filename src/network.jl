@@ -8,8 +8,8 @@ export iseveronleft
 export iseveronright
 export finish
 export start
-export rightexpressions
-export leftexpressions
+export inflow
+export outflow
 export hassameorder
 
 
@@ -88,7 +88,7 @@ end
 
 
 
-function rightexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)::Union{JuMP.AffExpr, Symbol}
+function outflow(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)::Union{JuMP.AffExpr, Symbol}
     lst = []
     for conn in nodes
         if conn.from == node
@@ -107,7 +107,7 @@ end
 
 
 
-function leftexpressions(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)::Union{JuMP.AffExpr, Symbol}
+function inflow(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)::Union{JuMP.AffExpr, Symbol}
     lst = []
     for conn in nodes
         if conn.to == node

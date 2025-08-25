@@ -3,7 +3,7 @@ module MinimumCostFlow
 using JuMP, HiGHS
 import ..OperationsResearchModels: solve
 
-import ..Network: Connection, nodes, start, finish, hassameorder, leftexpressions, rightexpressions
+import ..Network: Connection, nodes, start, finish, hassameorder, inflow, outflow
 import ..MaximumFlow: MaximumFlowProblem, MaximumFlowResult
 
 export MinimumCostFlowProblem, MinimumCostFlowResult
@@ -89,8 +89,8 @@ function solve(problem::MinimumCostFlowProblem, flow::Float64)::MinimumCostFlowR
 
     # Constraints 
     for nextnode in mynodes
-        leftexpr = leftexpressions(x, nextnode, cns, model)
-        rightexpr = rightexpressions(x, nextnode, cns, model)
+        leftexpr = inflow(x, nextnode, cns, model)
+        rightexpr = outflow(x, nextnode, cns, model)
         if leftexpr == :f
             @constraint(model, rightexpr == flow)
         elseif rightexpr == :f
