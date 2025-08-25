@@ -36,8 +36,10 @@
 
         bestval = Inf64
 
+        problem = TravelingSalesmanProblem(distmat)
+
         for i in 1:10
-            result = travelingsalesman(distmat, ngen = 1000, popsize = 100, pcross = 1.0, pmutate = 0.10)
+            result = solve(problem, ngen = 1000, popsize = 100, pcross = 1.0, pmutate = 0.10)
             if result.cost < bestval
                 bestval = result.cost
                 bestresult = result

@@ -2,10 +2,40 @@ module TravelingSalesman
 
 import ..RandomKeyGA: run_ga 
 
-export TravelinSalesmenResult
-export travelingsalesman
+import ..OperationsResearchModels: solve
 
-struct TravelinSalesmenResult
+
+export TravelingSalesmanProblem
+export TravelingSalesmanResult
+
+
+"""
+    TravelingSalesmanProblem
+
+# Description
+    A data structure to hold the problem definition of the traveling salesman problem.
+
+# Fields
+    - `distancematrix::Matrix{Real}`: The distance matrix representing the distances between cities.
+"""
+struct TravelingSalesmanProblem
+    distancematrix::Matrix{Real}
+end
+
+
+
+
+"""
+    TravelingSalesmanResult
+
+# Description
+    A data structure to hold the result of the traveling salesman problem.
+
+# Fields
+    - `route::Vector{Int}`: The best route found.
+    - `cost::Float64`: The cost of the best route.
+"""
+struct TravelingSalesmanResult
     route::Vector{Int}
     cost::Float64
 end
@@ -13,13 +43,13 @@ end
 
 
 """
-    travelingsalesman(distancematrix::Matrix; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::TravelinSalesmenResult
+    solve(problem::TravelingSalesmanProblem; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::TravelingSalesmanResult
 
-Given a matrix of distances, returns a TravelinSalesmenResult with the best route and its cost.
+Given a matrix of distances wrapped in a TravelingSalesmanProblem, returns a TravelingSalesmanResult with the best route and its cost.
 
 # Arguments
 
-- `distancematrix::Matrix`: a matrix of distances
+- `problem::TravelingSalesmanProblem`: a TravelingSalesmanProblem instance containing the distance matrix
 - `popsize::Int`: the population size. Default is 100
 - `ngen::Int`: the number of generations. Default is 1000
 - `pcross::Float64`: the crossover probability. Default is 0.8
@@ -28,7 +58,7 @@ Given a matrix of distances, returns a TravelinSalesmenResult with the best rout
 
 # Returns
 
-- `TravelinSalesmenResult`: a custom data type that holds the best route and its cost
+- `TravelingSalesmanResult`: a custom data type that holds the best route and its cost
 
 # Example
 
@@ -59,20 +89,20 @@ for i in 1:n
     end 
 end
 
-result = travelingsalesman(distmat, ngen = 1000, popsize = 100, pcross = 1.0, pmutate = 0.10)
+result = solve(TravelingSalesmanProblem(distmat), ngen = 1000, popsize = 100, pcross = 1.0, pmutate = 0.10)
 ```
 """
-function travelingsalesman(distancematrix::Matrix{TType}; 
-    popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1):: TravelinSalesmenResult where {TType<:Float64} 
+function solve(problem::TravelingSalesmanProblem; 
+    popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::TravelingSalesmanResult
 
-    n, _ = size(distancematrix)
+    n, _ = size(problem.distancematrix)
 
     function costfn(route::Vector{Int})::Float64 
         cost = 0.0
         for i in 1:length(route)-1
-            cost += distancematrix[route[i], route[i+1]]
+            cost += problem.distancematrix[route[i], route[i+1]]
         end
-        cost += distancematrix[route[end], route[1]]
+        cost += problem.distancematrix[route[end], route[1]]
         return cost
     end 
 
@@ -83,8 +113,8 @@ function travelingsalesman(distancematrix::Matrix{TType};
     best = garesult.chromosomes[1]
     cost = costfn(sortperm(best.values))
 
-    return TravelinSalesmenResult(sortperm(best.values), cost)
-end 
+    return TravelingSalesmanResult(sortperm(best.values), cost)
+end
 
 
 end # end of module TravelingSalesman
