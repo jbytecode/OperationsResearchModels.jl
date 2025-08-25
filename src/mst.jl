@@ -134,6 +134,10 @@ Obtains the minimum spanning tree.
 
 - `::MstResult`: A MstResult object that holds the results. 
 
+# Details
+
+- This function uses Prim's algorithm to find the minimum spanning tree. It maintains a set of assigned and unassigned nodes, expanding the tree by adding the nearest unassigned node.
+
 # Examples 
 
 ```julia 
