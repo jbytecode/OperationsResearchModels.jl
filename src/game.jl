@@ -34,7 +34,6 @@ A structure to hold the result of a game.
 - `probabilities`: Probabilities of the strategies
 - `value`:         Value of the game
 
-end
 """
 struct GameResult
     probabilities
