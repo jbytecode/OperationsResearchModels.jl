@@ -14,12 +14,6 @@ OperationsResearchModels.solve(g::GameProblem)
 ```
 
 
-## Game solver for both the row and the column players 
-
-```@docs 
-OperationsResearchModels.game_solver
-```
-
 ## GameResult
 
 ```@docs 
