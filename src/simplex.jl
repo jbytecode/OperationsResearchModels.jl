@@ -56,11 +56,11 @@ function SimplexProblem()::SimplexProblem
         Int[],                           # Slack indices 
         Int[],                           # Surplus indices 
         Int[],                           # Artificial indices 
-        Int[],                          # Basic variables 
-        -Inf64,                           # Biggest value for M - Method 
-        false,                             # is it in standard form?
-        false,                              # Converged?
-        0.0,                                # Objective Value
+        Int[],                           # Basic variables 
+        -Inf64,                          # Biggest value for M - Method 
+        false,                           # is it in standard form?
+        false,                           # Converged?
+        0.0,                             # Objective Value
     )
 end
 
@@ -444,7 +444,7 @@ function simplexiterations(s::SimplexProblem)::Vector{SimplexProblem}
     return iterations
 end
 
-function simplexpretty(s::SimplexProblem; maxiter::Int = 1000)::Nothing
+function simplexpretty(s::SimplexProblem; maxiter::Int=1000)::Nothing
 
     copied::SimplexProblem = copy(s)
 
@@ -573,16 +573,16 @@ julia> invA = gaussjordan(A, verbose = false)
   1.0       -2.0       1.0
 ```
 """
-function gaussjordan(A::Matrix{Float64}; verbose::Bool = true)::Matrix{Float64}
+function gaussjordan(A::Matrix{Float64}; verbose::Bool=true)::Matrix{Float64}
     n, p = size(A)
-    b = zeros(Float64,n, n)
+    b = zeros(Float64, n, n)
     for i in 1:n
         b[i, i] = 1.0
     end
     Z = Float64[A b]
-    @inbounds @fastmath @simd for i in 1:n
-        @fastmath @simd for j in 1:n
-            if i != j 
+    @inbounds @simd for i in 1:n
+        @simd for j in 1:n
+            if i != j
                 Z[j, :] .= view(Z, j, :) .- (Z[j, i] / Z[i, i]) .* view(Z, i, :)
             else
                 Z[j, :] .= (1.0 / Z[i, j]) .* view(Z, j, :)
