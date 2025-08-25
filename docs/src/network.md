@@ -1,5 +1,11 @@
 # Network Models
 
+## Connection 
+
+```@docs
+OperationsResearchModels.Connection
+```
+
 ## Shortest Path
 
 ```@docs

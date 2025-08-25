@@ -13,7 +13,25 @@ export leftexpressions
 export hassameorder
 
 
+"""
+     Connection 
 
+# Description
+
+A structure to hold a directed connection between two nodes in a network.
+
+# Fields
+- `from::Int64`: The starting node of the connection.
+- `to::Int64`: The ending node of the connection.
+- `value::Any`: The value associated with the connection (e.g. distance, time, capacity). 
+
+# Example 
+
+```julia
+# Create a connection from node 1 to node 2 with a distance of 5 kms.
+conn = Connection(1, 2, 5)
+```
+"""
 struct Connection
     from::Int64
     to::Int64
