@@ -82,9 +82,9 @@ julia> solve(ShortestPathProblem(conns));
 
 julia> result.path
 3-element Vector{Connection}:
- Connection(1, 3, 2, "x13")
- Connection(3, 6, 1, "x36")
- Connection(6, 7, 5, "x67")
+ Connection(1, 3, 2)
+ Connection(3, 6, 1)
+ Connection(6, 7, 5)
 
 julia> result.cost
 8.0
@@ -94,7 +94,7 @@ function solve(problem::ShortestPathProblem)
 
     cns = problem.connections
 
-    function leftexpressions(node::Int64, nodes::Vector{Connection}, model)
+    function inflow(node::Int64, nodes::Vector{Connection}, model)
         lst = []
         for conn in nodes
             if conn.to == node
@@ -111,7 +111,7 @@ function solve(problem::ShortestPathProblem)
         return expr
     end
 
-    function rightexpressions(node::Int64, nodes::Vector{Connection}, model)
+    function outflow(node::Int64, nodes::Vector{Connection}, model)
         lst = []
         for conn in nodes
             if conn.from == node
@@ -150,8 +150,8 @@ function solve(problem::ShortestPathProblem)
 
     # Constraints 
     for nextnode in mynodes
-        leftexpr = leftexpressions(nextnode, cns, model)
-        rightexpr = rightexpressions(nextnode, cns, model)
+        leftexpr = inflow(nextnode, cns, model)
+        rightexpr = outflow(nextnode, cns, model)
         if nextnode in [startnode, finishnode]
             @constraint(model, leftexpr + rightexpr == 1)
         else

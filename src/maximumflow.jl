@@ -82,15 +82,15 @@ julia> result = solve(problem);
 
 julia> result.path
 9-element Vector{Connection}:
- Connection(1, 2, 3.0, "x12")
- Connection(1, 3, 2.0, "x13")
- Connection(1, 4, 2.0, "x14")
- Connection(2, 5, 3.0, "x25")
- Connection(3, 5, 1.0, "x35")
- Connection(3, 6, 1.0, "x36")
- Connection(4, 6, 2.0, "x46")
- Connection(5, 7, 4.0, "x57")
- Connection(6, 7, 3.0, "x67")
+ Connection(1, 2, 3.0)
+ Connection(1, 3, 2.0)
+ Connection(1, 4, 2.0)
+ Connection(2, 5, 3.0)
+ Connection(3, 5, 1.0)
+ Connection(3, 6, 1.0)
+ Connection(4, 6, 2.0)
+ Connection(5, 7, 4.0)
+ Connection(6, 7, 3.0)
 
 julia> result.flow
 7.0

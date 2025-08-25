@@ -149,22 +149,22 @@ julia> conns = Connection[
                    ]
 
 4-element Vector{Connection}:
- Connection(1, 2, 10, "x12")
- Connection(2, 3, 10, "x23")
- Connection(3, 4, 10, "x34")
- Connection(1, 4, 10, "x14")
+ Connection(1, 2, 10)
+ Connection(2, 3, 10)
+ Connection(3, 4, 10)
+ Connection(1, 4, 10)
 
  julia> result = solve(MstProblem(conns))
- MstResult(Connection[Connection(3, 4, 10, "x34"), Connection(1, 4, 10, "x14"), Connection(2, 3, 10, "x23")], 30.0)
+ MstResult(Connection[Connection(3, 4, 10), Connection(1, 4, 10), Connection(2, 3, 10)], 30.0)
  
  julia> result.distance
  30.0
  
  julia> result.connections
  3-element Vector{Connection}:
-  Connection(3, 4, 10, "x34")
-  Connection(1, 4, 10, "x14")
-  Connection(2, 3, 10, "x23")
+  Connection(3, 4, 10)
+  Connection(1, 4, 10)
+  Connection(2, 3, 10)
 ```
 """
 function solve(problem::MstProblem)::MstResult
