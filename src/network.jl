@@ -14,7 +14,7 @@ export hassameorder
 
 
 """
-     Connection 
+     Connection
 
 # Description
 
@@ -23,7 +23,7 @@ A structure to hold a directed connection between two nodes in a network.
 # Fields
 - `from::Int64`: The starting node of the connection.
 - `to::Int64`: The ending node of the connection.
-- `value::Any`: The value associated with the connection (e.g. distance, time, capacity). 
+- `value::Real`: The value associated with the connection (e.g. distance, time, capacity). 
 
 # Example 
 
@@ -32,12 +32,10 @@ A structure to hold a directed connection between two nodes in a network.
 conn = Connection(1, 2, 5)
 ```
 """
-struct Connection
+struct Connection 
     from::Int64
     to::Int64
-    value::Any
-    varsym::Any
-    Connection(from, to, value) = new(from, to, value, string("x", from, to))
+    value::Real
 end
 
 
