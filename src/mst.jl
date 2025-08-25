@@ -9,14 +9,40 @@ export mst
 export MstResult
 export MstProblem
 
+
+"""
+    MstProblem 
+
+# Description
+    Defines the minimum spanning tree problem.
+
+# Fields
+- `connections::Vector{Connection}`: The connections (edges) in the network. 
+
+# Note 
+    The Connection object defined a directed edge, but for the minimum spanning tree problem, the edges are considered undirected.
+"""
+struct MstProblem
+    connections::Vector{Connection}
+end
+
+
+"""
+    MstResult
+
+# Description
+    A structure to hold the result of the minimum spanning tree problem.
+
+# Fields
+- `connections::Vector{Connection}`: The connections (edges) in the minimum spanning tree.
+- `distance::Float64`: The total distance (weight) of the minimum spanning tree.
+
+"""
 struct MstResult
     connections::Vector{Connection}
     distance::Float64
 end
 
-struct MstProblem
-    connections::Vector{Connection}
-end
 
 
 function hasloop(conns::Vector{Connection})::Bool

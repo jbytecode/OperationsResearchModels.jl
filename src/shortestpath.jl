@@ -11,10 +11,36 @@ export ShortestPathProblem
 export ShortestPathResult
 
 
+"""
+    ShortestPathProblem
+
+# Description
+
+Defines the shortest path problem.
+
+# Fields
+
+- `connections::Vector{Connection}`: The connections (edges) in the network.
+
+"""
 struct ShortestPathProblem 
     connections::Vector{Connection}
 end 
 
+
+"""
+    ShortestPathResult
+
+# Description
+
+A structure to hold the result of the shortest path problem.
+
+# Fields
+
+- `path::Vector{Connection}`: The connections (edges) in the shortest path.
+- `cost::Float64`: The total cost of the shortest path.
+
+"""
 struct ShortestPathResult
     path::Vector{Connection}
     cost::Float64

@@ -8,11 +8,41 @@ import ..MaximumFlow: MaximumFlowProblem, MaximumFlowResult
 
 export MinimumCostFlowProblem, MinimumCostFlowResult
 
+
+
+"""
+    MinimumCostFlowProblem
+
+# Description
+
+Defines the minimum cost flow problem.
+
+# Fields
+
+- `connections::Vector{Connection}`: The connections (edges) in the network.
+- `costs::Vector{Connection}`: The costs associated with each connection.
+
+"""
 struct MinimumCostFlowProblem
     connections::Vector{Connection}
     costs::Vector{Connection}
 end
 
+
+
+"""
+    MinimumCostFlowResult
+
+# Description
+
+A structure to hold the result of the minimum cost flow problem.
+
+# Fields
+
+- `path::Vector{Connection}`: The connections (edges) in the flow path.
+- `cost::Float64`: The total cost of the flow.
+
+"""
 struct MinimumCostFlowResult 
     path::Vector{Connection}
     cost::Float64

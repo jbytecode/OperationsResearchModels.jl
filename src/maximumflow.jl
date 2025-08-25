@@ -10,13 +10,40 @@ export MaximumFlowProblem, MaximumFlowResult
 
 
 
+"""
+    MaximumFlowProblem
+
+# Description
+
+Defines the maximum flow problem.
+
+# Fields
+
+- `connections::Vector{Connection}`: The connections (edges) in the network.
+
+"""
+struct MaximumFlowProblem
+    connections::Vector{Connection}
+end
+
+
+
+"""
+    MaximumFlowResult
+
+# Description
+
+A structure to hold the result of the maximum flow problem.
+
+# Fields
+
+- `path::Vector{Connection}`: The connections (edges) in the flow path.
+- `flow::Float64`: The total flow through the network.
+
+"""
 struct MaximumFlowResult
     path::Vector{Connection}
     flow::Float64
-end
-
-struct MaximumFlowProblem
-    connections::Vector{Connection}
 end
 
 
