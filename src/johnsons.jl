@@ -86,7 +86,7 @@ times = Float64[
     7.0 4.0
 ]
 
-result = johnsons_ga(times)
+result = johnsons_ga(JohnsonProblem(times))
 
 println(result.permutation)
 ```
@@ -128,7 +128,7 @@ The function throws a JohnsonException if the problem cannot be reduced to a 2-m
 
 # Arguments
 
-- `times::Matrix`: a matrix of times
+- `problem::JohnsonProblem`: a problem containing a matrix of times
 
 # Returns
 
