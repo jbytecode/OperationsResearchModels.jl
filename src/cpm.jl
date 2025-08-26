@@ -41,14 +41,43 @@ struct CpmActivity
     dependencies::Vector{CpmActivity}
 end
 
+"""
+    CpmProblem
+
+# Description
+
+Represents a CPM (Critical Path Method) problem instance, containing the activities.
+
+# Fields
+
+- `activities::Vector{CpmActivity}`: A vector of activities in the CPM problem.
+"""
 struct CpmProblem
     activities::Vector{CpmActivity}
 end
 
+
+
+"""
+    CpmResult 
+
+# Description 
+
+Represents the result of a CPM (Critical Path Method) analysis, containing the critical path and its activities.
+
+# Fields
+
+- `pathstr::Vector{String}`: A vector of strings representing the names of the activities in the critical path.
+- `path::Vector{CpmActivity}`: A vector of activities representing the critical path.
+"""
 struct CpmResult
     pathstr::Vector{String}
     path::Vector{CpmActivity}
 end
+
+
+
+
 
 """
     PertActivity(name::String, o::Float64, m::Float64, p::Float64)::PertActivity
@@ -79,10 +108,39 @@ struct PertActivity
     dependencies::Vector{PertActivity}
 end
 
+
+
+
+"""
+    PertProblem 
+
+# Description 
+
+Represents a PERT (Program Evaluation and Review Technique) problem instance, containing the activities.
+
+# Fields
+
+- `activities::Vector{PertActivity}`: A vector of activities in the PERT problem.
+"""
 struct PertProblem
     activities::Vector{PertActivity}
 end
 
+
+
+"""
+    PertResult 
+
+# Description 
+
+Represents the result of a PERT (Program Evaluation and Review Technique) analysis, containing the critical path and its activities.
+
+# Fields
+
+- `path::Vector{PertActivity}`: A vector of activities representing the critical path.
+- `mean::Float64`: The mean duration of the critical path.
+- `stddev::Float64`: The standard deviation of the critical path.
+"""
 struct PertResult
     path::Vector{PertActivity}
     mean::Float64
