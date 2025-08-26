@@ -11,7 +11,9 @@
                 3.1 2.8
             ]
 
-            result = johnsons(times)
+            problem = JohnsonProblem(times)
+
+            result = solve(problem)
 
             @test result.permutation == [3, 1, 4, 5, 2]
         end
@@ -27,9 +29,11 @@
                 7 4
             ]
 
-            result = johnsons(times)
+            problem = JohnsonProblem(times)
 
-            time_elapsed = makespan(times, result.permutation)
+            result = solve(problem)
+
+            time_elapsed = makespan(problem, result.permutation)
 
             @test result.permutation == [1, 3, 5, 6, 4, 2]
 
@@ -50,9 +54,11 @@
                 2 5 6
             ]
 
-            result = johnsons(times)
+            problem = JohnsonProblem(times)
 
-            time_elapsed = makespan(times, result.permutation)
+            result = solve(problem)
+
+            time_elapsed = makespan(problem, result.permutation)
 
             @test result.permutation == [1, 4, 5, 3, 2]
 
@@ -72,9 +78,11 @@
                 8 3 3 2 6
             ]
 
-            result = johnsons(times)
+            problem = JohnsonProblem(times)
 
-            time_elapsed = makespan(times, result.permutation)
+            result = solve(problem)
+
+            time_elapsed = makespan(problem, result.permutation)
 
             @test result.permutation == [1, 3, 2, 4]
 
@@ -93,7 +101,9 @@
             2 5 6 6
         ]
 
-        @test_throws JohnsonException johnsons(times)
+        problem = JohnsonProblem(times)
+
+        @test_throws JohnsonException solve(problem)
 
     end
 
@@ -101,7 +111,7 @@
 
         mat = rand(1:10, 10, 2)
 
-        result = johnsons(mat)
+        result = solve(JohnsonProblem(mat))
 
         # expect no error 
         @test true
@@ -111,7 +121,7 @@
 
         mat = convert(Matrix{UInt8}, rand(1:10, 10, 2))
 
-        result = johnsons(mat)
+        result = solve(JohnsonProblem(mat))
 
         # expect no error 
         @test true
@@ -133,26 +143,28 @@
             2 5 6
         ]
 
+        problem = JohnsonProblem(times)
+
 
         ms = Float64[
-            makespan(times, [1, 2, 3, 4, 5]),
-            makespan(times, [1, 2, 3, 5, 4]),
-            makespan(times, [1, 2, 4, 3, 5]),
-            makespan(times, [1, 2, 4, 5, 3]),
-            makespan(times, [1, 2, 5, 3, 4]),
-            makespan(times, [1, 2, 5, 4, 3]),
-            makespan(times, [1, 3, 2, 4, 5]),
-            makespan(times, [1, 3, 2, 5, 4]),
-            makespan(times, [1, 3, 4, 2, 5]),
-            makespan(times, [1, 3, 4, 5, 2]),
-            makespan(times, [1, 3, 5, 2, 4]),
-            makespan(times, [1, 3, 5, 4, 2]),
-            makespan(times, [1, 4, 2, 3, 5]),
-            makespan(times, [1, 4, 2, 5, 3]),
-            makespan(times, [1, 4, 3, 2, 5]),
-            makespan(times, [1, 4, 3, 5, 2]),
-            makespan(times, [1, 4, 5, 2, 3]),
-            makespan(times, [1, 4, 5, 3, 2])
+            makespan(problem, [1, 2, 3, 4, 5]),
+            makespan(problem, [1, 2, 3, 5, 4]),
+            makespan(problem, [1, 2, 4, 3, 5]),
+            makespan(problem, [1, 2, 4, 5, 3]),
+            makespan(problem, [1, 2, 5, 3, 4]),
+            makespan(problem, [1, 2, 5, 4, 3]),
+            makespan(problem, [1, 3, 2, 4, 5]),
+            makespan(problem, [1, 3, 2, 5, 4]),
+            makespan(problem, [1, 3, 4, 2, 5]),
+            makespan(problem, [1, 3, 4, 5, 2]),
+            makespan(problem, [1, 3, 5, 2, 4]),
+            makespan(problem, [1, 3, 5, 4, 2]),
+            makespan(problem, [1, 4, 2, 3, 5]),
+            makespan(problem, [1, 4, 2, 5, 3]),
+            makespan(problem, [1, 4, 3, 2, 5]),
+            makespan(problem, [1, 4, 3, 5, 2]),
+            makespan(problem, [1, 4, 5, 2, 3]),
+            makespan(problem, [1, 4, 5, 3, 2])
         ]
 
         @test minimum(ms) == best_makespan
@@ -173,9 +185,11 @@
                     3.1 2.8
                 ]
 
-                result = johnsons_ga(times)
+                problem = JohnsonProblem(times)
 
-                @test makespan(times, result.permutation) == 20.5
+                result = johnsons_ga(problem)
+
+                @test makespan(problem, result.permutation) == 20.5
             end
 
 
@@ -189,9 +203,12 @@
                     7 4
                 ]
 
-                result = johnsons_ga(times)
 
-                time_elapsed = makespan(times, result.permutation)
+                problem = JohnsonProblem(times)
+
+                result = johnsons_ga(problem)
+
+                time_elapsed = makespan(problem, result.permutation)
 
                 @test time_elapsed == 41
             end
@@ -210,9 +227,11 @@
                     2 5 6
                 ]
 
-                result = johnsons_ga(times)
+                problem = JohnsonProblem(times)
 
-                time_elapsed = makespan(times, result.permutation)
+                result = johnsons_ga(problem)
+
+                time_elapsed = makespan(problem, result.permutation)
 
                 @test time_elapsed == 42
             end
@@ -229,9 +248,11 @@
                     8 3 3 2 6
                 ]
 
-                result = johnsons_ga(times)
+                problem = JohnsonProblem(times)
 
-                time_elapsed = makespan(times, result.permutation)
+                result = johnsons_ga(problem)
+
+                time_elapsed = makespan(problem, result.permutation)
 
                 @test time_elapsed == 51
             end
@@ -247,9 +268,11 @@
                 2 5 6 6
             ]
 
-            result = johnsons_ga(times)
+            problem = JohnsonProblem(times)
 
-            time_elapsed = makespan(times, result.permutation)
+            result = johnsons_ga(problem)
+
+            time_elapsed = makespan(problem, result.permutation)
 
             @test time_elapsed == 44
         end

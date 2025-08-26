@@ -13,6 +13,7 @@ using JuMP, HiGHS
 # solve(g::Game)::GameResult
 # solve(m::MstProblem)::MstResult
 # solve(t::TravelingSalesmanProblem)::TravelingSalesmanResult
+# solve(p::JohnsonProblem)::JohnsonResult
 solve() = nothing 
 
 # solve!(s::SimplexProblem)::SimplexProblem
@@ -90,7 +91,7 @@ import .CPM: CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmRe
 import .CPM: PertActivity, PertProblem, PertResult
 import .Knapsack: KnapsackResult, KnapsackProblem
 import .Latex: latex
-import .Johnsons: JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
+import .Johnsons: JohnsonProblem, JohnsonResult, JohnsonException, makespan, johnsons_ga
 import .RandomKeyGA: Chromosome, run_ga
 import .TravelingSalesman: TravelingSalesmanResult, TravelingSalesmanProblem
 import .Simplex: SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan, OptimizationType
@@ -109,7 +110,7 @@ export Simplex
 export Utility
 export latex
 export Chromosome, run_ga
-export JohnsonResult, johnsons, JohnsonException, makespan, johnsons_ga
+export JohnsonProblem, JohnsonResult, JohnsonException, makespan, johnsons_ga
 export TravelingSalesmanResult, TravelingSalesmanProblem
 export simplexiterations, SimplexProblem, createsimplexproblem, gaussjordan, OptimizationType
 

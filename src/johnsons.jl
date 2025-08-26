@@ -2,10 +2,10 @@ module Johnsons
 
 
 import ..RandomKeyGA: run_ga, Chromosome, Population, generation, run_ga
+import ..OperationsResearchModels: solve
 
 export JohnsonResult
 export JohnsonException
-export johnsons
 export makespan 
 export johnsons_ga 
 
@@ -14,10 +14,35 @@ struct JohnsonException <: Exception
     message::String
 end
 
+"""
+    JohnsonProblem
 
+# Description
+
+Represents a Johnson problem instance, containing the job processing times.
+
+# Fields
+
+- `times::Matrix{<:Real}`: A matrix of job processing times.
+"""
+struct JohnsonProblem
+    times::Matrix{<:Real}
+end
+
+
+"""
+    JohnsonResult
+
+# Description
+
+Represents the result of the Johnson's algorithm, containing the optimal job permutation.
+
+# Fields
+
+- `permutation::Vector{Int}`: The optimal job permutation found by the algorithm.
+"""
 struct JohnsonResult
     permutation::Vector{Int}
-    # makespan::Float64
 end
 
 struct Process
@@ -28,15 +53,15 @@ end
 
 
 """
-    johnsons_ga(times::Matrix; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::JohnsonResult
+    johnsons_ga(problem::JohnsonProblem; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::JohnsonResult
 
-Given a matrix of times, returns a JohnsonResult with the permutation of the jobs.
-The function uses a genetic algorithm to find the best permutation of the jobs. 
+Given a problem containing a matrix of times, returns a JohnsonResult with the permutation of the jobs.
+The function uses a genetic algorithm to find the best permutation of the jobs.
 The genetic algorithm is implemented in the RandomKeyGA module.
 
 # Arguments
 
-- `times::Matrix`: a matrix of times
+- `problem::JohnsonProblem`: a problem containing a matrix of times
 - `popsize::Int`: the population size. Default is 100
 - `ngen::Int`: the number of generations. Default is 1000
 - `pcross::Float64`: the crossover probability. Default is 0.8
@@ -61,17 +86,18 @@ times = Float64[
     7.0 4.0
 ]
 
-result = johnsons(times)
+result = johnsons_ga(times)
 
 println(result.permutation)
 ```
 """
-function johnsons_ga(times::Matrix; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::JohnsonResult
+function johnsons_ga(problem::JohnsonProblem; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::JohnsonResult
 
-    n, m = size(times)
+    times = problem.times
+    n, _ = size(times)
     
     function costfn(perm::Vector{Int})
-        return makespan(times, perm)
+        return makespan(problem, perm)
     end 
 
     finalpop = run_ga(popsize, n, costfn, ngen, pcross, pmutate, nelites)
@@ -82,9 +108,9 @@ end
 
 
 """
-    johnsons(times::Matrix)
+    johnsons(problem::JohnsonProblem)::JohnsonResult
 
-Given a matrix of times, returns a JohnsonResult with the permutation of the jobs. 
+Given a problem containing a matrix of times, returns a JohnsonResult with the permutation of the jobs. 
 If number of machines is 2, it uses the Johnson's algorithm for 2 machines.
 If number of machines is greater than 2, it uses the Johnson's algorithm by transforming the 
 problem into a 2-machine problem.
@@ -121,12 +147,13 @@ times = Float64[
     7.0 4.0
 ]
 
-result = johnsons(times)
+result = solve(JohnsonProblem(times))
 
 println(result.permutation)
 ```
 """
-function johnsons(times::Matrix)
+function solve(problem::JohnsonProblem)::JohnsonResult
+    times = problem.times
     _, m = size(times)
     if m == 2
         return johnsons_2machines(times)
@@ -196,13 +223,13 @@ end
 
 
 """
-    makespan(times::Matrix, permutation::Vector{Int})
+    makespan(problem::JohnsonProblem, permutation::Vector{Int})
 
-    Given a matrix of times and a permutation of the jobs, returns the makespan of the jobs.
+    Given a problem containing a matrix of times and a permutation of the jobs, returns the makespan of the jobs.
 
 # Arguments
 
-- `times::Matrix`: a matrix of times
+- `problem::JohnsonProblem`: a problem containing a matrix of times
 - `permutation::Vector{Int}`: a permutation of the jobs
 
 # Returns
@@ -220,11 +247,12 @@ julia> times = Float64[
     2 5 6    
 ]
 
-julia> result = makespan(times, [1, 4, 5, 3, 2])
+julia> result = makespan(JohnsonProblem(times), [1, 4, 5, 3, 2])
 ```
 """
-function makespan(times::Matrix, permutation::Vector{Int})::Float64
+function makespan(problem::JohnsonProblem, permutation::Vector{Int})::Float64
 
+    times = problem.times
     n, m = size(times)
 
     timetable = Matrix{Process}(undef, m, n)
