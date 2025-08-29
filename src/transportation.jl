@@ -17,7 +17,7 @@ import ..OperationsResearchModels: solve, balance, isbalanced
 """
     TransportationProblem
 
-# Arguments
+# Fields
 
 - `costs::Matrix{T}`: The cost matrix of the transportation problem.
 - `demand::Vector{T}`: The demand vector of the transportation problem.
@@ -37,7 +37,7 @@ end
 """
     TransportationResult(problem, balancedProblem, solution, cost)
 
-# Arguments
+# Fields
 
 - `problem::TransportationProblem`: The original transportation problem.
 - `balancedProblem::TransportationProblem`: The balanced transportation problem.

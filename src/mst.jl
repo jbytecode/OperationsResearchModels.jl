@@ -14,7 +14,8 @@ export MstProblem
     MstProblem 
 
 # Description
-    Defines the minimum spanning tree problem.
+
+Defines the minimum spanning tree problem.
 
 # Fields
 - `connections::Vector{Connection}`: The connections (edges) in the network. 
@@ -33,7 +34,8 @@ end
     MstResult
 
 # Description
-    A structure to hold the result of the minimum spanning tree problem.
+
+A structure to hold the result of the minimum spanning tree problem.
 
 # Fields
 - `connections::Vector{Connection}`: The connections (edges) in the minimum spanning tree.
@@ -122,13 +124,13 @@ end
 """
     solve(problem::MstProblem)
 
-# Arguments 
-
-- `problem::MstProblem`: The problem in type of MstProblem
-
 # Description
 
 Obtains the minimum spanning tree. 
+
+# Arguments 
+
+- `problem::MstProblem`: The problem in type of MstProblem
 
 # Output 
 

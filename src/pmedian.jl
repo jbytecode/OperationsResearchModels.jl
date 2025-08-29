@@ -39,15 +39,16 @@ end
 
     pmedian(data, ncenters)
 
-# Arguments 
-
-- `data::Matrix`: Coordinates of locations 
-- `ncenters::Int`: Number of centers 
-
 # Description
 
 The function calculates Euclidean distances between all possible rows of the matrix data. 
-`ncenters` locations are then selected that minimizes the total distances to the nearest rows. 
+`ncenters` locations are then selected that minimizes the total distances to the nearest rows.
+
+
+# Arguments 
+
+- `data::Matrix`: Coordinates of locations 
+- `ncenters::Int`: Number of centers  
 
 # Output 
 
@@ -100,13 +101,14 @@ end
 
     pmedian_with_distances(distancematrix, ncenters)
 
-# Arguments 
-- `distancematrix::Matrix`: n x n matrix of distances
-- `ncenters::Int`: Number of centers 
-
 # Description
 
-- `ncenters` locations are selected that minimizes the total distances to the nearest rows. 
+`ncenters` locations are selected that minimizes the total distances to the nearest rows. 
+
+# Arguments 
+
+- `distancematrix::Matrix`: n x n matrix of distances
+- `ncenters::Int`: Number of centers 
 
 # Output 
 - `PMedianResult`: PMedianResult object. 

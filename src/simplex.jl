@@ -417,8 +417,8 @@ end
 
 # Description 
 
-    Solves the given SimplexProblem using the Simplex algorithm. The `solve!` function 
-    modifies the input SimplexProblem in place.
+Solves the given SimplexProblem using the Simplex algorithm. The `solve!` function 
+modifies the input SimplexProblem in place.
 
 # Arguments
 
@@ -446,8 +446,8 @@ end
 
 # Description 
 
-    This function performs the Simplex iterations on the given SimplexProblem and returns the 
-    history of SimplexProblem states.
+This function performs the Simplex iterations on the given SimplexProblem and returns the 
+history of SimplexProblem states.
 
 # Arguments
 
@@ -520,7 +520,7 @@ end
 
 # Description
 
-    This function creates a SimplexProblem object from the given parameters. 
+This function creates a SimplexProblem object from the given parameters. 
 
 # Arguments
 
@@ -532,7 +532,7 @@ end
 
 # Returns
 
-    A SimplexProblem object.
+A SimplexProblem object.
 
 # Example
 
@@ -585,7 +585,7 @@ end
 
 # Description
 
-    Attaches an Identity matrix to the right of the given matrix A and applies the Gauss-Jordan elimination method to find the inverse of the given matrix.
+Attaches an Identity matrix to the right of the given matrix A and applies the Gauss-Jordan elimination method to find the inverse of the given matrix.
 
 # Arguments
 
@@ -594,7 +594,7 @@ end
 
 # Returns
 
-    The inverse of the given matrix.
+The inverse of the given matrix.
 
 # Example
 

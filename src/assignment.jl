@@ -14,7 +14,7 @@ import ..OperationsResearchModels: solve, isbalanced, balance
 """
     AssignmentProblem
 
-# Arguments
+# Fields
 
 - `costs::Matrix{T}`: The cost matrix of the assignment problem.
 
@@ -31,9 +31,9 @@ end
 
 
 """
-    AssignmentResult(problem, solution, cost) 
+    AssignmentResult
 
-# Arguments
+# Fields
 
 - `problem::AssignmentProblem`: The original assignment problem.
 - `solution::Matrix`: The solution matrix of the assignment problem.

@@ -13,7 +13,8 @@ export TravelingSalesmanResult
     TravelingSalesmanProblem
 
 # Description
-    A data structure to hold the problem definition of the traveling salesman problem.
+
+A data structure to hold the problem definition of the traveling salesman problem.
 
 # Fields
 
@@ -30,7 +31,8 @@ end
     TravelingSalesmanResult
 
 # Description
-    A data structure to hold the result of the traveling salesman problem.
+
+A data structure to hold the result of the traveling salesman problem.
 
 # Fields
 - `route::Vector{Int}`: The best route found.

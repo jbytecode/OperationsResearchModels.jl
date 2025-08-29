@@ -19,7 +19,7 @@ export PertResult
 
 The object that represents an activity in CPM (Critical Path Method).
 
-# Arguments 
+# Fields 
 - `name::String`: The name of the activity.
 - `time::Float64`: The time of the activity.
 - `dependencies`: The dependencies of the activity in type of `Vector{CpmActivity}`.
@@ -41,8 +41,9 @@ struct CpmActivity
     dependencies::Vector{CpmActivity}
 end
 
+
 """
-    CpmProblem
+    CpmProblem(activities::Vector{CpmActivity})
 
 # Description
 
@@ -59,7 +60,7 @@ end
 
 
 """
-    CpmResult 
+    CpmResult(pathstr::Vector{String}, path::Vector{CpmActivity})
 
 # Description 
 
@@ -86,7 +87,7 @@ end
 
 The object that represents an activity in PERT (Program Evaluation and Review Technique).
 
-# Arguments
+# Fields
 - `name::String`: The name of the activity.
 - `o::Float64`: The optimistic time of the activity.
 - `m::Float64`: The most likely time of the activity.
@@ -112,7 +113,7 @@ end
 
 
 """
-    PertProblem 
+    PertProblem(activities::Vector{PertActivity})
 
 # Description 
 
@@ -129,7 +130,7 @@ end
 
 
 """
-    PertResult 
+    PertResult(path::Vector{PertActivity}, mean::Float64, stddev::Float64)
 
 # Description 
 
@@ -197,6 +198,7 @@ function pathtostring(activities::Vector{CpmActivity})::Vector{String}
     end
     return reverse(v)
 end
+
 
 """
     solve(problem)
@@ -306,7 +308,11 @@ end
 
 - `problem::PertProblem`: The problem in type of PertProblem.
 
-# Example 
+# Output
+
+- `::PertResult`: The object holds the results
+
+# Example
 
 ```julia
 julia> A = PertActivity("A", 1, 2, 3)

@@ -44,7 +44,7 @@ end
 """
     solve(p::GameProblem; verbose::Bool = false)::Vector{GameResult}
 
-    Solves a zero-sum game using the simplex method.
+Solves a zero-sum game using the simplex method.
 
 # Arguments
 
