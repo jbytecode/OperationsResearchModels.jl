@@ -236,7 +236,7 @@ end
 """
     makespan(problem::JohnsonProblem, permutation::Vector{Int})
 
-    Given a problem containing a matrix of times and a permutation of the jobs, returns the makespan of the jobs.
+Given a problem containing a matrix of times and a permutation of the jobs, returns the makespan of the jobs.
 
 # Arguments
 

@@ -48,6 +48,8 @@ end
 """
     solve(problem::TravelingSalesmanProblem; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::TravelingSalesmanResult
 
+# Description
+
 Given a matrix of distances wrapped in a TravelingSalesmanProblem, returns a TravelingSalesmanResult with the best route and its cost.
 
 # Arguments
