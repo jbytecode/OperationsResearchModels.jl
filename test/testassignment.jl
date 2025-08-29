@@ -19,7 +19,7 @@
         @test isbalanced(a) == false
     end
 
-    @testset "balance (2x3)" begin 
+    @testset "balance (2x3)" begin
         mat = [
             4 8 1
             3 1 9
@@ -34,9 +34,9 @@
             3 1 9
             0 0 0
         ]
-    end 
+    end
 
-    @testset "balance (2x4)" begin 
+    @testset "balance (2x4)" begin
         mat = [
             4 8 1 2
             3 1 9 5
@@ -54,7 +54,7 @@
         ]
     end
 
-    @testset "balance (3x2)" begin 
+    @testset "balance (3x2)" begin
         mat = [
             4 8
             3 1
@@ -72,7 +72,7 @@
         ]
     end
 
-    @testset "balance (4x2)" begin 
+    @testset "balance (4x2)" begin
         mat = [
             4 8
             3 1
@@ -124,7 +124,7 @@
         mat = rand(10:1000, n, n)
 
         # Ensure that the ith row has a 1 in the ith column
-        for i in 1:n
+        for i = 1:n
             mat[i, i] = 1
         end
 
@@ -133,10 +133,10 @@
 
         @test result.problem isa AssignmentProblem
         @test result.cost == n
-        
-        for i in 1:n
+
+        for i = 1:n
             @test result.solution[i, i] == 1
-        end 
+        end
 
     end
 
@@ -170,7 +170,7 @@
         @test result.problem isa AssignmentProblem
         @test result.cost == 2.0
         @test size(result.solution) == (4, 4)
-        
+
         # Problem has alternative solutions.
         @test result.solution[1, 3] == 1
         @test result.solution[2, 2] == 1
@@ -190,7 +190,7 @@
         @test size(result.solution) == (3, 3)
         @test result.solution == [
             0 0 1
-            0 1 0 
+            0 1 0
             1 0 0
         ]
     end
@@ -207,7 +207,7 @@
 
         @test result.problem isa AssignmentProblem
         @test result.cost == 2.0
-    
+
 
         @test size(result.solution) == (4, 4)
 

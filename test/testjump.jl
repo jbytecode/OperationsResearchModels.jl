@@ -1,4 +1,4 @@
-@testset "JuMP and HiGHS" verbose = true begin 
+@testset "JuMP and HiGHS" verbose = true begin
 
     eps = 0.001
 
@@ -21,4 +21,4 @@
     @test isapprox(JuMP.value(y), 1.0, atol = eps)
 
     @test isapprox(JuMP.objective_value(m), 2.0, atol = eps)
-end 
+end

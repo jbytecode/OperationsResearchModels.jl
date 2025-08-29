@@ -38,7 +38,7 @@
         result = solve(problem)
 
         @test result isa MaximumFlowResult
-        
+
         @test result.flow == 60.0
 
         for element in result.path
@@ -46,5 +46,3 @@
         end
     end
 end
-
-

@@ -5,7 +5,7 @@
         # Correct order is 1 2 3 4 5
         function costfn(permutation::Vector{Int})::Float64
             sum = 0.0
-            for i in 1:5
+            for i = 1:5
                 sum += abs(permutation[i] - i)
             end
             return sum
@@ -20,7 +20,8 @@
 
         # Random key genetic algorithm
         # popsize::Int, chsize::Int, costfn::F, ngen::Int, pcross::Float64, pmutate::Float64, nelites::Int
-        result = run_ga(popsize, chsize, costfn, maxiter, crossoverprob, mutationprob, elitism)
+        result =
+            run_ga(popsize, chsize, costfn, maxiter, crossoverprob, mutationprob, elitism)
 
         @test sortperm(result.chromosomes[1].values) == [1, 2, 3, 4, 5]
         @test costfn(sortperm(result.chromosomes[1].values)) == 0.0
@@ -33,7 +34,7 @@
         # Correct order is 1 2 3 4 5 6 7 8 9 10
         function costfn(permutation::Vector{Int})::Float64
             sum = 0.0
-            for i in 1:10
+            for i = 1:10
                 sum += abs(permutation[i] - i)
             end
             return sum
@@ -48,7 +49,8 @@
 
         # Random key genetic algorithm
         # popsize::Int, chsize::Int, costfn::F, ngen::Int, pcross::Float64, pmutate::Float64, nelites::Int
-        result = run_ga(popsize, chsize, costfn, maxiter, crossoverprob, mutationprob, elitism)
+        result =
+            run_ga(popsize, chsize, costfn, maxiter, crossoverprob, mutationprob, elitism)
 
         @test sortperm(result.chromosomes[1].values) == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         @test costfn(sortperm(result.chromosomes[1].values)) == 0.0

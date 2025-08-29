@@ -54,7 +54,7 @@
         activities = [A, B, C, D, E, F, G, H, I, J, K, L]
 
 
-        problem = PertProblem(activities)   
+        problem = PertProblem(activities)
 
         result = solve(problem)
 

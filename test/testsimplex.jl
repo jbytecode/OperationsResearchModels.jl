@@ -1,37 +1,37 @@
 @testset "Simplex" verbose = true begin
 
-    @testset "Gauss Jordan" verbose=true begin
+    @testset "Gauss Jordan" verbose = true begin
 
         @testset "3x3 matrix" begin
 
             m = Float64[1.0 2 7; -1 6 5; 9 8 -3]
 
             expected = [
-                0.142157 -0.151961 0.0784314;
-                -0.102941 0.161765 0.0294118;
+                0.142157 -0.151961 0.0784314
+                -0.102941 0.161765 0.0294118
                 0.151961 -0.0245098 -0.0196078
             ]
 
-            result = gaussjordan(m, verbose=false)
+            result = gaussjordan(m, verbose = false)
 
-            @test isapprox(result, expected, atol=0.0001)
+            @test isapprox(result, expected, atol = 0.0001)
 
         end
 
-        @testset "4x4 matrix" begin 
-            
+        @testset "4x4 matrix" begin
+
             m = Float64[1 6 7 4; 5 4 3 2; 3 4 5 1; 5 5 7 5]
 
             expected = [
-                -0.196429    0.0892857   0.0714286   0.107143;
-                0.309524    0.404762   -0.142857   -0.380952;
-               -0.14881    -0.386905    0.357143    0.202381;
-                0.0952381   0.047619   -0.428571    0.190476              
+                -0.196429 0.0892857 0.0714286 0.107143
+                0.309524 0.404762 -0.142857 -0.380952
+                -0.14881 -0.386905 0.357143 0.202381
+                0.0952381 0.047619 -0.428571 0.190476
             ]
 
-            result = gaussjordan(m, verbose=false)
+            result = gaussjordan(m, verbose = false)
 
-            @test isapprox(result, expected, atol=0.0001)
+            @test isapprox(result, expected, atol = 0.0001)
         end
     end
 
@@ -51,10 +51,10 @@
         solve!(s)
 
         @test s.converged
-        @test isapprox(s.rhs[1], 16.666666666666664, atol=eps)
-        @test isapprox(s.rhs[2], 66.66666666666667, atol=eps)
+        @test isapprox(s.rhs[1], 16.666666666666664, atol = eps)
+        @test isapprox(s.rhs[2], 66.66666666666667, atol = eps)
 
-        @test isapprox(s.objective_value, 183.33333, atol=eps)
+        @test isapprox(s.objective_value, 183.33333, atol = eps)
 
     end
 
@@ -75,10 +75,10 @@
         solve!(s)
 
         @test s.converged
-        @test isapprox(s.rhs[1], 0.3333333333, atol=eps)
-        @test isapprox(s.rhs[2], 1.3333333333, atol=eps)
+        @test isapprox(s.rhs[1], 0.3333333333, atol = eps)
+        @test isapprox(s.rhs[2], 1.3333333333, atol = eps)
 
-        @test isapprox(s.objective_value, 183.33333, atol=eps)
+        @test isapprox(s.objective_value, 183.33333, atol = eps)
     end
 
     @testset "Maximization problem with single equality constraint" begin
@@ -113,7 +113,7 @@
 
     end
 
-    @testset "Mini Transportation Problem - 2" begin 
+    @testset "Mini Transportation Problem - 2" begin
 
         eps = 0.001
         #    M1  M2  M3  Supply
@@ -122,21 +122,22 @@
         # Demand  190  40  20
         s = createsimplexproblem(
             Float64[10, 20, 25, 12, 15, 7],
-            Float64[1 1 1 0 0 0; 0 0 0 1 1 1; 1 0 0 1 0 0; 0 1 0 0 1 0; 0 0 1 0 0 1],    
+            Float64[1 1 1 0 0 0; 0 0 0 1 1 1; 1 0 0 1 0 0; 0 1 0 0 1 0; 0 0 1 0 0 1],
             Float64[150, 100, 190, 40, 20],
             [EQ, EQ, EQ, EQ, EQ],
-            Minimize)
+            Minimize,
+        )
 
         iters = simplexiterations(s)
 
         lastiter = iters[end]
 
         @test lastiter.converged
-        @test isapprox(lastiter.objective_value, 2720.0, atol=eps)
+        @test isapprox(lastiter.objective_value, 2720.0, atol = eps)
         @test sort(lastiter.basicvariableindex) == [1, 4, 5, 6, 10]
         @test sort(lastiter.artificialvariableindices) == [7, 8, 9, 10, 11]
-        @test isapprox(lastiter.rhs, [150.0, 40.0, 40.0, 0.0, 20.0], atol=eps)
-    end 
+        @test isapprox(lastiter.rhs, [150.0, 40.0, 40.0, 0.0, 20.0], atol = eps)
+    end
 
     @testset "Mini Transportation Problem - 1" begin
 
@@ -148,10 +149,10 @@
         # Demand    110      80      110      -
         obj = Float64[10, 15, 20, 17, 13, 9]
         amat = Float64[
-            1 1 1 0 0 0;
-            0 0 0 1 1 1;
-            1 0 0 1 0 0;
-            0 1 0 0 1 0;
+            1 1 1 0 0 0
+            0 0 0 1 1 1
+            1 0 0 1 0 0
+            0 1 0 0 1 0
             0 0 1 0 0 1
         ]
         rhs = Float64[200, 100, 110, 80, 110]
@@ -165,10 +166,10 @@
         lastiter = iters[end]
 
         @test lastiter.converged
-        @test isapprox(lastiter.objective_value, 3400.0, atol=eps)
+        @test isapprox(lastiter.objective_value, 3400.0, atol = eps)
         @test sort(lastiter.basicvariableindex) == [1, 2, 3, 6, 11]
         @test sort(lastiter.artificialvariableindices) == [7, 8, 9, 10, 11]
-        @test isapprox(lastiter.rhs, [10.0, 100.0, 110.0, 80.0, 0.0], atol=eps)
+        @test isapprox(lastiter.rhs, [10.0, 100.0, 110.0, 80.0, 0.0], atol = eps)
     end
 
 

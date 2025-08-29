@@ -4,10 +4,10 @@
 
         @testset "Example 1 with 2-machines" begin
             times = Float64[
-                3.2 4.2;
-                4.7 1.5;
-                2.2 5.0;
-                5.8 4.0;
+                3.2 4.2
+                4.7 1.5
+                2.2 5.0
+                5.8 4.0
                 3.1 2.8
             ]
 
@@ -21,11 +21,11 @@
 
         @testset "Example 2 with 2-machines" begin
             times = Float64[
-                4 7;
-                8 3;
-                5 8;
-                6 4;
-                8 5;
+                4 7
+                8 3
+                5 8
+                6 4
+                8 5
                 7 4
             ]
 
@@ -47,10 +47,10 @@
         @testset "Example 1 for 3-machines" begin
 
             times = Float64[
-                3 3 5;
-                8 4 8;
-                7 2 10;
-                5 1 7;
+                3 3 5
+                8 4 8
+                7 2 10
+                5 1 7
                 2 5 6
             ]
 
@@ -72,9 +72,9 @@
         @testset "Example 1 for 5-machines" begin
 
             times = Float64[
-                7 5 2 3 9;
-                6 6 4 5 10;
-                5 4 5 6 8;
+                7 5 2 3 9
+                6 6 4 5 10
+                5 4 5 6 8
                 8 3 3 2 6
             ]
 
@@ -94,10 +94,10 @@
     @testset "Cannot reduce to 2-machines" begin
 
         times = Float64[
-            3 3 5 2;
-            8 4 8 3;
-            7 2 10 4;
-            5 1 7 5;
+            3 3 5 2
+            8 4 8 3
+            7 2 10 4
+            5 1 7 5
             2 5 6 6
         ]
 
@@ -136,10 +136,10 @@
 
 
         times = Float64[
-            3 3 5;
-            8 4 8;
-            7 2 10;
-            5 1 7;
+            3 3 5
+            8 4 8
+            7 2 10
+            5 1 7
             2 5 6
         ]
 
@@ -164,7 +164,7 @@
             makespan(problem, [1, 4, 3, 2, 5]),
             makespan(problem, [1, 4, 3, 5, 2]),
             makespan(problem, [1, 4, 5, 2, 3]),
-            makespan(problem, [1, 4, 5, 3, 2])
+            makespan(problem, [1, 4, 5, 3, 2]),
         ]
 
         @test minimum(ms) == best_makespan
@@ -178,10 +178,10 @@
 
             @testset "Example 1 with 2-machines with ga" begin
                 times = Float64[
-                    3.2 4.2;
-                    4.7 1.5;
-                    2.2 5.0;
-                    5.8 4.0;
+                    3.2 4.2
+                    4.7 1.5
+                    2.2 5.0
+                    5.8 4.0
                     3.1 2.8
                 ]
 
@@ -195,11 +195,11 @@
 
             @testset "Example 2 with 2-machines with ga" begin
                 times = Float64[
-                    4 7;
-                    8 3;
-                    5 8;
-                    6 4;
-                    8 5;
+                    4 7
+                    8 3
+                    5 8
+                    6 4
+                    8 5
                     7 4
                 ]
 
@@ -220,10 +220,10 @@
             @testset "Example 1 for 3-machines with ga" begin
 
                 times = Float64[
-                    3 3 5;
-                    8 4 8;
-                    7 2 10;
-                    5 1 7;
+                    3 3 5
+                    8 4 8
+                    7 2 10
+                    5 1 7
                     2 5 6
                 ]
 
@@ -242,9 +242,9 @@
             @testset "Example 1 for 5-machines - with ga " begin
 
                 times = Float64[
-                    7 5 2 3 9;
-                    6 6 4 5 10;
-                    5 4 5 6 8;
+                    7 5 2 3 9
+                    6 6 4 5 10
+                    5 4 5 6 8
                     8 3 3 2 6
                 ]
 
@@ -261,10 +261,10 @@
         @testset "Cannot reduce to 2-machine - but solvable with GA" begin
 
             times = Float64[
-                3 3 5 2;
-                8 4 8 3;
-                7 2 10 4;
-                5 1 7 5;
+                3 3 5 2
+                8 4 8 3
+                7 2 10 4
+                5 1 7 5
                 2 5 6 6
             ]
 

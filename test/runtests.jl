@@ -21,5 +21,3 @@ include("testpert.jl")
 include("testlatex.jl")
 include("testknapsack.jl")
 include("testsimplex.jl")
-
-
