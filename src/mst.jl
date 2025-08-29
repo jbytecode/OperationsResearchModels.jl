@@ -20,7 +20,7 @@ Defines the minimum spanning tree problem.
 # Fields
 - `connections::Vector{Connection}`: The connections (edges) in the network. 
 
-# Note 
+!!! info "Interpreting the Connection object"
 
     The Connection object defines a directed edge, but for the minimum spanning tree problem, 
     the edges are considered undirected.

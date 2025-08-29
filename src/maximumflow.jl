@@ -55,6 +55,10 @@ end
 
     solve(problem)
 
+# Description 
+
+Solves a maximum flow problem given by an object of in type `MaximumFlowProblem`.
+
 # Arguments
 
 - `problem::MaximumFlowProblem`: The problem in type of MaximumFlowProblem

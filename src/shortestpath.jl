@@ -90,7 +90,7 @@ julia> result.cost
 8.0
 ```
 
-# NOTE 
+!!! info "Determining start and finish nodes"
 
     In this function it's assumed that the problem has a unique start and finish node.
     A heuristic approach is used to find the start and finish nodes. If a node has only
