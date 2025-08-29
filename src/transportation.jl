@@ -235,7 +235,7 @@ function northwestcorner(t::TransportationProblem)::TransportationResult
     i = 1
     j = 1
 
-    while (i <= n) || (j <= m)
+    while (i <= n) && (j <= m)
         amount = min(supply[i], demand[j])
         asgnmatrix[i, j] = amount
         supply[i] -= amount
