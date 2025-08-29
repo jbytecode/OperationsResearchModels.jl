@@ -6,8 +6,8 @@ import ..OperationsResearchModels: solve
 
 export JohnsonResult
 export JohnsonException
-export makespan 
-export johnsons_ga 
+export makespan
+export johnsons_ga
 
 
 struct JohnsonException <: Exception
@@ -46,10 +46,10 @@ struct JohnsonResult
 end
 
 struct Process
-    start
-    duration
-    finish
-end 
+    start::Any
+    duration::Any
+    finish::Any
+end
 
 
 """
@@ -91,14 +91,21 @@ result = johnsons_ga(JohnsonProblem(times))
 println(result.permutation)
 ```
 """
-function johnsons_ga(problem::JohnsonProblem; popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::JohnsonResult
+function johnsons_ga(
+    problem::JohnsonProblem;
+    popsize = 100,
+    ngen = 1000,
+    pcross = 0.8,
+    pmutate = 0.01,
+    nelites = 1,
+)::JohnsonResult
 
     times = problem.times
     n, _ = size(times)
-    
+
     function costfn(perm::Vector{Int})
         return makespan(problem, perm)
-    end 
+    end
 
     finalpop = run_ga(popsize, n, costfn, ngen, pcross, pmutate, nelites)
 
@@ -163,7 +170,7 @@ function solve(problem::JohnsonProblem)::JohnsonResult
 end
 
 function dofirst!(locrow::Int, permutation::Vector{Int})
-    for i in 1:length(permutation)
+    for i = 1:length(permutation)
         if permutation[i] == -1
             permutation[i] = locrow
             return
@@ -172,7 +179,7 @@ function dofirst!(locrow::Int, permutation::Vector{Int})
 end
 
 function dolast!(locrow::Int, permutation::Vector{Int})
-    for i in length(permutation):-1:1
+    for i = length(permutation):-1:1
         if permutation[i] == -1
             permutation[i] = locrow
             return
@@ -187,8 +194,8 @@ function johnsons_2machines(timesmatrix::Matrix)::JohnsonResult
 
     typed_inf = typemax(eltype(times))
 
-    permutation = [-1 for i in 1:n]
-    for i in 1:n
+    permutation = [-1 for i = 1:n]
+    for i = 1:n
         locrow, loccol = argmin(times).I
         if loccol == 1
             dofirst!(locrow, permutation)
@@ -207,14 +214,18 @@ function johnsons_nmachines(times::Matrix)::JohnsonResult
     maxothers = maximum(times[:, 2:(end-1)])
 
     if !((minfirst >= maxothers) || (minlast >= maxothers))
-        throw(JohnsonException("The problem cannot be reduced to a 2-machine problem: minfirst >= maxothers and/or minlast >= maxothers"))
+        throw(
+            JohnsonException(
+                "The problem cannot be reduced to a 2-machine problem: minfirst >= maxothers and/or minlast >= maxothers",
+            ),
+        )
     end
 
     Gcollection = times[:, 1:(end-1)]
     Hcollection = times[:, 2:end]
 
-    G = sum(Gcollection, dims=2)
-    H = sum(Hcollection, dims=2)
+    G = sum(Gcollection, dims = 2)
+    H = sum(Hcollection, dims = 2)
 
     return johnsons_2machines([G H])
 end
@@ -257,8 +268,8 @@ function makespan(problem::JohnsonProblem, permutation::Vector{Int})::Float64
 
     timetable = Matrix{Process}(undef, m, n)
 
-    for machine_id in 1:m
-        for task_id in 1:n
+    for machine_id = 1:m
+        for task_id = 1:n
             current_task = permutation[task_id]
             if machine_id == 1
                 if task_id == 1
@@ -270,7 +281,10 @@ function makespan(problem::JohnsonProblem, permutation::Vector{Int})::Float64
                 if task_id == 1
                     start = timetable[machine_id-1, task_id].finish
                 else
-                    start = max(timetable[machine_id, task_id-1].finish, timetable[machine_id-1, task_id].finish)
+                    start = max(
+                        timetable[machine_id, task_id-1].finish,
+                        timetable[machine_id-1, task_id].finish,
+                    )
                 end
             end
             duration = times[current_task, machine_id]

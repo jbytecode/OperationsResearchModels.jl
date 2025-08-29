@@ -478,7 +478,7 @@ function simplexiterations(s::SimplexProblem)::Vector{SimplexProblem}
     return iterations
 end
 
-function simplexpretty(s::SimplexProblem; maxiter::Int=1000)::Nothing
+function simplexpretty(s::SimplexProblem; maxiter::Int = 1000)::Nothing
 
     copied::SimplexProblem = copy(s)
 
@@ -506,7 +506,7 @@ function simplexpretty(s::SimplexProblem; maxiter::Int=1000)::Nothing
     @info "The problem is converged"
     @info "Here is the result"
     varnames = copied.varnames[copied.basicvariableindex]
-    for i = eachindex(varnames)
+    for i in eachindex(varnames)
         @info "$(varnames[i]) = $(copied.rhs[i])"
     end
 
@@ -607,15 +607,15 @@ julia> invA = gaussjordan(A, verbose = false)
   1.0       -2.0       1.0
 ```
 """
-function gaussjordan(A::Matrix{Float64}; verbose::Bool=true)::Matrix{Float64}
+function gaussjordan(A::Matrix{Float64}; verbose::Bool = true)::Matrix{Float64}
     n, p = size(A)
     b = zeros(Float64, n, n)
-    for i in 1:n
+    for i = 1:n
         b[i, i] = 1.0
     end
     Z = Float64[A b]
-    @inbounds @simd for i in 1:n
-        @simd for j in 1:n
+    @inbounds @simd for i = 1:n
+        @simd for j = 1:n
             if i != j
                 Z[j, :] .= view(Z, j, :) .- (Z[j, i] / Z[i, i]) .* view(Z, i, :)
             else

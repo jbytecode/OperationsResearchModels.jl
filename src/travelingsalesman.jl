@@ -1,6 +1,6 @@
 module TravelingSalesman
 
-import ..RandomKeyGA: run_ga 
+import ..RandomKeyGA: run_ga
 
 import ..OperationsResearchModels: solve
 
@@ -95,19 +95,25 @@ end
 result = solve(TravelingSalesmanProblem(distmat), ngen = 1000, popsize = 100, pcross = 1.0, pmutate = 0.10)
 ```
 """
-function solve(problem::TravelingSalesmanProblem; 
-    popsize = 100, ngen = 1000, pcross = 0.8, pmutate = 0.01, nelites = 1)::TravelingSalesmanResult
+function solve(
+    problem::TravelingSalesmanProblem;
+    popsize = 100,
+    ngen = 1000,
+    pcross = 0.8,
+    pmutate = 0.01,
+    nelites = 1,
+)::TravelingSalesmanResult
 
     n, _ = size(problem.distancematrix)
 
-    function costfn(route::Vector{Int})::Float64 
+    function costfn(route::Vector{Int})::Float64
         cost = 0.0
-        for i in 1:length(route)-1
+        for i = 1:length(route)-1
             cost += problem.distancematrix[route[i], route[i+1]]
         end
         cost += problem.distancematrix[route[end], route[1]]
         return cost
-    end 
+    end
 
 
     # popsize::Int, chsize::Int, costfn::F, ngen::Int, pcross::Float64, pmutate::Float64, nelites::Int

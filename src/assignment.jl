@@ -92,10 +92,10 @@ function balance(problem::AssignmentProblem)::AssignmentProblem
     if n == p
         return problem
     elseif n < p
-        new_costs = vcat(problem.costs, zeros(p-n, p))
+        new_costs = vcat(problem.costs, zeros(p - n, p))
         return AssignmentProblem(new_costs)
     else
-        new_costs = hcat(problem.costs, zeros(n, n-p))
+        new_costs = hcat(problem.costs, zeros(n, n - p))
         return AssignmentProblem(new_costs)
     end
 end
@@ -146,8 +146,8 @@ function solve(a::AssignmentProblem)::AssignmentResult
     n, p = size(a.costs)
     problem = a
 
-    if n != p 
-        problem  = balance(a)
+    if n != p
+        problem = balance(a)
         n, p = size(problem.costs)
     end
 

@@ -28,7 +28,7 @@ function Chromosome(vals::Vector{Float64})
 end
 
 function create_population(popsize::Int, chsize::Int, costfn::F) where {F<:Function}
-    chs = Chromosome[Chromosome(chsize) for i in 1:popsize]
+    chs = Chromosome[Chromosome(chsize) for i = 1:popsize]
     return Population(chs, costfn)
 end
 
@@ -49,30 +49,37 @@ end
 function tournament_selection(pop::Population, tournament_size::Int)::Chromosome
     indices = rand(1:length(pop.chromosomes), tournament_size)
     chromosomes = pop.chromosomes[indices]
-    sorted_chromosomes = sort!(chromosomes, by=ch -> ch.cost)
+    sorted_chromosomes = sort!(chromosomes, by = ch -> ch.cost)
     return sorted_chromosomes[1]
 end
 
-function generation(initialpop::Population, pcross::Float64, pmutate::Float64, nelites::Int)::Population
+function generation(
+    initialpop::Population,
+    pcross::Float64,
+    pmutate::Float64,
+    nelites::Int,
+)::Population
 
     n = length(initialpop.chromosomes)
 
-    for i in 1:n
-        initialpop.chromosomes[i].cost = initialpop.costfn(sortperm(initialpop.chromosomes[i].values))
+    for i = 1:n
+        initialpop.chromosomes[i].cost =
+            initialpop.costfn(sortperm(initialpop.chromosomes[i].values))
     end
 
-    sort!(initialpop.chromosomes, by=ch -> ch.cost)
+    sort!(initialpop.chromosomes, by = ch -> ch.cost)
 
 
     chsize = length(initialpop.chromosomes[1].values)
 
     newpop = create_population(n, chsize, initialpop.costfn)
 
-    for i in 1:nelites
-        newpop.chromosomes[i] = Chromosome(initialpop.chromosomes[i].values, initialpop.chromosomes[i].cost)
+    for i = 1:nelites
+        newpop.chromosomes[i] =
+            Chromosome(initialpop.chromosomes[i].values, initialpop.chromosomes[i].cost)
     end
 
-    for i in (nelites+1):n
+    for i = (nelites+1):n
         ch1 = tournament_selection(initialpop, 2)
 
         if rand() < pcross
@@ -90,20 +97,28 @@ function generation(initialpop::Population, pcross::Float64, pmutate::Float64, n
     return newpop
 end
 
-function run_ga(popsize::Int, chsize::Int, costfn::F, ngen::Int, pcross::Float64, pmutate::Float64, nelites::Int) where {F<:Function}
+function run_ga(
+    popsize::Int,
+    chsize::Int,
+    costfn::F,
+    ngen::Int,
+    pcross::Float64,
+    pmutate::Float64,
+    nelites::Int,
+) where {F<:Function}
 
     pop = create_population(popsize, chsize, costfn)
 
-    for _ in 1:ngen
+    for _ = 1:ngen
         pop = generation(pop, pcross, pmutate, nelites)
     end
 
     # calculate costs 
-    for i in 1:popsize
+    for i = 1:popsize
         pop.chromosomes[i].cost = pop.costfn(sortperm(pop.chromosomes[i].values))
     end
 
-    sort!(pop.chromosomes, by=ch -> ch.cost)
+    sort!(pop.chromosomes, by = ch -> ch.cost)
 
     return pop
 end

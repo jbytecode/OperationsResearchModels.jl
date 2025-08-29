@@ -177,7 +177,10 @@ Solution:
 [-0.0 -0.0 -0.0 100.0; 100.0 -0.0 -0.0 -0.0; -0.0 -0.0 100.0 -0.0; -0.0 100.0 -0.0 -0.0]
 ```
 """
-function solve(t::TransportationProblem; initial::Function = NoInitial)::TransportationResult
+function solve(
+    t::TransportationProblem;
+    initial::Function = NoInitial,
+)::TransportationResult
     newt = balance(t)
 
     model = JuMP.Model(HiGHS.Optimizer)
@@ -299,7 +302,7 @@ end
 
 function NoInitial(t::TransportationProblem)::TransportationResult
     TransportationResult(t, t, zeros(size(t.costs)), 0.0)
-end 
+end
 
 
 end # end of module  

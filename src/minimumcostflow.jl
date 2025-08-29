@@ -43,10 +43,10 @@ A structure to hold the result of the minimum cost flow problem.
 - `cost::Float64`: The total cost of the flow.
 
 """
-struct MinimumCostFlowResult 
+struct MinimumCostFlowResult
     path::Vector{Connection}
     cost::Float64
-end 
+end
 
 
 
@@ -118,7 +118,7 @@ function solve(problem::MinimumCostFlowProblem, flow::Float64)::MinimumCostFlowR
     end
 
     return MinimumCostFlowResult(solutionnodes, cost)
-end 
+end
 
 
 """
@@ -152,9 +152,9 @@ function solve(problem::MinimumCostFlowProblem)::MinimumCostFlowResult
     f = maximumflowresult.flow
 
     result::MinimumCostFlowResult = solve(problem, f)
-    
+
     return result
-end 
+end
 
 
 end # end of module MinimumCostFlow

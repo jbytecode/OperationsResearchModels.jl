@@ -32,7 +32,7 @@ A structure to hold a directed connection between two nodes in a network.
 conn = Connection(1, 2, 5)
 ```
 """
-struct Connection 
+struct Connection
     from::Int64
     to::Int64
     value::Real
@@ -88,7 +88,12 @@ end
 
 
 
-function outflow(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)::Union{JuMP.AffExpr, Symbol}
+function outflow(
+    x::Matrix{JuMP.VariableRef},
+    node::Int64,
+    nodes::Vector{Connection},
+    model,
+)::Union{JuMP.AffExpr,Symbol}
     lst = []
     for conn in nodes
         if conn.from == node
@@ -99,7 +104,7 @@ function outflow(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connect
         return :f
     end
     expr = @expression(model, 0)
-    for i = eachindex(lst)
+    for i in eachindex(lst)
         expr += x[lst[i].from, lst[i].to]
     end
     return expr
@@ -107,7 +112,12 @@ end
 
 
 
-function inflow(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connection}, model)::Union{JuMP.AffExpr, Symbol}
+function inflow(
+    x::Matrix{JuMP.VariableRef},
+    node::Int64,
+    nodes::Vector{Connection},
+    model,
+)::Union{JuMP.AffExpr,Symbol}
     lst = []
     for conn in nodes
         if conn.to == node
@@ -118,7 +128,7 @@ function inflow(x::Matrix{JuMP.VariableRef}, node::Int64, nodes::Vector{Connecti
         return :f
     end
     expr = @expression(model, 0)
-    for i = eachindex(lst)
+    for i in eachindex(lst)
         expr += x[lst[i].from, lst[i].to]
     end
     return expr

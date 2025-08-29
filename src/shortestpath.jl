@@ -23,9 +23,9 @@ Defines the shortest path problem.
 - `connections::Vector{Connection}`: The connections (edges) in the network.
 
 """
-struct ShortestPathProblem 
+struct ShortestPathProblem
     connections::Vector{Connection}
-end 
+end
 
 
 """
@@ -131,7 +131,7 @@ function solve(problem::ShortestPathProblem)
             return 0
         end
         expr = @expression(model, 0)
-        for i = eachindex(lst)
+        for i in eachindex(lst)
             expr += x[lst[i].from, lst[i].to]
         end
         return expr

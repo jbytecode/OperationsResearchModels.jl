@@ -14,7 +14,7 @@ using JuMP, HiGHS
 # solve(m::MstProblem)::MstResult
 # solve(t::TravelingSalesmanProblem)::TravelingSalesmanResult
 # solve(p::JohnsonProblem)::JohnsonResult
-solve() = nothing 
+solve() = nothing
 
 # solve!(s::SimplexProblem)::SimplexProblem
 solve!() = nothing
@@ -28,10 +28,10 @@ balance() = nothing
 isbalanced() = nothing
 
 
-export solve 
+export solve
 export solve!
 export balance
-export isbalanced 
+export isbalanced
 
 
 include("utility.jl")
@@ -72,10 +72,11 @@ import .TravelingSalesman
 
 
 import .Transportation:
-    TransportationProblem, 
-    TransportationResult, 
-    balance, isbalanced, 
-    northwestcorner, 
+    TransportationProblem,
+    TransportationResult,
+    balance,
+    isbalanced,
+    northwestcorner,
     leastcost
 
 import .ShortestPath: ShortestPathResult, ShortestPathProblem
@@ -94,9 +95,11 @@ import .Latex: latex
 import .Johnsons: JohnsonProblem, JohnsonResult, JohnsonException, makespan, johnsons_ga
 import .RandomKeyGA: Chromosome, run_ga
 import .TravelingSalesman: TravelingSalesmanResult, TravelingSalesmanProblem
-import .Simplex: SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan, OptimizationType
+import .Simplex:
+    SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan, OptimizationType
 
-export TransportationProblem, TransportationResult, balance, isbalanced, northwestcorner, leastcost
+export TransportationProblem,
+    TransportationResult, balance, isbalanced, northwestcorner, leastcost
 export Connection, ShortestPathResult, MaximumFlowResult, MinimumCostFlowResult, nodes
 export ShortestPathProblem, MaximumFlowProblem, MinimumCostFlowProblem
 export AssignmentProblem, AssignmentResult, isbalanced, balance
@@ -112,7 +115,8 @@ export latex
 export Chromosome, run_ga
 export JohnsonProblem, JohnsonResult, JohnsonException, makespan, johnsons_ga
 export TravelingSalesmanResult, TravelingSalesmanProblem
-export simplexiterations, SimplexProblem, createsimplexproblem, gaussjordan, OptimizationType
+export simplexiterations,
+    SimplexProblem, createsimplexproblem, gaussjordan, OptimizationType
 
 export JuMP, HiGHS
 

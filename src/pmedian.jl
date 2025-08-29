@@ -148,7 +148,7 @@ function pmedian_with_distances(distancematrix::Matrix, ncenters::Int)::PMedianR
     optimize!(model)
 
     return PMedianResult(
-        findall(x -> x == 1, value.(y)),    
+        findall(x -> x == 1, value.(y)),
         model,
         JuMP.objective_value(model),
         value.(z),

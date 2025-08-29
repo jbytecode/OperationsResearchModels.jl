@@ -17,9 +17,9 @@ Defines the problem of a zero-sum game.
 
 - `decisionMatrix::Matrix{<:Real}`: The payoff matrix of the game designed for the row player.
 """
-struct GameProblem 
+struct GameProblem
     decisionMatrix::Matrix{<:Real}
-end 
+end
 
 
 """
@@ -36,8 +36,8 @@ A structure to hold the result of a game.
 
 """
 struct GameResult
-    probabilities
-    value
+    probabilities::Any
+    value::Any
 end
 
 
