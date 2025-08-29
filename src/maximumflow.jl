@@ -99,6 +99,15 @@ julia> result.path
 julia> result.flow
 7.0
 ```
+
+!!! info "Determining start and finish nodes"
+
+    In this function it's assumed that the problem has a unique start and finish node.
+    A heuristic approach is used to find the start and finish nodes. If a node has only
+    outcoming connections, it is considered the start node. If a node has only incoming connections,
+    it is considered the finish node. Of course a network can have multiple start and finish nodes,
+    but this heuristic simplifies the problem. Future implementations could explore more complex
+    scenarios with multiple start and finish nodes. 
 """
 function solve(problem::MaximumFlowProblem)::MaximumFlowResult
 
