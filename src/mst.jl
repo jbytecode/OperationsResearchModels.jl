@@ -5,7 +5,6 @@ import ..Network: Connection, nodes
 import ..OperationsResearchModels: solve
 
 export hasloop
-export mst
 export MstResult
 export MstProblem
 

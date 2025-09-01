@@ -2,7 +2,7 @@ module Knapsack
 
 import ..OperationsResearchModels: solve
 
-export knapsack
+export KnapsackProblem
 export KnapsackResult
 
 using JuMP, HiGHS
