@@ -59,7 +59,18 @@ This page includes both the API documentation and examples.
 Please use the citation info below if you use this package in your work.
 
 ```bibtex
-@article{Satman2025, doi = {10.21105/joss.08592}, url = {https://doi.org/10.21105/joss.08592}, year = {2025}, publisher = {The Open Journal}, volume = {10}, number = {113}, pages = {8592}, author = {Satman, Mehmet Hakan}, title = {OperationsResearchModels.jl: A Julia package for operations research models}, journal = {Journal of Open Source Software} }
+@article{Satman2025, 
+    doi = {10.21105/joss.08592}, 
+    url = {https://doi.org/10.21105/joss.08592}, 
+    year = {2025}, 
+    publisher = {The Open Journal}, 
+    volume = {10}, 
+    number = {113}, 
+    pages = {8592}, 
+    author = {Satman, Mehmet Hakan}, 
+    title = {OperationsResearchModels.jl: A Julia package for operations research models}, 
+    journal = {Journal of Open Source Software}
+}
 ```
 
 
