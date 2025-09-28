@@ -1,5 +1,6 @@
 ### 0.2.7 (Upcoming Release)
 
+- Optimize allocations in Minimal Spanning Tree.
 
 
 ### 0.2.6
