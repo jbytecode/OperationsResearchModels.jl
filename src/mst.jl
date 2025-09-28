@@ -178,15 +178,19 @@ function solve(problem::MstProblem)::MstResult
 
     assigned = Set{Int64}()
     unassigned = nodes(conns)
-    connresult = Connection[]
+
+    n = length(unassigned)
+
+    # In MST, there must be n-1 connections for n nodes
+    connresult = Vector{Connection}(undef, n - 1)
 
     luckynode = pop!(unassigned)
     push!(assigned, luckynode)
 
-    while length(unassigned) > 0
+    for iter in 1:(n - 1)
         nearestnode, conn = findnearestbetweennodes(conns, distmat, assigned, unassigned)
         push!(assigned, nearestnode)
-        push!(connresult, conn)
+        connresult[iter] = conn
         totaldist += conn.value
         unassigned = filter(x -> x != nearestnode, unassigned)
     end

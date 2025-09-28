@@ -88,6 +88,7 @@
         @test result isa MstResult
         @test result.distance == 30.0
         @test !hasloop(result.connections)
+        @test length(result.connections) == length(nodes(conns)) - 1
     end
 
     @testset "6 nodes with loops" begin
@@ -113,6 +114,7 @@
         end
 
         @test !hasloop(result.connections)
+        @test length(result.connections) == length(allnodes) - 1
     end
 
     @testset "7 nodes with loops" begin
@@ -149,6 +151,7 @@
         end
 
         @test !hasloop(result.connections)
+        @test length(result.connections) == length(allnodes) - 1
     end
 
     @testset "big network" begin
@@ -168,5 +171,6 @@
         end
 
         @test !hasloop(result.connections)
+        @test length(result.connections) == length(allnodes) - 1
     end
 end
