@@ -56,7 +56,7 @@ This page includes both the API documentation and examples.
 
 # How to cite
 
-Please use the citation info below if you use this package in your work.
+Please use the citation info below if you use this package in your work. If you use a tex distribution you can cite with the bibtex entry
 
 ```bibtex
 @article{Satman2025, 
@@ -73,6 +73,12 @@ Please use the citation info below if you use this package in your work.
 }
 ```
 
+or within text editors:
+
+> Satman, M. H., (2025). OperationsResearchModels.jl: A Julia package for operations research models. Journal of Open Source Software, 10(113), 8592, https://doi.org/10.21105/joss.08592
+
+
+Thank you in advance for citing my work! 
 
 # How to contribute
 
