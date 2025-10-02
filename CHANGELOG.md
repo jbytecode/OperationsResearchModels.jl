@@ -5,6 +5,7 @@
 - Export JuMP model from zero-sum games.
 - Export JuMP model from Maximum Flow problems.
 - Export JuMP model from Minimum Cost Flow problems.
+- Export JuMP model from Transportation problems.
 
 
 
