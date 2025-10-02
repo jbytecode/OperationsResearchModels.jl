@@ -38,6 +38,7 @@ end
 - `problem::AssignmentProblem`: The original assignment problem.
 - `solution::Matrix`: The solution matrix of the assignment problem.
 - `cost::Real`: The optimal cost of the assignment.
+- `model::JuMP.Model`: The JuMP model used to solve the problem.
 
 # Description
 
@@ -48,6 +49,7 @@ struct AssignmentResult
     problem::AssignmentProblem
     solution::Matrix
     cost::Real
+    model::JuMP.Model
 end
 
 
@@ -162,7 +164,7 @@ function solve(a::AssignmentProblem)::AssignmentResult
     solution = value.(x)
     cost = JuMP.objective_value(model)
 
-    result = AssignmentResult(a, solution, cost)
+    result = AssignmentResult(a, solution, cost, model)
     return result
 end
 
