@@ -1,6 +1,7 @@
 ### 0.2.7 (Upcoming Release)
 
 - Optimize allocations in Minimal Spanning Tree.
+- Export JuMP model from assigment problems.
 
 
 ### 0.2.6
