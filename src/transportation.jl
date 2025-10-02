@@ -43,17 +43,22 @@ end
 - `balancedProblem::TransportationProblem`: The balanced transportation problem.
 - `solution::Matrix`: The solution matrix of the transportation problem.
 - `cost::Real`: The optimal cost of the transportation problem.
+- `model::Union{JuMP.Model, Nothing}`: The JuMP model used to solve the transportation problem. Methods that 
+    do not use JuMP will set this field to `nothing`.
+
 
 # Description
 
 The `TransportationResult` struct represents the result of solving a transportation problem.
 It contains the original problem, the balanced problem, the solution matrix, and the optimal cost.
+
 """
 struct TransportationResult
     originalProblem::TransportationProblem
     balancedProblem::TransportationProblem
     solution::Matrix
     cost::Real
+    model::Union{JuMP.Model, Nothing}
 end
 
 function Base.show(io::IO, t::TransportationProblem)
@@ -202,7 +207,7 @@ function solve(
     solution = value.(x)
     cost = JuMP.objective_value(model)
 
-    result = TransportationResult(t, newt, solution, cost)
+    result = TransportationResult(t, newt, solution, cost, model)
     return result
 end
 
@@ -253,7 +258,7 @@ function northwestcorner(t::TransportationProblem)::TransportationResult
     end
 
     cost = problem.costs .* asgnmatrix |> sum
-    result = TransportationResult(t, problem, asgnmatrix, cost)
+    result = TransportationResult(t, problem, asgnmatrix, cost, nothing)
     return result
 end
 
@@ -295,13 +300,13 @@ function leastcost(t::TransportationProblem)::TransportationResult
         end
         cost += amount * mincost
     end
-    result = TransportationResult(t, problem, asgnmatrix, cost)
+    result = TransportationResult(t, problem, asgnmatrix, cost, nothing)
     return result
 end
 
 
 function NoInitial(t::TransportationProblem)::TransportationResult
-    TransportationResult(t, t, zeros(size(t.costs)), 0.0)
+    TransportationResult(t, t, zeros(size(t.costs)), 0.0, nothing)
 end
 
 
