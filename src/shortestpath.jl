@@ -39,11 +39,13 @@ A structure to hold the result of the shortest path problem.
 
 - `path::Vector{Connection}`: The connections (edges) in the shortest path.
 - `cost::Float64`: The total cost of the shortest path.
+- `model::JuMP.Model`: The JuMP model used to solve the problem.
 
 """
 struct ShortestPathResult
     path::Vector{Connection}
     cost::Float64
+    model::JuMP.Model
 end
 
 
@@ -182,7 +184,7 @@ function solve(problem::ShortestPathProblem)
         end
     end
 
-    return ShortestPathResult(solutionnodes, cost)
+    return ShortestPathResult(solutionnodes, cost, model)
 end
 
 

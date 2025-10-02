@@ -15,6 +15,7 @@ using JuMP, HiGHS
 - `objective::Float64`: Objective value.
 - `z::Matrix`: Binary matrix of assignments. If z[i, j] = 1 then ith point is connected to the jth point.
 - `y::Vector`: Binary vector. If y[i] is 1 then ith point is a depot.
+
 """
 struct PMedianResult
     centers::Vector
