@@ -1,4 +1,7 @@
-### 0.2.7 (Upcoming Release)
+### 0.2.9 (Upcoming Release)
+
+
+### 0.2.8
 
 - Optimize allocations in Minimal Spanning Tree.
 - Export JuMP model from assigment problems.
@@ -6,6 +9,12 @@
 - Export JuMP model from Maximum Flow problems.
 - Export JuMP model from Minimum Cost Flow problems.
 - Export JuMP model from Transportation problems.
+
+
+
+### 0.2.7
+
+- JOSS Submission
 
 
 
