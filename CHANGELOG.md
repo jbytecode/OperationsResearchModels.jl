@@ -2,6 +2,8 @@
 
 - Optimize allocations in Minimal Spanning Tree.
 - Export JuMP model from assigment problems.
+- Export JuMP model from zero-sum games.
+
 
 
 ### 0.2.6

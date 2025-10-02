@@ -33,11 +33,13 @@ A structure to hold the result of a game.
 
 - `probabilities`: Probabilities of the strategies
 - `value`:         Value of the game
+- `model::JuMP.Model`: The JuMP model used to solve the game.
 
 """
 struct GameResult
     probabilities::Any
     value::Any
+    model::JuMP.Model
 end
 
 
@@ -95,7 +97,7 @@ function game_solver(gamematrix::Matrix{<:Real}; verbose::Bool = false)::GameRes
 
     gamevalue = JuMP.value(g) #objective_value(model)
 
-    result = GameResult(values, gamevalue)
+    result = GameResult(values, gamevalue, model)
 
     return result
 
