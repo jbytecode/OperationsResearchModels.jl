@@ -41,11 +41,13 @@ A structure to hold the result of the minimum cost flow problem.
 
 - `path::Vector{Connection}`: The connections (edges) in the flow path.
 - `cost::Float64`: The total cost of the flow.
+- `model::JuMP.Model`: The JuMP model used to solve the problem.
 
 """
 struct MinimumCostFlowResult
     path::Vector{Connection}
     cost::Float64
+    model::JuMP.Model
 end
 
 
@@ -117,7 +119,7 @@ function solve(problem::MinimumCostFlowProblem, flow::Float64)::MinimumCostFlowR
         end
     end
 
-    return MinimumCostFlowResult(solutionnodes, cost)
+    return MinimumCostFlowResult(solutionnodes, cost, model)
 end
 
 

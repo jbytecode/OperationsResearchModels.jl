@@ -39,11 +39,13 @@ A structure to hold the result of the maximum flow problem.
 
 - `path::Vector{Connection}`: The connections (edges) in the flow path.
 - `flow::Float64`: The total flow through the network.
+- `model::JuMP.Model`: The JuMP model used to solve the problem.
 
 """
 struct MaximumFlowResult
     path::Vector{Connection}
     flow::Float64
+    model::JuMP.Model
 end
 
 
@@ -161,7 +163,7 @@ function solve(problem::MaximumFlowProblem)::MaximumFlowResult
         end
     end
 
-    return MaximumFlowResult(solutionnodes, cost)
+    return MaximumFlowResult(solutionnodes, cost, model)
 end
 
 
