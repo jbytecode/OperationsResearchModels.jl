@@ -58,6 +58,49 @@
 
     end
 
+    @testset "Capacity planning example" begin 
+
+        eps = 0.00001
+        # Maximize z = 3x + 4y 
+        # subject to
+        # x + 2y <= 300
+        # 2x + y <= 300
+        # x, y >= 0
+        problem1 = createsimplexproblem(
+            [3.0, 4.0],
+            [1.0 2.0; 2.0 1.0],
+            [300.0, 300.0],
+            [LE, LE],
+            Maximize,
+        )
+        iters = simplexiterations(problem1)
+        lastiter = iters[end]
+        @test lastiter.converged
+        @test isapprox(lastiter.objective_value, 700.0, atol = eps)
+        @test isapprox(lastiter.rhs, [100.0, 100.0], atol = eps)
+
+        # Maximize z = 3x + 4y 
+        # subject to
+        # x + 2y <= Cap1
+        # 2x + y <= Cap2
+        # Cap1 + Cap2 = 600
+        # x, y, Cap1, Cap2 >= 0
+        problem2 = createsimplexproblem(
+            [3.0, 4.0, 0.0, 0.0],
+            [1.0 2.0 -1.0 0.0; 2.0 1.0 0.0 -1.0; 0.0 0.0 1.0 1.0],
+            [eps, eps, 600.0],
+            [LE, LE, EQ],
+            Maximize,
+        )
+        iters = simplexiterations(problem2)
+        lastiter = iters[end]
+        @test lastiter.converged
+        # Problem has epsilons in rhs, so objective value is slightly off
+        # due to numerical issues. Allowing a bit more tolerance here.
+        @test isapprox(lastiter.objective_value, 800.0, atol = 10 * eps)
+        @test isapprox(lastiter.rhs, [200.0, 200.0, 400.0], atol = 10 * eps)
+    end
+
 
 
     @testset "Minimization Problem" begin

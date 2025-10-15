@@ -1,6 +1,7 @@
 ### 0.2.9 (Upcoming Release)
 
 - Fix documentation of simplex
+- Add tests for Simplex
 
 
 ### 0.2.8
