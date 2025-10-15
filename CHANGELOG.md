@@ -1,5 +1,7 @@
 ### 0.2.9 (Upcoming Release)
 
+- Fix documentation of simplex
+
 
 ### 0.2.8
 

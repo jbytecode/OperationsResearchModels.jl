@@ -549,7 +549,7 @@ x1, x2 >= 0
 The following code creates a SimplexProblem object for the above problem:
 
 ```julia
-using OperationsResearch.Simplex
+using OperationsResearchModels.Simplex
 
 obj = Float64[1.0, 2.0, 3.0]
 amat = Float64[1.0 2.0 3.0; 3.0 1.0 5.0]
