@@ -216,5 +216,24 @@
     end
 
 
+    @testset "Unbounded Problem - Should throw an error" begin
+
+        # Maximize z = 3x + 4y
+        # subject to
+        # x + 2y >= 100
+        # 3x +   y >= 200
+        # x, y >= 0
+        
+        problem = createsimplexproblem(
+            Float64[3, 4], 
+            Float64[1 2; 3 1], 
+            Float64[100, 200], 
+            [GE, GE], 
+            Maximize)
+
+
+        @test_throws ErrorException solve!(problem)
+
+    end
 
 end # end of test set Simplex

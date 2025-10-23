@@ -1,7 +1,11 @@
-### 0.2.9 (Upcoming Release)
+### 0.2.10 (Upcoming Release)
+
+
+### 0.2.9 
 
 - Fix documentation of simplex
 - Add tests for Simplex
+- Add unbounded problem check for the Simplex routines.
 
 
 ### 0.2.8

@@ -407,6 +407,11 @@ function singleiteration!(s::SimplexProblem)
     end
 
     exitingvariableindex = getexitingvariableindex(s, enteringvariableindex)
+
+    if isnothing(exitingvariableindex)
+        error("Can not find exiting variable index. The problem is unbounded. Did you forget to add constraints?")
+    end
+
     rowindex = s.basicvariableindex[exitingvariableindex]
 
     update!(s, enteringvariableindex, rowindex)
