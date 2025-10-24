@@ -71,10 +71,10 @@ Solves the knapsack problem.
 
 # Example
 ```julia
-julia> values = [10, 20, 30, 40, 50];
-julia> weights = [1, 2, 3, 4, 5];
-julia> capacity = 10;
-julia> solve(KnapsackProblem(values, weights, capacity));
+values = [10, 20, 30, 40, 50];
+weights = [1, 2, 3, 4, 5];
+capacity = 10;
+solve(KnapsackProblem(values, weights, capacity));
 ```
 """
 function solve(problem::KnapsackProblem)::KnapsackResult

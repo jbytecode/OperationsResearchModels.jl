@@ -119,26 +119,15 @@ Solves an assignment problem given by an object of in type `AssignmentProblem`.
 # Example 
 
 ```julia
-julia> mat = [
-                   4 8 1;
-                   3 1 9;
-                   1 6 7;
-               ];
+mat = [
+        4 8 1;
+        3 1 9;
+        1 6 7;
+    ];
 
-julia> problem = AssignmentProblem(mat);
+problem = AssignmentProblem(mat);
 
-julia> result = solve(problem);
-
-julia> result.solution
-
-3×3 Matrix{Float64}:
- 0.0  0.0  1.0
- 0.0  1.0  0.0
- 1.0  0.0  0.0
-
-julia> result.cost
-
-3.0
+result = solve(problem);
 ```
 """
 function solve(a::AssignmentProblem)::AssignmentResult

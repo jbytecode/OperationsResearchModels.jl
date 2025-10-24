@@ -27,11 +27,11 @@ The object that represents an activity in CPM (Critical Path Method).
 # Example
 
 ```julia
-julia> A = CpmActivity("A", 2, []);
+A = CpmActivity("A", 2, []);
 
-julia> B = CpmActivity("B", 3, []);
+B = CpmActivity("B", 3, []);
 
-julia> C = CpmActivity("C", 2, [A, B]);
+C = CpmActivity("C", 2, [A, B]);
 
 ```
 """
@@ -96,9 +96,9 @@ The object that represents an activity in PERT (Program Evaluation and Review Te
 
 # Example
 ```julia
-julia> A = PertActivity("A", 1, 2, 3);
-julia> B = PertActivity("B", 3, 3, 4);
-julia> C = PertActivity("C", 5, 6, 7, [A, B]);
+A = PertActivity("A", 1, 2, 3);
+B = PertActivity("B", 3, 3, 4);
+C = PertActivity("C", 5, 6, 7, [A, B]);
 ```
 """
 struct PertActivity
@@ -218,32 +218,23 @@ Calculates CPM (Critical Path Method) and reports the critical path for a given 
 # Example 
 
 ```julia 
-julia> A = CpmActivity("A", 2);
-julia> B = CpmActivity("B", 3);
-julia> C = CpmActivity("C", 2, [A]);
-julia> D = CpmActivity("D", 3, [B]);
-julia> E = CpmActivity("E", 2, [B]);
-julia> F = CpmActivity("F", 3, [C, D]);
-julia> G = CpmActivity("G", 7, [E]);
-julia> H = CpmActivity("H", 5, [E]);
-julia> I = CpmActivity("I", 6, [G, F]);
-julia> J = CpmActivity("J", 2, [C, D]);
+A = CpmActivity("A", 2);
+B = CpmActivity("B", 3);
+C = CpmActivity("C", 2, [A]);
+D = CpmActivity("D", 3, [B]);
+E = CpmActivity("E", 2, [B]);
+F = CpmActivity("F", 3, [C, D]);
+G = CpmActivity("G", 7, [E]);
+H = CpmActivity("H", 5, [E]);
+I = CpmActivity("I", 6, [G, F]);
+J = CpmActivity("J", 2, [C, D]);
 
-julia> activities = [A, B, C, D, E, F, G, H, I, J];
+activities = [A, B, C, D, E, F, G, H, I, J];
 
-julia> problem = CpmProblem(activities);
+problem = CpmProblem(activities);
 
-julia> result = solve(problem);
+result = solve(problem);
 
-julia> result.pathstr
-4-element Vector{String}:
- "B"
- "E"
- "G"
- "I"
-
- julia> result.path == [B, E, G, I]
-true
 ``` 
 """
 function solve(problem::CpmProblem)::CpmResult
@@ -315,31 +306,20 @@ end
 # Example
 
 ```julia
-julia> A = PertActivity("A", 1, 2, 3)
-PertActivity("A", 1.0, 2.0, 3.0, PertActivity[])
+A = PertActivity("A", 1, 2, 3)
 
-julia> B = PertActivity("B", 3, 3, 3)
-PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])
+B = PertActivity("B", 3, 3, 3)
 
-julia> C = PertActivity("C", 5, 5, 5, [A, B])
-PertActivity("C", 5.0, 5.0, 5.0, PertActivity[PertActivity("A", 1.0, 2.0, 3.0, PertActivity[]), PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])])
+C = PertActivity("C", 5, 5, 5, [A, B])
 
-julia> activities = [A, B, C]
-3-element Vector{PertActivity}:
- PertActivity("A", 1.0, 2.0, 3.0, PertActivity[])
- PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])
- PertActivity("C", 5.0, 5.0, 5.0, PertActivity[PertActivity("A", 1.0, 2.0, 3.0, PertActivity[]), PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])])
+activities = [A, B, C]
 
-julia> problem = PertProblem(activities);
+problem = PertProblem(activities);
 
-julia> result = pert(activities)
-PertResult(PertActivity[PertActivity("B", 3.0, 3.0, 3.0, PertActivity[]), PertActivity("C", 5.0, 5.0, 5.0, PertActivity[PertActivity("A", 1.0, 2.0, 3.0, PertActivity[]), PertActivity("B", 3.0, 3.0, 3.0, PertActivity[])])], 8.0, 0.0)
+result = pert(activities)
 
-julia> result.mean
-8.0
-
-julia> result.stddev
-0.0
+println(result.mean)
+println(result.stddev)
 ```
 """
 function solve(problem::PertProblem)::PertResult

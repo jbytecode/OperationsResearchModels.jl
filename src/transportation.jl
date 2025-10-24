@@ -148,38 +148,38 @@ Currently, `northwestcorner` and `leastcost` are implemented as custom initial s
 # Example 
 
 ```julia
-julia> t = TransportationProblem(
-                   [   1 1 1 1; 
-                       2 2 2 2; 
-                       3 3 3 3], 
-                   [100, 100, 100, 100], # Demands 
-                   [100, 100, 100])      # Supplies 
-Transportation Problem:
-Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3]
-Demand: [100, 100, 100, 100]
-Supply: [100, 100, 100]
+t = TransportationProblem(
+    [   1 1 1 1; 
+        2 2 2 2; 
+        3 3 3 3], 
+    [100, 100, 100, 100], # Demands 
+    [100, 100, 100])      # Supplies 
 
-julia> isbalanced(t)
-false
 
-julia> result = solve(t)
-Transportation Results:
-Main problem:
-Transportation Problem:
-Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3]
-Demand: [100, 100, 100, 100]
-Supply: [100, 100, 100]
+println(isbalanced(t))
+# false
 
-Balanced problem:
-Transportation Problem:
-Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3; 0 0 0 0]
-Demand: [100, 100, 100, 100]
-Supply: [100, 100, 100, 100]
+result = solve(t)
 
-Cost:
-600.0
-Solution:
-[-0.0 -0.0 -0.0 100.0; 100.0 -0.0 -0.0 -0.0; -0.0 -0.0 100.0 -0.0; -0.0 100.0 -0.0 -0.0]
+println(result)
+
+# Transportation Results:
+# Main problem:
+# Transportation Problem:
+# Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3]
+# Demand: [100, 100, 100, 100]
+# Supply: [100, 100, 100]
+# 
+# Balanced problem:
+# Transportation Problem:
+# Costs: [1 1 1 1; 2 2 2 2; 3 3 3 3; 0 0 0 0]
+# Demand: [100, 100, 100, 100]
+# Supply: [100, 100, 100, 100]
+# 
+# Cost:
+# 600.0
+# Solution:
+# [-0.0 -0.0 -0.0 100.0; 100.0 -0.0 -0.0 -0.0; -0.0 -0.0 100.0 -0.0; -0.0 100.0 -0.0 -0.0]
 ```
 """
 function solve(

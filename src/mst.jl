@@ -142,30 +142,20 @@ Obtains the minimum spanning tree.
 # Examples 
 
 ```julia 
-julia> conns = Connection[
-                       Connection(1, 2, 10),
-                       Connection(2, 3, 10),
-                       Connection(3, 4, 10),
-                       Connection(1, 4, 10)
-                   ]
+conns = Connection[
+    Connection(1, 2, 10),
+    Connection(2, 3, 10),
+    Connection(3, 4, 10),
+    Connection(1, 4, 10)
+]
 
-4-element Vector{Connection}:
- Connection(1, 2, 10)
- Connection(2, 3, 10)
- Connection(3, 4, 10)
- Connection(1, 4, 10)
+result = solve(MstProblem(conns))
 
- julia> result = solve(MstProblem(conns))
- MstResult(Connection[Connection(3, 4, 10), Connection(1, 4, 10), Connection(2, 3, 10)], 30.0)
- 
- julia> result.distance
- 30.0
- 
- julia> result.connections
- 3-element Vector{Connection}:
-  Connection(3, 4, 10)
-  Connection(1, 4, 10)
-  Connection(2, 3, 10)
+MstResult(Connection[Connection(3, 4, 10), Connection(1, 4, 10), Connection(2, 3, 10)], 30.0)
+
+println(result.distance)
+
+println(result.connections)
 ```
 """
 function solve(problem::MstProblem)::MstResult

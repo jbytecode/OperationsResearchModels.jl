@@ -58,26 +58,25 @@ The function calculates Euclidean distances between all possible rows of the mat
 # Example 
 
 ```julia
-julia> data1 = rand(10, 2);
+data1 = rand(10, 2)
 
-julia> data2 = rand(10, 2) .+ 50;
+data2 = rand(10, 2) .+ 50
 
-julia> data3 = rand(10, 2) .+ 100;
+data3 = rand(10, 2) .+ 100
 
-julia> data = vcat(data1, data2, data3);
+data = vcat(data1, data2, data3)
 
-julia> result = pmedian(data, 3);
+result = pmedian(data, 3);
 
-julia> result.centers
-3-element Vector{Int64}:
-  1
- 16
- 21
+println(result.centers)
+# 3-element Vector{Int64}:
+#  1
+# 16
+# 21
 
- julia> result.objective
- 11.531012240599605
+println(result.objective)
+# 11.531012240599605
 ``` 
-
 """
 function pmedian(data::Matrix, ncenters::Int)::PMedianResult
 

@@ -250,7 +250,7 @@ Given a problem containing a matrix of times and a permutation of the jobs, retu
 
 ```julia
 
-julia> times = Float64[
+times = Float64[
     3 3 5;
     8 4 8;
     7 2 10;
@@ -258,7 +258,7 @@ julia> times = Float64[
     2 5 6    
 ]
 
-julia> result = makespan(JohnsonProblem(times), [1, 4, 5, 3, 2])
+result = makespan(JohnsonProblem(times), [1, 4, 5, 3, 2])
 ```
 """
 function makespan(problem::JohnsonProblem, permutation::Vector{Int})::Float64

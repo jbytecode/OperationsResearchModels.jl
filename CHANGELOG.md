@@ -1,7 +1,7 @@
 ### 0.2.10 (Upcoming Release)
 
 - Update docs example in travelingsalesman.
-
+- Update the documentation so that the examples are runnable by copy-pasting.
 
 ### 0.2.9 
 

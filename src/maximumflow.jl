@@ -72,34 +72,25 @@ Solves a maximum flow problem given by an object of in type `MaximumFlowProblem`
 # Example
 
 ```julia
-julia> conns = [
-                   Connection(1, 2, 3),
-                   Connection(1, 3, 2),
-                   Connection(1, 4, 4),
-                   Connection(2, 5, 3),
-                   Connection(3, 5, 1),
-                   Connection(3, 6, 1),
-                   Connection(4, 6, 2),
-                   Connection(5, 7, 6),
-                   Connection(6, 7, 5),
-               ];
-julia> problem = MaximumFlowProblem(conns)
-julia> result = solve(problem);
+conns = [
+    Connection(1, 2, 3),
+    Connection(1, 3, 2),
+    Connection(1, 4, 4),
+    Connection(2, 5, 3),
+    Connection(3, 5, 1),
+    Connection(3, 6, 1),
+    Connection(4, 6, 2),
+    Connection(5, 7, 6),
+    Connection(6, 7, 5),
+];
 
-julia> result.path
-9-element Vector{Connection}:
- Connection(1, 2, 3.0)
- Connection(1, 3, 2.0)
- Connection(1, 4, 2.0)
- Connection(2, 5, 3.0)
- Connection(3, 5, 1.0)
- Connection(3, 6, 1.0)
- Connection(4, 6, 2.0)
- Connection(5, 7, 4.0)
- Connection(6, 7, 3.0)
+problem = MaximumFlowProblem(conns)
 
-julia> result.flow
-7.0
+result = solve(problem);
+
+println(result.path)
+
+println(result.flow)
 ```
 
 !!! info "Determining start and finish nodes"

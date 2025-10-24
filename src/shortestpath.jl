@@ -68,28 +68,28 @@ Solves a shortest path problem given by an object of in type `ShortestPathProble
 # Example
 
 ```julia 
-julia> conns = [
-                   Connection(1, 2, 3),
-                   Connection(1, 3, 2),
-                   Connection(1, 4, 4),
-                   Connection(2, 5, 3),
-                   Connection(3, 5, 1),
-                   Connection(3, 6, 1),
-                   Connection(4, 6, 2),
-                   Connection(5, 7, 6),
-                   Connection(6, 7, 5),
-               ];
+conns = [
+    Connection(1, 2, 3),
+    Connection(1, 3, 2),
+    Connection(1, 4, 4),
+    Connection(2, 5, 3),
+    Connection(3, 5, 1),
+    Connection(3, 6, 1),
+    Connection(4, 6, 2),
+    Connection(5, 7, 6),
+    Connection(6, 7, 5),
+]
 
-julia> solve(ShortestPathProblem(conns));
+result = solve(ShortestPathProblem(conns))
 
-julia> result.path
-3-element Vector{Connection}:
- Connection(1, 3, 2)
- Connection(3, 6, 1)
- Connection(6, 7, 5)
+println(result.path)
+# 3-element Vector{Connection}:
+#  Connection(1, 3, 2)
+#  Connection(3, 6, 1)
+#  Connection(6, 7, 5)
 
-julia> result.cost
-8.0
+println(result.cost)
+# 8.0
 ```
 
 !!! info "Determining start and finish nodes"

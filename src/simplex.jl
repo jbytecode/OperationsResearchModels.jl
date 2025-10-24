@@ -604,12 +604,13 @@ The inverse of the given matrix.
 # Example
 
 ```julia
-julia> A = [1.0 2.0 3.0; 4.0 5.0 6.0; 7.0 8.0 10.0]
-julia> invA = gaussjordan(A, verbose = false)
-3×3 Matrix{Float64}:
- -0.666667  -1.33333   1.0
- -0.666667   3.66667  -2.0
-  1.0       -2.0       1.0
+A = [1.0 2.0 3.0; 4.0 5.0 6.0; 7.0 8.0 10.0]
+invA = gaussjordan(A, verbose = false)
+
+# 3×3 Matrix{Float64}:
+#  -0.666667  -1.33333   1.0
+#  -0.666667   3.66667  -2.0
+#   1.0       -2.0       1.0
 ```
 """
 function gaussjordan(A::Matrix{Float64}; verbose::Bool = true)::Matrix{Float64}
