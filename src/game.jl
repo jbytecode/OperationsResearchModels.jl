@@ -55,6 +55,43 @@ Solves a zero-sum game using the simplex method.
 
 # Returns
 - An array of `GameResult` objects containing the probabilities and value of the game.
+
+# Example 
+
+```julia
+mat = [1 4 5; 5 6 2]
+
+# 1 4 5
+# 5 6 2
+# The row player has 2 strategies, and the column player has 3 strategies.
+# If the row player selects the first strategy and the column player selects the second strategy,
+# the row player receives 4.
+
+problem = GameProblem(mat)
+
+result = solve(problem)
+
+result1 = result[1]  # The result for the row player
+
+println(result1.probabilities)
+# 2-element Vector{Float64}:
+#  0.42857142857142855
+#  0.5714285714285714
+
+println(result1.value)
+# 3.285714285714285
+
+result2 = result[2]  # The result for the column player
+
+println(result2.probabilities)
+# 3-element Vector{Float64}:
+#   0.42857142857142855
+#  -0.0
+#   0.5714285714285714
+
+println(result2.value)
+# -3.285714285714285
+```
 """
 function solve(p::GameProblem; verbose::Bool = false)::Vector{GameResult}
     rowplayers_result = game_solver(p.decisionMatrix, verbose = verbose)
