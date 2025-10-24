@@ -1,5 +1,7 @@
 ### 0.2.10 (Upcoming Release)
 
+- Update docs example in travelingsalesman.
+
 
 ### 0.2.9 
 

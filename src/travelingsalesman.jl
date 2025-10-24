@@ -85,7 +85,7 @@ pts = Float64[
     1 0;
 ]
 
-n = size(pts, 1
+n = size(pts, 1)
 distmat = zeros(n, n)
 
 for i in 1:n
