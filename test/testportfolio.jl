@@ -1,3 +1,5 @@
+using Ipopt
+
 @testset "Portfolio Optimization" begin
     @testset "Markowitz Portfolio Optimization - Example 1" begin
         eps = 1e-5
