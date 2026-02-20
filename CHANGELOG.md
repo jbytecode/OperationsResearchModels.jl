@@ -3,6 +3,7 @@
 - Update docs example in travelingsalesman.
 - Update the documentation so that the examples are runnable by copy-pasting.
 - Add example in the docs of game solver.
+- Add Porfolio Optimization
 
 ### 0.2.9 
 

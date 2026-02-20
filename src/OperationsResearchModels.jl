@@ -14,6 +14,7 @@ using JuMP, HiGHS
 # solve(m::MstProblem)::MstResult
 # solve(t::TravelingSalesmanProblem)::TravelingSalesmanResult
 # solve(p::JohnsonProblem)::JohnsonResult
+# solve(p::PortfolioProblem)::PortfolioResult
 solve() = nothing
 
 # solve!(s::SimplexProblem)::SimplexProblem
@@ -51,6 +52,7 @@ include("latex.jl")
 include("randomkeyga.jl")
 include("johnsons.jl")
 include("travelingsalesman.jl")
+include("portfolio.jl")
 
 import .Network
 import .Transportation
@@ -69,6 +71,7 @@ import .Utility
 import .RandomKeyGA
 import .Johnsons
 import .TravelingSalesman
+import .Portfolio
 
 
 import .Transportation:
@@ -97,6 +100,8 @@ import .RandomKeyGA: Chromosome, run_ga
 import .TravelingSalesman: TravelingSalesmanResult, TravelingSalesmanProblem
 import .Simplex:
     SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan, OptimizationType
+import .Portfolio: PortfolioProblem, PortfolioResult
+
 
 export TransportationProblem,
     TransportationResult, balance, isbalanced, northwestcorner, leastcost
@@ -115,6 +120,7 @@ export latex
 export Chromosome, run_ga
 export JohnsonProblem, JohnsonResult, JohnsonException, makespan, johnsons_ga
 export TravelingSalesmanResult, TravelingSalesmanProblem
+export PortfolioProblem, PortfolioResult
 export simplexiterations,
     SimplexProblem, createsimplexproblem, gaussjordan, OptimizationType
 

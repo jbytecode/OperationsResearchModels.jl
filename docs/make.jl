@@ -19,6 +19,7 @@ makedocs(
         "Scheduling" => "scheduling.md",
         "The Simplex Method" => "simplex.md",
         "Zero-sum Games" => "game.md",
+        "Portfolio Optimization" => "portfolio.md",
         ],
 )
 
