@@ -13,6 +13,9 @@
         result = pmedian(coords, 2)
 
         @test isapprox(result.objective, 8.06449510224598; atol=1e-5)
+
+        # Alternative optimal solutions
+        @test result.centers == [2, 5] || result.centers == [2, 6]
     end
 
     @testset "p-median with distances" begin
