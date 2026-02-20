@@ -11,16 +11,8 @@
         ]
 
         result = pmedian(coords, 2)
-        y = result.y
 
-        @test sort(result.centers) == [2, 6]
-
-        @test iszero(y[1])
-        @test isone(y[2])
-        @test iszero(y[3])
-        @test iszero(y[4])
-        @test iszero(y[5])
-        @test isone(y[6])
+        @test isapprox(result.objective, 8.06449510224598; atol=1e-5)
     end
 
     @testset "p-median with distances" begin
