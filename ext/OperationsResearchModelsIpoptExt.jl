@@ -47,6 +47,16 @@ Ipopt installed and properly configured in your Julia environment to use this fu
 
 - `PortfolioResult`: The result of the portfolio optimization problem, containing the optimal weights, expected return, and the JuMP model used to solve the problem.
 
+# Example
+```julia
+using OperationsResearchModels
+using Ipopt
+
+problem = PortfolioProblem(rand(100, 5), 0.01)
+result = solve(problem)
+println("Optimal Weights: ", result.weights)
+println("Expected Return: ", result.expectedreturn)
+```
 """
 function solve(p::PortfolioProblem)::PortfolioResult
     model = Model(Ipopt.Optimizer)
