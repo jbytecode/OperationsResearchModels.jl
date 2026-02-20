@@ -52,7 +52,7 @@ This page includes both the API documentation and examples.
 - [Traveling Salesman with Random Key Genetic Algorithm](https://jbytecode.github.io/OperationsResearchModels.jl/dev/travelingsalesman/)
 - [Simplex Method with Real Valued Decision Variables](https://jbytecode.github.io/OperationsResearchModels.jl/dev/simplex/)
 - [2-player zero-sum game solver](https://jbytecode.github.io/OperationsResearchModels.jl/dev/game/)
-
+- [Portfolio Optimization](https://jbytecode.github.io/OperationsResearchModels.jl/dev/portfolio/)
 
 # How to cite
 
