@@ -66,6 +66,30 @@ end
 # Returns
 
 - `ProjectSelectionResult`: The result of the project selection problem.
+
+# Example
+
+```julia
+# Project 1 requires 3M, 5M, and 6M dollars for years 1, 2, and 3 respectively, and returns 10M dollars.
+# Project 2 requires 2M, 4M, and 5M dollars for years 1, 2, and 3 respectively, and returns 12M dollars.
+# Project 3 requires 5M, 4M, and 2M dollars for years 1, 2, and 3 respectively, and returns 15M dollars.
+# etc.
+# The budgets for years 1, 2, and 3 are 8M, 9M, and 6M dollars respectively.
+# What projects should be selected to maximize returns?
+costmatrix = [
+    3 5 6;
+    2 4 5;
+    5 4 2;
+    2 1 5;
+    8 9 6;
+]
+returns = [10, 12, 15, 8, 200]
+budgets = [8, 9, 6]
+problem = ProjectSelectionProblem(costmatrix, budgets, returns)
+result = solve(problem)
+println("Selected projects: ", result.selected)
+println("Objective value: ", result.objective)
+```
 """
 function solve(problem::ProjectSelectionProblem)::ProjectSelectionResult
 
