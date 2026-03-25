@@ -15,6 +15,7 @@ makedocs(
         "Transportation" => "transportation.md",
         "Network" => "network.md",
         "Project Analysis" => "project.md",
+        "Project Selection" => "projectselection.md",
         "Location Selection" => "locationselection.md",
         "Traveling Salesman" => "travelingsalesman.md",
         "Scheduling" => "scheduling.md",

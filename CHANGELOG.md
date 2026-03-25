@@ -1,4 +1,9 @@
-### 0.2.11 (Upcoming Release)
+### 0.2.12 (Upcoming Release)
+
+
+### 0.2.11 
+
+- Add Project Selection solver
 
 
 ### 0.2.10 

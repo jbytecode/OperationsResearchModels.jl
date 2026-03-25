@@ -53,6 +53,7 @@ include("randomkeyga.jl")
 include("johnsons.jl")
 include("travelingsalesman.jl")
 include("portfolio.jl")
+include("projectselection.jl")
 
 import .Network
 import .Transportation
@@ -72,7 +73,7 @@ import .RandomKeyGA
 import .Johnsons
 import .TravelingSalesman
 import .Portfolio
-
+import .ProjectSelection
 
 import .Transportation:
     TransportationProblem,
@@ -101,7 +102,7 @@ import .TravelingSalesman: TravelingSalesmanResult, TravelingSalesmanProblem
 import .Simplex:
     SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan, OptimizationType
 import .Portfolio: PortfolioProblem, PortfolioResult
-
+import .ProjectSelection: ProjectSelectionProblem, ProjectSelectionResult
 
 export TransportationProblem,
     TransportationResult, balance, isbalanced, northwestcorner, leastcost
@@ -123,6 +124,7 @@ export TravelingSalesmanResult, TravelingSalesmanProblem
 export PortfolioProblem, PortfolioResult
 export simplexiterations,
     SimplexProblem, createsimplexproblem, gaussjordan, OptimizationType
+export ProjectSelectionProblem, ProjectSelectionResult
 
 export JuMP, HiGHS
 
