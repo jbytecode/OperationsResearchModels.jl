@@ -46,6 +46,7 @@ This page includes both the API documentation and examples.
 - [p-median for Location Selection](https://jbytecode.github.io/OperationsResearchModels.jl/dev/locationselection/)
 - [CPM - Critical Path Method](https://jbytecode.github.io/OperationsResearchModels.jl/dev/project/#CPM-(Critical-Path-Method))
 - [PERT - Project Evaluation and Review Technique](https://jbytecode.github.io/OperationsResearchModels.jl/dev/project/#PERT-(Project-Evaluation-and-Review-Technique))
+- [Project Selection Problem](https://jbytecode.github.io/OperationsResearchModels.jl/dev/projectselection/)
 - [The Knapsack Problem](https://jbytecode.github.io/OperationsResearchModels.jl/dev/knapsack/)
 - [Johnson's Rule for Flow-Shop Scheduling](https://jbytecode.github.io/OperationsResearchModels.jl/dev/scheduling/#Johnson's-Rule-for-Flow-shop-Scheduling)
 - [Flow-shop Scheduling using Permutation Encoded Genetic Algorithms (using a Random Key Genetic Algorithm)](https://jbytecode.github.io/OperationsResearchModels.jl/dev/scheduling/#Genetic-Algorithm-for-the-problems-that-cannot-be-solved-with-using-Johnson's-Rule)
