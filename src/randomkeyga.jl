@@ -39,6 +39,17 @@ function onepoint_crossover(ch::Chromosome, ch2::Chromosome)::Chromosome
     return Chromosome(vals1)
 end
 
+function uniform_crossover(elite::Chromosome, other::Chromosome; alpha::Float64 = 0.7)::Chromosome
+    L = length(elite.values)
+    vals1 = [rand() < alpha ? elite.values[i] : other.values[i] for i in 1:L]
+    return Chromosome(vals1)
+end
+
+function create_mutant(len::Int)::Chromosome
+    return Chromosome(rand(len), Inf64)
+end
+
+
 function random_mutation(ch::Chromosome)::Chromosome
     luckyindex = rand(1:length(ch.values))
     newch = Chromosome(copy(ch.values))

@@ -1,5 +1,28 @@
 @testset "Random Key Genetic Algorithm" verbose = true begin
 
+    @testset "Uniform Biased Crossover" begin
+        elite = Chromosome([0.1, 0.2, 0.3, 0.4, 0.5])
+        other = Chromosome([0.5, 0.4, 0.3, 0.2, 0.1])
+        alpha = 0.7
+
+        offspring = OperationsResearchModels.RandomKeyGA.uniform_crossover(elite, other; alpha)
+
+        @test length(offspring.values) == length(elite.values)
+        for i in 1:length(elite.values)
+            @test offspring.values[i] == elite.values[i] || offspring.values[i] == other.values[i]
+        end
+    end
+
+    @testset "Create Mutant" begin
+        len = 5
+        mutant = OperationsResearchModels.RandomKeyGA.create_mutant(len)
+
+        @test length(mutant.values) == len
+        for val in mutant.values
+            @test 0.0 <= val <= 1.0
+        end
+    end
+
     @testset "Example with chsize = 5" begin
 
         # Correct order is 1 2 3 4 5
