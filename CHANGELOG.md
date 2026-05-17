@@ -1,5 +1,6 @@
 ### 0.2.12 (Upcoming Release)
 
+- Remove Ipopt from weak dependencies and use HiGHS instead in Portfolio problems.
 
 ### 0.2.11 
 

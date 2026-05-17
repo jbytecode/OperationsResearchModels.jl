@@ -1,5 +1,4 @@
 using Documenter, OperationsResearchModels
-using Ipopt
 
 makedocs(
     format = Documenter.HTML(
