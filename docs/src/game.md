@@ -1,5 +1,10 @@
 # Zero-Sum Games
 
+## Strategy Type
+
+```@docs 
+OperationsResearchModels.StrategyType
+```
 
 ## Game Problem 
 

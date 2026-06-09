@@ -5,6 +5,25 @@ using JuMP, HiGHS
 
 import ..OperationsResearchModels: solve
 
+export GameProblem
+export GameResult
+export StrategyType
+
+"""
+    StrategyType
+
+# Description
+
+An enumeration to represent the type of strategy in a game.
+
+- `Pure`: Indicates that the optimal strategy is pure, meaning that the player should choose one strategy with probability 1.
+- `Mixed`: Indicates that the optimal strategy is mixed, meaning that the player should randomize between multiple strategies with certain probabilities.
+"""
+@enum StrategyType begin
+    Pure
+    Mixed
+end
+
 
 """
     GameProblem 
@@ -34,12 +53,18 @@ A structure to hold the result of a game.
 - `probabilities`: Probabilities of the strategies
 - `value`:         Value of the game
 - `model::JuMP.Model`: The JuMP model used to solve the game.
+- `alpha::Float64`: The lower bound of the game value (maximin).
+- `beta::Float64`: The upper bound of the game value (minimax).
+- `strategytype::StrategyType`: Indicates whether the optimal strategy is pure or mixed.
 
 """
 struct GameResult
     probabilities::Any
     value::Any
     model::JuMP.Model
+    alpha::Float64
+    beta::Float64
+    strategytype::StrategyType
 end
 
 
@@ -134,10 +159,40 @@ function game_solver(gamematrix::Matrix{<:Real}; verbose::Bool = false)::GameRes
 
     gamevalue = JuMP.value(g) #objective_value(model)
 
-    result = GameResult(values, gamevalue, model)
+    a = alpha(GameProblem(gamematrix))
+    b = beta(GameProblem(gamematrix))
+    stype = strategytype(GameProblem(gamematrix))
+
+    result = GameResult(
+        values, 
+        gamevalue, 
+        model,
+        a,
+        b,
+        stype)
 
     return result
 
 end
+
+function alpha(problem::GameProblem)::Float64 
+    return maximum(minimum.(eachrow(problem.decisionMatrix)))
+end 
+
+function beta(problem::GameProblem)::Float64 
+    return minimum(maximum.(eachcol(problem.decisionMatrix)))
+end 
+
+function strategytype(problem::GameProblem)::StrategyType
+    a = alpha(problem)
+    b = beta(problem)
+    if a == b
+        return Pure
+    else
+        return Mixed
+    end
+end 
+
+
 
 end # end of module 
