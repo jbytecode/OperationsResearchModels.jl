@@ -79,6 +79,26 @@ or within text editors:
 > Satman, M. H., (2025). OperationsResearchModels.jl: A Julia package for operations research models. Journal of Open Source Software, 10(113), 8592, https://doi.org/10.21105/joss.08592
 
 
+This package is also used as the major package in Turkish book `Julia ile Yöneylem Araştırması`. 
+This book is freely available at https://www.inetd.org.tr/julia-ile-yoneylem-arastirmasi/ and can be cited using the bibtex entry
+
+```bibtex
+@book{satman2026julia,
+  title={Julia ile Yöneylem Araştırması},
+  author={Satman, Mehmet Hakan},
+  year={2026},
+  publisher={INETD - Internet Teknolojileri Dernegi},
+  isbn={978-625-96238-1-8},
+  doi={10.5281/zenodo.18460309},
+  url={https://doi.org/10.5281/zenodo.18460309}
+}
+```
+
+or within text editors:
+
+> Satman, M. H. (2026). Julia ile Yöneylem Araştırması. INETD – Internet Teknolojileri Dernegi. https://doi.org/10.5281/zenodo.18460309
+
+
 Thank you in advance for citing my work! 
 
 # How to contribute
