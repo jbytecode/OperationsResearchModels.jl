@@ -46,13 +46,60 @@ This page includes both the API documentation and examples.
 - [p-median for Location Selection](https://jbytecode.github.io/OperationsResearchModels.jl/dev/locationselection/)
 - [CPM - Critical Path Method](https://jbytecode.github.io/OperationsResearchModels.jl/dev/project/#CPM-(Critical-Path-Method))
 - [PERT - Project Evaluation and Review Technique](https://jbytecode.github.io/OperationsResearchModels.jl/dev/project/#PERT-(Project-Evaluation-and-Review-Technique))
+- [Project Selection Problem](https://jbytecode.github.io/OperationsResearchModels.jl/dev/projectselection/)
 - [The Knapsack Problem](https://jbytecode.github.io/OperationsResearchModels.jl/dev/knapsack/)
 - [Johnson's Rule for Flow-Shop Scheduling](https://jbytecode.github.io/OperationsResearchModels.jl/dev/scheduling/#Johnson's-Rule-for-Flow-shop-Scheduling)
 - [Flow-shop Scheduling using Permutation Encoded Genetic Algorithms (using a Random Key Genetic Algorithm)](https://jbytecode.github.io/OperationsResearchModels.jl/dev/scheduling/#Genetic-Algorithm-for-the-problems-that-cannot-be-solved-with-using-Johnson's-Rule)
 - [Traveling Salesman with Random Key Genetic Algorithm](https://jbytecode.github.io/OperationsResearchModels.jl/dev/travelingsalesman/)
 - [Simplex Method with Real Valued Decision Variables](https://jbytecode.github.io/OperationsResearchModels.jl/dev/simplex/)
 - [2-player zero-sum game solver](https://jbytecode.github.io/OperationsResearchModels.jl/dev/game/)
+- [Portfolio Optimization](https://jbytecode.github.io/OperationsResearchModels.jl/dev/portfolio/)
 
+# How to cite
+
+Please use the citation info below if you use this package in your work. If you use a tex distribution you can cite with the bibtex entry
+
+```bibtex
+@article{Satman2025, 
+    doi = {10.21105/joss.08592}, 
+    url = {https://doi.org/10.21105/joss.08592}, 
+    year = {2025}, 
+    publisher = {The Open Journal}, 
+    volume = {10}, 
+    number = {113}, 
+    pages = {8592}, 
+    author = {Satman, Mehmet Hakan}, 
+    title = {OperationsResearchModels.jl: A Julia package for operations research models}, 
+    journal = {Journal of Open Source Software}
+}
+```
+
+or within text editors:
+
+> Satman, M. H., (2025). OperationsResearchModels.jl: A Julia package for operations research models. Journal of Open Source Software, 10(113), 8592, https://doi.org/10.21105/joss.08592
+
+
+This package is also used as the major package in Turkish book `Julia ile Yöneylem Araştırması`. 
+This book is freely available at https://www.inetd.org.tr/julia-ile-yoneylem-arastirmasi/ and can be cited using the bibtex entry
+
+```bibtex
+@book{satman2026julia,
+  title={Julia ile Yöneylem Araştırması},
+  author={Satman, Mehmet Hakan},
+  year={2026},
+  publisher={INETD - Internet Teknolojileri Dernegi},
+  isbn={978-625-96238-1-8},
+  doi={10.5281/zenodo.18460309},
+  url={https://doi.org/10.5281/zenodo.18460309}
+}
+```
+
+or within text editors:
+
+> Satman, M. H. (2026). Julia ile Yöneylem Araştırması. INETD – Internet Teknolojileri Dernegi. https://doi.org/10.5281/zenodo.18460309
+
+
+Thank you in advance for citing my work! 
 
 # How to contribute
 
