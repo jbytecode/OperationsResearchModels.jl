@@ -173,4 +173,25 @@
         @test !hasloop(result.connections)
         @test length(result.connections) == length(allnodes) - 1
     end
+
+    @testset "MST with distance symmetric matrix" begin 
+        m = [0 4 2 5 6 7;
+             4 0 3 8 9 10;
+             2 3 0 1 2 3;
+             5 8 1 0 4 5; 
+             6 9 2 4 0 6;
+             7 10 3 5 6 0
+        ]
+        result = solve(MstProblem(m))
+        @test result.distance == 11.0
+    end 
+
+    @testset "MST with distance asymmetric matrix" begin 
+        m = [0 4 3;
+             2 0 1;
+             5 8 0        
+        ]
+        @test_throws AssertionError solve(MstProblem(m))
+        
+    end
 end

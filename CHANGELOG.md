@@ -1,5 +1,6 @@
 ### 0.2.13 (Upcoming Release)
 
+- Minimum Spanning Tree accepts distance matrix encapsulated by MstProblem as input.
 
 ### 0.2.12 
 

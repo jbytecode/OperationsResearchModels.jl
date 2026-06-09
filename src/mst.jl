@@ -4,6 +4,8 @@ import ..Network: Connection, nodes
 
 import ..OperationsResearchModels: solve
 
+import LinearAlgebra: issymmetric
+
 export hasloop
 export MstResult
 export MstProblem
@@ -17,7 +19,8 @@ export MstProblem
 Defines the minimum spanning tree problem.
 
 # Fields
-- `connections::Vector{Connection}`: The connections (edges) in the network. 
+- `data::Union{Vector{Connection}, AbstractMatrix{<:Real}}`: The data representing the network. 
+   It can be either a vector of connections or a distance matrix.
 
 !!! info "Interpreting the Connection object"
 
@@ -25,7 +28,7 @@ Defines the minimum spanning tree problem.
     the edges are considered undirected.
 """
 struct MstProblem
-    connections::Vector{Connection}
+    data::Union{Vector{Connection}, AbstractMatrix{<:Real}}
 end
 
 
@@ -120,6 +123,27 @@ function makedistancematrix(conns::Vector{Connection})::Matrix
 end
 
 
+
+function makeconnections(mat::Matrix)::Vector{Connection}
+    
+    n, _ = size(mat)
+
+    !issymmetric(mat)  &&  throw(AssertionError("The distance matrix must be symmetric."))
+    
+    conns = Vector{Connection}(undef, n * (n-1) ÷ 2)
+    idx = 1
+    for i = 1:n
+        for j = (i+1):n
+            conns[idx] = Connection(i, j, mat[i, j])
+            idx += 1
+        end
+    end 
+    
+    return conns
+
+end
+
+
 """
     solve(problem::MstProblem)
 
@@ -160,11 +184,19 @@ println(result.connections)
 """
 function solve(problem::MstProblem)::MstResult
 
-    conns = problem.connections
+    if problem.data isa AbstractMatrix
+        conns = makeconnections(problem.data)
+        distmat = problem.data
+    else
+        conns = problem.data
+        distmat = makedistancematrix(conns)
+    end
+
+    #conns = problem.connections
+
+    #distmat = makedistancematrix(conns)
 
     totaldist = 0.0
-
-    distmat = makedistancematrix(conns)
 
     assigned = Set{Int64}()
     unassigned = nodes(conns)
