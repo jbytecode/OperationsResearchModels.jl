@@ -62,7 +62,9 @@ is to minimize the portfolio variance (risk) subject to constraints on the expec
 Mathematically, the problem can be stated as:
 
 Minimize: w' * Covmat * w
+
 Subject to:
+
 - sum(w) == 1 (the weights must sum to 1)
 - sum(w[i] * means[i] for i in 1:m) >= thresholdreturn
 - 0 <= w[i] <= 1 for all i (weights must be between 0 and 1)
