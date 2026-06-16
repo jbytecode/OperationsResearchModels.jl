@@ -45,10 +45,10 @@ struct JohnsonResult
     permutation::Vector{Int}
 end
 
-struct Process
-    start::Any
-    duration::Any
-    finish::Any
+struct Process{timeT<:Real, durationT<:Real, finishT<:Real}
+    start::timeT
+    duration::durationT
+    finish::finishT
 end
 
 
