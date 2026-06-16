@@ -32,10 +32,10 @@ A structure to hold a directed connection between two nodes in a network.
 conn = Connection(1, 2, 5)
 ```
 """
-struct Connection
+struct Connection{vType<:Real}
     from::Int64
     to::Int64
-    value::Real
+    value::vType
 end
 
 
