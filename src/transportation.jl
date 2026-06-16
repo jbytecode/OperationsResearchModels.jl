@@ -27,10 +27,10 @@ import ..OperationsResearchModels: solve, balance, isbalanced
 
 The `TransportationProblem` struct represents a transportation problem with a cost matrix, demand vector, and supply vector.
 """
-mutable struct TransportationProblem{T<:Real}
-    costs::Matrix{T}
-    demand::Vector{T}
-    supply::Vector{T}
+mutable struct TransportationProblem{cT<:Real, dT<:Real, sT<:Real}
+    costs::Matrix{cT}
+    demand::Vector{dT}
+    supply::Vector{sT}
 end
 
 
