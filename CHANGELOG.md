@@ -2,6 +2,7 @@
 
 - Minimum Spanning Tree accepts distance matrix encapsulated by MstProblem as input.
 - Export lower and upper bounds of the game and strategy type (Pure or Mixed) in Game solver.
+- Intoduce parametric typing in many methods.
 
 ### 0.2.12 
 
