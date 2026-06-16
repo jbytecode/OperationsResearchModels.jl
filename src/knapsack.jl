@@ -45,11 +45,10 @@ Defines the knapsack problem.
 # Output
 - `KnapsackResult`: The custom data type that holds selected items, model, and objective value.
 """
-struct KnapsackProblem{T <: Real}
-    values::Vector{T}
-    weights::Vector{T}
-    capacity::T
-    
+struct KnapsackProblem{vT <: Real, wT <: Real, cT <: Real}
+    values::Vector{vT}
+    weights::Vector{wT}
+    capacity::cT
 end
 
 
