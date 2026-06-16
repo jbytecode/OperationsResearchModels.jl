@@ -35,9 +35,9 @@ C = CpmActivity("C", 2, [A, B]);
 
 ```
 """
-struct CpmActivity{T<:Real}
+struct CpmActivity
     name::String
-    time::T
+    time::Float64
     dependencies::Vector{CpmActivity}
 end
 
