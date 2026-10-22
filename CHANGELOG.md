@@ -1,4 +1,7 @@
-### 0.2.14 (Upcoming Release)
+### 0.2.15 (Upcoming Release)
+
+
+### 0.2.14 
 
 - Implement the Bin Packing problem
 
