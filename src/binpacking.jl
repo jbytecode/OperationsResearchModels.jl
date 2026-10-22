@@ -57,6 +57,23 @@ the last two items in the second bin.
 
 # Returns
 - `BinPackingResult`: The result of the bin packing problem.
+
+# Example
+
+```julia
+problem = BinPackingProblem([2, 3, 2, 3], [5, 5])
+
+result = solve(problem)
+
+println("Used bins: ", result.used_bins)
+
+println("Bin assignments: ", result.bin_assignments)
+
+
+# Expected output:
+# Used bins: [1, 2]
+# Bin assignments: [1, 1, 2, 2] or [2, 2, 1, 1]
+```
 """
 function solve(problem::BinPackingProblem)::BinPackingResult
     
