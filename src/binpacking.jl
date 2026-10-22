@@ -36,7 +36,11 @@ end
 
 
 
+
 """
+
+    solve(problem::BinPackingProblem)::BinPackingResult
+
 Solve a bin packing problem.
 
 # Description
