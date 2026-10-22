@@ -54,6 +54,8 @@ This page includes both the API documentation and examples.
 - [Simplex Method with Real Valued Decision Variables](https://jbytecode.github.io/OperationsResearchModels.jl/dev/simplex/)
 - [2-player zero-sum game solver](https://jbytecode.github.io/OperationsResearchModels.jl/dev/game/)
 - [Portfolio Optimization](https://jbytecode.github.io/OperationsResearchModels.jl/dev/portfolio/)
+- [Bin Packing Problem](https://jbytecode.github.io/OperationsResearchModels.jl/dev/binpacking/)
+
 
 # How to cite
 
