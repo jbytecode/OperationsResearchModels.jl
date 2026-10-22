@@ -1,5 +1,7 @@
 ### 0.2.14 (Upcoming Release)
 
+- Implement the Bin Packing problem
+
 ### 0.2.13
 
 - Minimum Spanning Tree accepts distance matrix encapsulated by MstProblem as input.

@@ -10,6 +10,7 @@ makedocs(
     authors = "Mehmet Hakan Satman",
     pages = [
         "Knapsack" => "knapsack.md",
+        "Bin Packing" => "binpacking.md",
         "Assignment" => "assignment.md",
         "Transportation" => "transportation.md",
         "Network" => "network.md",

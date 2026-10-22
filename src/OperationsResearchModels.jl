@@ -15,6 +15,7 @@ using JuMP, HiGHS
 # solve(t::TravelingSalesmanProblem)::TravelingSalesmanResult
 # solve(p::JohnsonProblem)::JohnsonResult
 # solve(p::PortfolioProblem)::PortfolioResult
+# solve(p::BinPackingProblem)::BinPackingResult
 solve() = nothing
 
 # solve!(s::SimplexProblem)::SimplexProblem
@@ -54,6 +55,7 @@ include("johnsons.jl")
 include("travelingsalesman.jl")
 include("portfolio.jl")
 include("projectselection.jl")
+include("binpacking.jl")
 
 import .Network
 import .Transportation
@@ -74,6 +76,8 @@ import .Johnsons
 import .TravelingSalesman
 import .Portfolio
 import .ProjectSelection
+import .BinPacking
+
 
 import .Transportation:
     TransportationProblem,
@@ -103,6 +107,8 @@ import .Simplex:
     SimplexProblem, simplexiterations, createsimplexproblem, gaussjordan, OptimizationType
 import .Portfolio: PortfolioProblem, PortfolioResult
 import .ProjectSelection: ProjectSelectionProblem, ProjectSelectionResult
+import .BinPacking: BinPackingProblem, BinPackingResult
+
 
 export TransportationProblem,
     TransportationResult, balance, isbalanced, northwestcorner, leastcost
@@ -125,6 +131,7 @@ export PortfolioProblem, PortfolioResult
 export simplexiterations,
     SimplexProblem, createsimplexproblem, gaussjordan, OptimizationType
 export ProjectSelectionProblem, ProjectSelectionResult
+export BinPackingProblem, BinPackingResult
 
 export JuMP, HiGHS
 
