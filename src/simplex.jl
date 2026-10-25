@@ -3,11 +3,14 @@ module Simplex
 export SimplexProblem
 export OptimizationType, Maximize, Minimize
 export Direction, LE, GE, EQ
+export SimplexMethod, Primal, Dual
 export setautomaticvarnames, setdirections
 export setlhs, setrhs, setobjectivecoefs, setopttype
 export standardform!
+export dualstandardform!
 export update!
 export singleiteration!
+export dualsingleiteration!
 export simplexiterations
 export simplexpretty
 export createsimplexproblem
@@ -26,6 +29,11 @@ end
     LE
     GE
     EQ
+end
+
+@enum SimplexMethod begin
+    Primal
+    Dual
 end
 
 mutable struct SimplexProblem
@@ -178,7 +186,11 @@ function Base.show(io::IO, s::SimplexProblem)
     if !isempty(s.basicvariableindex)
         println(io, "Basic Variables: ", s.basicvariableindex)
     end
-    println(io, "All variables are non-negative")
+    if all(s.rhs .>= 0)
+        println(io, "All variables are non-negative")
+    else
+        println(io, "At least one variable is negative (Primal Infeasible)")
+    end
     if s.converged
         println(io, "Status: CONVERGED!")
     end
@@ -314,6 +326,40 @@ function standardform!(s::SimplexProblem)
     s.isinstandardform = true
 end
 
+function makeallle!(s::SimplexProblem)
+    nc = length(s.rhs)
+    for i = 1:nc
+        if s.directions[i] == GE
+            s.lhs[i, :] = (-1) .* s.lhs[i, :]
+            s.rhs[i] = (-1) * s.rhs[i]
+            s.directions[i] = invert(s.directions[i])
+        elseif s.directions[i] == EQ
+            s.directions[i] = LE
+            s.lhs = vcat(s.lhs, (-1) .* s.lhs[i:i, :])
+            push!(s.rhs, (-1) * s.rhs[i])
+            push!(s.directions, LE)
+        end
+    end
+end
+
+function dualstandardform!(s::SimplexProblem)
+    if s.isinstandardform
+        @warn "The problem is already in standard form"
+        return
+    end
+    makeallle!(s)
+    n, p = size(s.lhs)
+    for i = 1:n
+        d = s.directions[i]
+        if d == LE
+            addslackvariable!(s, i)
+        else
+            error("Direction not found: " + string(d))
+        end
+    end
+    s.isinstandardform = true
+end
+
 function mmethodcorrection!(s::SimplexProblem)
     M = s.biggestvalue
     n, p = size(s.lhs)
@@ -417,30 +463,84 @@ function singleiteration!(s::SimplexProblem)
     update!(s, enteringvariableindex, rowindex)
 end
 
+function getdualexitingvariableindex(s::SimplexProblem)::Union{Nothing,Int}
+    value, index = findmin(s.rhs)
+    if value >= 0
+        return nothing
+    else
+        return index
+    end
+end
+
+function getdualenteringvariableindex(s::SimplexProblem, exiting::Int)::Union{Nothing,Int}
+    therow = s.lhs[exiting, :]
+    ratios = abs.(s.z ./ therow)
+    eindex = nothing
+    minval = Inf64
+    n = length(ratios)
+    for i = 1:n
+        if therow[i] < 0
+            if ratios[i] < minval
+                minval = ratios[i]
+                eindex = i
+            end
+        end
+    end
+    return eindex
+end
+
+function dualsingleiteration!(s::SimplexProblem)
+    exitingvariableindex = getdualexitingvariableindex(s)
+
+    if isnothing(exitingvariableindex)
+        s.converged = true
+        return
+    end
+
+    enteringvariableindex = getdualenteringvariableindex(s, exitingvariableindex)
+
+    if isnothing(enteringvariableindex)
+        error("Can not find entering variable index. The problem is infeasible.")
+    end
+
+    rowindex = s.basicvariableindex[exitingvariableindex]
+
+    update!(s, enteringvariableindex, rowindex)
+end
+
 """
-    solve!(s::SimplexProblem)::SimplexProblem
+    solve!(s::SimplexProblem; method::SimplexMethod = Primal)::SimplexProblem
 
 # Description 
 
-Solves the given SimplexProblem using the Simplex algorithm. The `solve!` function 
+Solves the given SimplexProblem using the Simplex algorithm (`Primal` or `Dual`). The `solve!` function 
 modifies the input SimplexProblem in place.
 
 # Arguments
 
 - `s::SimplexProblem`: The SimplexProblem to solve.
+- `method::SimplexMethod`: The simplex method to use (`Primal` by default, or `Dual`).
 
 # Returns
 
 - `SimplexProblem`: The solved SimplexProblem.
 
 """
-function solve!(s::SimplexProblem)::SimplexProblem
-    standardform!(s)
-
-    mmethodcorrection!(s)
-
-    while !s.converged
-        singleiteration!(s)
+function solve!(s::SimplexProblem; method::SimplexMethod = Primal)::SimplexProblem
+    if method == Primal
+        standardform!(s)
+        mmethodcorrection!(s)
+        while !s.converged
+            singleiteration!(s)
+        end
+    elseif method == Dual
+        dualstandardform!(s)
+        if !isnothing(getenteringvariableindex(s))
+            error("The problem is not dual feasible.")
+        end
+        while !s.converged
+            dualsingleiteration!(s)
+        end
     end
 
     return s
@@ -448,7 +548,7 @@ end
 
 
 """
-    simplexiterations(s::SimplexProblem)::Vector{SimplexProblem}
+    simplexiterations(s::SimplexProblem; method::SimplexMethod = Primal)::Vector{SimplexProblem}
 
 # Description 
 
@@ -458,55 +558,93 @@ history of SimplexProblem states.
 # Arguments
 
 - `s::SimplexProblem`: The SimplexProblem to iterate.
+- `method::SimplexMethod`: The simplex method to use (`Primal` by default, or `Dual`).
 
 # Returns
 
 - `Vector{SimplexProblem}`: The history of SimplexProblem states (by iterations).
 
 """
-function simplexiterations(s::SimplexProblem)::Vector{SimplexProblem}
+function simplexiterations(s::SimplexProblem; method::SimplexMethod = Primal)::Vector{SimplexProblem}
     iterations = Vector{SimplexProblem}(undef, 0)
 
-    s1 = copy(s)
-    standardform!(s1)
-    push!(iterations, s1)
+    if method == Primal
+        s1 = copy(s)
+        standardform!(s1)
+        push!(iterations, s1)
 
-    s2 = copy(s1)
-    mmethodcorrection!(s2)
-    push!(iterations, s2)
-
-    while !s2.converged
-        s2 = copy(s2)
-        singleiteration!(s2)
+        s2 = copy(s1)
+        mmethodcorrection!(s2)
         push!(iterations, s2)
+
+        while !s2.converged
+            s2 = copy(s2)
+            singleiteration!(s2)
+            push!(iterations, s2)
+        end
+    elseif method == Dual
+        s1 = copy(s)
+        dualstandardform!(s1)
+        if !isnothing(getenteringvariableindex(s1))
+            error("The problem is not dual feasible.")
+        end
+        push!(iterations, s1)
+
+        s2 = copy(s1)
+        while !s2.converged
+            s2 = copy(s2)
+            dualsingleiteration!(s2)
+            push!(iterations, s2)
+        end
     end
 
     return iterations
 end
 
-function simplexpretty(s::SimplexProblem; maxiter::Int = 1000)::Nothing
+
+function simplexpretty(s::SimplexProblem; maxiter::Int = 1000, method::SimplexMethod = Primal)::Nothing
 
     copied::SimplexProblem = copy(s)
 
     @info "The problem:"
     println(copied)
 
-    @info "The standard form:"
-    standardform!(copied)
-    println(copied)
-
-    @info "M Method corrections:"
-    mmethodcorrection!(copied)
-    println(copied)
-
-
-    for i = 1:maxiter
-        if copied.converged
-            break
-        end
-        singleiteration!(copied)
-        @info "Iteration $i"
+    if method == Primal
+        @info "The standard form:"
+        standardform!(copied)
         println(copied)
+
+        @info "M Method corrections:"
+        mmethodcorrection!(copied)
+        println(copied)
+
+
+        for i = 1:maxiter
+            if copied.converged
+                break
+            end
+            singleiteration!(copied)
+            @info "Iteration $i"
+            println(copied)
+        end
+    elseif method == Dual
+        @info "The dual standard form:"
+        dualstandardform!(copied)
+        println(copied)
+
+
+        if !isnothing(getenteringvariableindex(copied))
+            error("The problem is not dual feasible.")
+        end
+
+        for i = 1:maxiter
+            if copied.converged
+                break
+            end
+            dualsingleiteration!(copied)
+            @info "Iteration $i"
+            println(copied)
+        end
     end
 
     @info "The problem is converged"
@@ -540,7 +678,9 @@ This function creates a SimplexProblem object from the given parameters.
 
 A SimplexProblem object.
 
-# Example
+# Examples
+
+### Primal Simplex
 
 Suppose the linear programming problem is as follows:
 
@@ -549,7 +689,7 @@ Maximize: 1.0x1 + 2.0x2 + 3.0x3
 Subject to:
 1.0x1 + 2.0x2 + 3.0x3 <= 10.0
 3.0x1 + 1.0x2 + 5.0x3 <= 15.0
-x1, x2 >= 0
+x1, x2, x3 >= 0
 ```
 
 The following code creates a SimplexProblem object for the above problem:
@@ -565,6 +705,33 @@ opttype = Maximize
 
 s = createsimplexproblem(obj, amat, rhs, dir, opttype)
 iters = simplexiterations(s)
+```
+
+### Dual Simplex
+
+Suppose the linear programming problem is as follows:
+
+```
+Minimize: 10.0x1 + 20.0x2
+Subject to:
+2.0x1 + 3.0x2 >= 5.0
+1.0x1 + 4.0x2 >= 10.0
+x1, x2 >= 0
+```
+
+The following code creates a SimplexProblem object for the above problem and solves it using the Dual Simplex method:
+
+```julia
+using OperationsResearchModels.Simplex
+
+obj = Float64[10.0, 20.0]
+amat = Float64[2.0 3.0; 1.0 4.0]
+rhs = Float64[5.0, 10.0]
+dir = [GE, GE]
+opttype = Minimize
+
+s = createsimplexproblem(obj, amat, rhs, dir, opttype)
+solve!(s, method = Dual)
 ```
 
 """
