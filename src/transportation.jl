@@ -268,7 +268,7 @@ end
 
 # Description
 
-The least cost method is a heuristic for finding an initial basic feasible solution to a transportation problem. It starts by selecting the cell with the lowest cost and allocating as much as possible to that cell, then it moves to the next lowest cost cell and repeats the process until all supply and demand constraints are satisfied.
+The least cost method is a heuristic for finding an initial basic feasible solution to a transportation problem. It processes cells from lowest to highest cost, allocating as much as possible whenever both the corresponding supply and demand remain positive.
 
 # Arguments
 - `a::TransportationProblem`: The problem in type of TransportationProblem
@@ -286,19 +286,21 @@ function leastcost(t::TransportationProblem)::TransportationResult
     n, m = size(problem.costs)
     asgnmatrix = zeros(Float64, n, m)
     cost = 0.0
-    while (sum(supply) > 0) && (sum(demand) > 0)
-        mincost = minimum(problem.costs)
-        mincostrow, mincostcol = argmin(problem.costs).I
-        amount = min(supply[mincostrow], demand[mincostcol])
-        asgnmatrix[mincostrow, mincostcol] = amount
-        supply[mincostrow] -= amount
-        demand[mincostcol] -= amount
-        if supply[mincostrow] == 0
-            problem.costs[mincostrow, :] .= Inf
-        elseif demand[mincostcol] == 0
-            problem.costs[:, mincostcol] .= Inf
+    remaining = sum(supply)
+    for index in sortperm(vec(problem.costs))
+        row = mod1(index, n)
+        col = cld(index, n)
+        if iszero(supply[row]) || iszero(demand[col])
+            continue
         end
-        cost += amount * mincost
+
+        amount = min(supply[row], demand[col])
+        asgnmatrix[row, col] = amount
+        supply[row] -= amount
+        demand[col] -= amount
+        remaining -= amount
+        cost += amount * problem.costs[row, col]
+        iszero(remaining) && break
     end
     result = TransportationResult(t, problem, asgnmatrix, cost, nothing)
     return result
