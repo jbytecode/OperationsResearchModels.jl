@@ -68,62 +68,6 @@ function hasloop(conns::Vector{Connection})::Bool
     return false
 end
 
-function findconnection(
-    conns::Vector{Connection},
-    i::Int,
-    j::Int,
-)::Union{Nothing,Connection}
-    for c in conns
-        if (c.from == i && c.to == j) || (c.from == j && c.to == i)
-            return c
-        end
-    end
-    return nothing
-end
-
-function findnearestbetweennodes(
-    conns::Vector{Connection},
-    distmat::Matrix,
-    assigned::Set{Int64},
-    unassigned::Set{Int64},
-)::Tuple{Int,Connection}
-    mindist = typemax(Float64)
-    theconnection = -1
-    connobj = nothing
-    for assignedelement in assigned
-        for unassignedelement in unassigned
-            cdist = distmat[assignedelement, unassignedelement]
-            if cdist < mindist
-                mindist = cdist
-                theconnection = unassignedelement
-                #connobj = Connection(assignedelement, unassignedelement, cdist)
-                connobj = findconnection(conns, assignedelement, unassignedelement)
-            end
-        end
-    end
-    return (theconnection, connobj)
-end
-
-function makedistancematrix(conns::Vector{Connection})::Matrix
-    allnodes = nodes(conns)
-    maxnode = maximum(allnodes)
-    mat = zeros(Float64, maxnode, maxnode)
-    for i = 1:maxnode
-        for j = (i+1):maxnode
-            c = findconnection(conns, i, j)
-            if !isnothing(c)
-                mat[i, j] = c.value
-            else
-                mat[i, j] = typemax(Float64)
-            end
-            mat[j, i] = mat[i, j]
-        end
-    end
-    return mat
-end
-
-
-
 function makeconnections(mat::Matrix)::Vector{Connection}
     
     n, _ = size(mat)
@@ -141,6 +85,55 @@ function makeconnections(mat::Matrix)::Vector{Connection}
     
     return conns
 
+end
+
+function prim(conns::Vector{Connection})::MstResult
+    allnodes = collect(nodes(conns))
+    n = length(allnodes)
+    n <= 1 && return MstResult(Connection[], 0.0)
+
+    adjacency = Dict(node => Connection[] for node in allnodes)
+    for conn in conns
+        push!(adjacency[conn.from], conn)
+        push!(adjacency[conn.to], conn)
+    end
+
+    in_tree = Set{Int64}()
+    distances = Dict(node => typemax(Float64) for node in allnodes)
+    nearest_connections = Dict{Int64,Connection}()
+    distances[allnodes[1]] = 0.0
+    result = Vector{Connection}(undef, n - 1)
+    totaldist = 0.0
+
+    for iteration in 1:n
+        nearestnode = nothing
+        mindist = typemax(Float64)
+        for node in allnodes
+            if !(node in in_tree) && distances[node] < mindist
+                nearestnode = node
+                mindist = distances[node]
+            end
+        end
+        isnothing(nearestnode) &&
+            throw(ArgumentError("The network must be connected to have a minimum spanning tree."))
+
+        push!(in_tree, nearestnode)
+        if iteration > 1
+            conn = nearest_connections[nearestnode]
+            result[iteration - 1] = conn
+            totaldist += conn.value
+        end
+
+        for conn in adjacency[nearestnode]
+            othernode = conn.from == nearestnode ? conn.to : conn.from
+            if !(othernode in in_tree) && conn.value < distances[othernode]
+                distances[othernode] = conn.value
+                nearest_connections[othernode] = conn
+            end
+        end
+    end
+
+    return MstResult(result, totaldist)
 end
 
 
@@ -161,7 +154,7 @@ Obtains the minimum spanning tree.
 
 # Details
 
-- This function uses Prim's algorithm to find the minimum spanning tree. It maintains a set of assigned and unassigned nodes, expanding the tree by adding the nearest unassigned node.
+- This function uses Prim's algorithm to find the minimum spanning tree. It tracks each unvisited node's nearest connection to the growing tree and updates only the connections adjacent to each newly selected node.
 
 # Examples 
 
@@ -186,38 +179,11 @@ function solve(problem::MstProblem)::MstResult
 
     if problem.data isa AbstractMatrix
         conns = makeconnections(problem.data)
-        distmat = problem.data
     else
         conns = problem.data
-        distmat = makedistancematrix(conns)
     end
 
-    #conns = problem.connections
-
-    #distmat = makedistancematrix(conns)
-
-    totaldist = 0.0
-
-    assigned = Set{Int64}()
-    unassigned = nodes(conns)
-
-    n = length(unassigned)
-
-    # In MST, there must be n-1 connections for n nodes
-    connresult = Vector{Connection}(undef, n - 1)
-
-    luckynode = pop!(unassigned)
-    push!(assigned, luckynode)
-
-    for iter in 1:(n - 1)
-        nearestnode, conn = findnearestbetweennodes(conns, distmat, assigned, unassigned)
-        push!(assigned, nearestnode)
-        connresult[iter] = conn
-        totaldist += conn.value
-        unassigned = filter(x -> x != nearestnode, unassigned)
-    end
-
-    return MstResult(connresult, totaldist)
+    return prim(conns)
 end
 
 end # end of module

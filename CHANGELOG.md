@@ -1,5 +1,6 @@
 ### 0.2.15 (Upcoming Release)
 
+- Avoid repeated edge scans and matrix construction in Prim's algorithm (Minimum Spanning Tree)
 
 ### 0.2.14 
 
