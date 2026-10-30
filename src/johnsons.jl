@@ -24,6 +24,8 @@ Represents a Johnson problem instance, containing the job processing times.
 # Fields
 
 - `times::Matrix{<:Real}`: A matrix of job processing times.
+
+# See also [`JohnsonResult`](@ref), [`solve(::JohnsonProblem)`](@ref)
 """
 struct JohnsonProblem
     times::Matrix{<:Real}
@@ -40,6 +42,8 @@ Represents the result of the Johnson's algorithm, containing the optimal job per
 # Fields
 
 - `permutation::Vector{Int}`: The optimal job permutation found by the algorithm.
+
+# See also [`JohnsonProblem`](@ref), [`solve(::JohnsonProblem)`](@ref)
 """
 struct JohnsonResult
     permutation::Vector{Int}
@@ -90,6 +94,8 @@ result = johnsons_ga(JohnsonProblem(times))
 
 println(result.permutation)
 ```
+
+# See also [`JohnsonProblem`](@ref), [`JohnsonResult`](@ref)
 """
 function johnsons_ga(
     problem::JohnsonProblem;
@@ -158,6 +164,8 @@ result = solve(JohnsonProblem(times))
 
 println(result.permutation)
 ```
+
+# See also [`JohnsonProblem`](@ref), [`JohnsonResult`](@ref), [`johnsons_ga(::JohnsonProblem)`](@ref)
 """
 function solve(problem::JohnsonProblem)::JohnsonResult
     times = problem.times
@@ -260,6 +268,8 @@ times = Float64[
 
 result = makespan(JohnsonProblem(times), [1, 4, 5, 3, 2])
 ```
+
+# See also [`JohnsonProblem`](@ref), [`JohnsonResult`](@ref)
 """
 function makespan(problem::JohnsonProblem, permutation::Vector{Int})::Float64
 
