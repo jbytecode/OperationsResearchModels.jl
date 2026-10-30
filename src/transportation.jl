@@ -26,6 +26,8 @@ import ..OperationsResearchModels: solve, balance, isbalanced
 # Description
 
 The `TransportationProblem` struct represents a transportation problem with a cost matrix, demand vector, and supply vector.
+
+# See also [`TransportationResult`](@ref), [`solve(::TransportationProblem)`](@ref)
 """
 mutable struct TransportationProblem{cT<:Real, dT<:Real, sT<:Real}
     costs::Matrix{cT}
@@ -52,6 +54,7 @@ end
 The `TransportationResult` struct represents the result of solving a transportation problem.
 It contains the original problem, the balanced problem, the solution matrix, and the optimal cost.
 
+# See also [`TransportationProblem`](@ref), [`solve(::TransportationProblem)`](@ref)
 """
 struct TransportationResult
     originalProblem::TransportationProblem
@@ -181,6 +184,8 @@ println(result)
 # Solution:
 # [-0.0 -0.0 -0.0 100.0; 100.0 -0.0 -0.0 -0.0; -0.0 -0.0 100.0 -0.0; -0.0 100.0 -0.0 -0.0]
 ```
+
+# See also [`TransportationResult`](@ref), [`solve(::TransportationProblem)`](@ref)
 """
 function solve(
     t::TransportationProblem;
@@ -226,6 +231,8 @@ The method continues until all supply and demand constraints are satisfied.
 
 # Output
 - `TransportationResult`: The custom data type that holds problem, solution, and optimum cost.
+
+# See also [`TransportationResult`](@ref), [`solve(::TransportationProblem)`](@ref)
 """
 function northwestcorner(t::TransportationProblem)::TransportationResult
     problem = t
@@ -275,6 +282,8 @@ The least cost method is a heuristic for finding an initial basic feasible solut
 
 # Output
 - `TransportationResult`: The custom data type that holds problem, solution, and optimum cost.
+
+# See also [`TransportationResult`](@ref), [`solve(::TransportationProblem)`](@ref)
 """
 function leastcost(t::TransportationProblem)::TransportationResult
     problem = t
