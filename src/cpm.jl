@@ -52,6 +52,8 @@ Represents a CPM (Critical Path Method) problem instance, containing the activit
 # Fields
 
 - `activities::Vector{CpmActivity}`: A vector of activities in the CPM problem.
+
+# See also [`CpmResult`](@ref), [`solve(::CpmProblem)`](@ref), [`CpmActivity`](@ref)
 """
 struct CpmProblem
     activities::Vector{CpmActivity}
@@ -70,6 +72,8 @@ Represents the result of a CPM (Critical Path Method) analysis, containing the c
 
 - `pathstr::Vector{String}`: A vector of strings representing the names of the activities in the critical path.
 - `path::Vector{CpmActivity}`: A vector of activities representing the critical path.
+
+# See also [`CpmProblem`](@ref), [`solve(::CpmProblem)`](@ref), [`CpmActivity`](@ref)
 """
 struct CpmResult
     pathstr::Vector{String}
@@ -100,6 +104,8 @@ A = PertActivity("A", 1, 2, 3);
 B = PertActivity("B", 3, 3, 4);
 C = PertActivity("C", 5, 6, 7, [A, B]);
 ```
+
+# See also [`PertProblem`](@ref), [`solve(::PertProblem)`](@ref), [`PertActivity`](@ref)
 """
 struct PertActivity
     name::String
@@ -122,6 +128,8 @@ Represents a PERT (Program Evaluation and Review Technique) problem instance, co
 # Fields
 
 - `activities::Vector{PertActivity}`: A vector of activities in the PERT problem.
+
+# See also [`PertResult`](@ref), [`solve(::PertProblem)`](@ref), [`PertActivity`](@ref)
 """
 struct PertProblem
     activities::Vector{PertActivity}
@@ -141,6 +149,8 @@ Represents the result of a PERT (Program Evaluation and Review Technique) analys
 - `path::Vector{PertActivity}`: A vector of activities representing the critical path.
 - `mean::Float64`: The mean duration of the critical path.
 - `stddev::Float64`: The standard deviation of the critical path.
+
+# See also [`PertProblem`](@ref), [`solve(::PertProblem)`](@ref), [`PertActivity`](@ref)
 """
 struct PertResult
     path::Vector{PertActivity}
@@ -234,8 +244,9 @@ activities = [A, B, C, D, E, F, G, H, I, J];
 problem = CpmProblem(activities);
 
 result = solve(problem);
-
 ``` 
+
+# See also [`CpmProblem`](@ref), [`CpmResult`](@ref), [`solve(::CpmProblem)`](@ref)
 """
 function solve(problem::CpmProblem)::CpmResult
 
@@ -321,6 +332,8 @@ result = pert(activities)
 println(result.mean)
 println(result.stddev)
 ```
+
+# See also [`PertProblem`](@ref), [`PertResult`](@ref), [`solve(::PertProblem)`](@ref)
 """
 function solve(problem::PertProblem)::PertResult
 
