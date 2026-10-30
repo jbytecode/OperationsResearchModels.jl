@@ -20,6 +20,8 @@ A structure to hold the result of the knapsack problem.
 - `selected`: A vector of booleans indicating which items are selected.
 - `model`: The JuMP model used to solve the problem.
 - `objective`: The objective value of the model.
+
+# See also [`KnapsackProblem`](@ref), [`solve(::KnapsackProblem)`](@ref)
 """
 struct KnapsackResult
     selected::Vector{Bool}
@@ -44,6 +46,8 @@ Defines the knapsack problem.
 
 # Output
 - `KnapsackResult`: The custom data type that holds selected items, model, and objective value.
+
+# See also [`KnapsackResult`](@ref), [`solve(::KnapsackProblem)`](@ref)
 """
 struct KnapsackProblem{vT <: Real, wT <: Real, cT <: Real}
     values::Vector{vT}
@@ -76,6 +80,8 @@ weights = [1, 2, 3, 4, 5];
 capacity = 10;
 solve(KnapsackProblem(values, weights, capacity));
 ```
+
+# See also [`KnapsackProblem`](@ref), [`KnapsackResult`](@ref)
 """
 function solve(problem::KnapsackProblem)::KnapsackResult
 
