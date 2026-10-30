@@ -22,6 +22,8 @@ Defines the minimum cost flow problem.
 - `connections::Vector{Connection}`: The connections (edges) in the network.
 - `costs::Vector{Connection}`: The costs associated with each connection.
 
+
+# See also [`MinimumCostFlowResult`](@ref), [`solve(::MinimumCostFlowProblem)`](@ref)
 """
 struct MinimumCostFlowProblem
     connections::Vector{Connection}
@@ -42,6 +44,8 @@ A structure to hold the result of the minimum cost flow problem.
 - `path::Vector{Connection}`: The connections (edges) in the flow path.
 - `cost::Float64`: The total cost of the flow.
 - `model::JuMP.Model`: The JuMP model used to solve the problem.
+
+# See also [`MinimumCostFlowProblem`](@ref), [`solve(::MinimumCostFlowProblem)`](@ref)
 
 """
 struct MinimumCostFlowResult
@@ -64,7 +68,7 @@ This function solves the Minimum Cost Flow problem given a flow value.
 - `problem::MinimumCostFlowProblem`: The problem in type of MinimumCostFlowProblem
 - `flow::Float64`: The flow value to be used in the problem.
 
-
+# See also [`MinimumCostFlowProblem`](@ref), [`MinimumCostFlowResult`](@ref)
 """
 function solve(problem::MinimumCostFlowProblem, flow::Float64)::MinimumCostFlowResult
     cns = problem.connections
