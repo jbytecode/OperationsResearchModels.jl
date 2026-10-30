@@ -21,6 +21,8 @@ import ..OperationsResearchModels: solve, isbalanced, balance
 # Description
 
 The `AssignmentProblem` struct represents an assignment problem with a cost matrix.
+
+# See also [`AssignmentResult`](@ref), [`solve(::AssignmentProblem)`](@ref)
 """
 struct AssignmentProblem{T<:Real}
     costs::Matrix{T}
@@ -44,6 +46,8 @@ end
 
 The `AssignmentResult` struct represents the result of solving an assignment problem.
 It contains the original problem, the solution matrix, and the optimal cost.
+
+# See also [`AssignmentProblem`](@ref), [`solve(::AssignmentProblem)`](@ref)
 """
 struct AssignmentResult
     problem::AssignmentProblem
@@ -67,6 +71,8 @@ Checks if the assignment problem is balanced, meaning the number of workers equa
 # Returns
 
 - `Bool`: Returns `true` if the problem is balanced, otherwise `false`.
+
+# See also [`AssignmentProblem`](@ref), [`solve(::AssignmentProblem)`](@ref)
 """
 function isbalanced(problem::AssignmentProblem)::Bool
     n, p = size(problem.costs)
@@ -88,6 +94,8 @@ Balances the assignment problem by adding dummy rows or columns if necessary.
 # Returns
 
 - `AssignmentProblem`: A new `AssignmentProblem` instance with balanced costs.
+
+# See also [`AssignmentProblem`](@ref), [`isbalanced(::AssignmentProblem)`](@ref)
 """
 function balance(problem::AssignmentProblem)::AssignmentProblem
     n, p = size(problem.costs)
@@ -129,6 +137,8 @@ problem = AssignmentProblem(mat);
 
 result = solve(problem);
 ```
+
+# See also [`AssignmentProblem`](@ref), [`AssignmentResult`](@ref)
 """
 function solve(a::AssignmentProblem)::AssignmentResult
     model = JuMP.Model(HiGHS.Optimizer)
