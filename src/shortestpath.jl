@@ -22,6 +22,7 @@ Defines the shortest path problem.
 
 - `connections::Vector{Connection}`: The connections (edges) in the network.
 
+# See also [`ShortestPathResult`](@ref), [`solve(::ShortestPathProblem)`](@ref)
 """
 struct ShortestPathProblem
     connections::Vector{Connection}
@@ -41,6 +42,7 @@ A structure to hold the result of the shortest path problem.
 - `cost::Float64`: The total cost of the shortest path.
 - `model::JuMP.Model`: The JuMP model used to solve the problem.
 
+# See also [`ShortestPathProblem`](@ref), [`solve(::ShortestPathProblem)`](@ref)
 """
 struct ShortestPathResult
     path::Vector{Connection}
@@ -100,6 +102,8 @@ println(result.cost)
     it is considered the finish node. Of course a network can have multiple start and finish nodes,
     but this heuristic simplifies the problem. Future implementations could explore more complex
     scenarios with multiple start and finish nodes. 
+
+# See also [`ShortestPathResult`](@ref), [`solve(::ShortestPathProblem)`](@ref)
 """
 function solve(problem::ShortestPathProblem)
 
