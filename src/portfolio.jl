@@ -21,6 +21,7 @@ Defines the portfolio optimization problem.
 - `returns::Matrix{<:Real}`: A matrix of historical returns for the assets.
 - `thresholdreturn::Real`: The minimum expected return required for the portfolio.
 
+# See also [`PortfolioResult`](@ref), [`solve(::PortfolioProblem)`](@ref)
 """
 struct PortfolioProblem
     returns::Matrix{<:Real}
@@ -41,6 +42,8 @@ A structure to hold the result of the portfolio optimization problem.
 - `weights::Vector{Float64}`: The optimal weights for the assets in the portfolio.
 - `expectedreturn::Float64`: The expected return of the optimal portfolio.
 - `model::JuMP.Model`: The JuMP model used to solve the problem.
+
+# See also [`PortfolioProblem`](@ref), [`solve(::PortfolioProblem)`](@ref)
 """
 struct PortfolioResult
     weights::Vector{Float64}
@@ -93,6 +96,8 @@ result = solve(problem)
 println("Optimal Weights: ", result.weights)
 println("Expected Return: ", result.expectedreturn)
 ```
+
+# See also [`PortfolioResult`](@ref), [`solve(::PortfolioProblem)`](@ref)
 """
 function solve(p::PortfolioProblem)::PortfolioResult
     model = Model(HiGHS.Optimizer)
