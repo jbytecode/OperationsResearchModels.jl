@@ -14,7 +14,7 @@ BinPackingProblem represents a bin packing problem with item sizes and bin capac
 - `item_sizes::Vector{T1 <: Real}`: The sizes of the items.
 - `bin_capacity::Vector{T2 <: Real}`: The capacities of the bins.
 
-# See also [`BinPackingResult`](@ref)
+# See also [`BinPackingResult`](@ref), [`solve(::BinPackingProblem)`](@ref)
 """
 struct BinPackingProblem{T1 <: Real, T2 <: Real} 
     item_sizes::Vector{T1} 
@@ -30,7 +30,7 @@ BinPackingResult represents the result of a bin packing problem.
 - `bin_assignments::Vector{Int}`: The bin assignment for each item.
 - `model::JuMP.Model`: The JuMP model used to solve the problem.
 
-# See also [`BinPackingProblem`](@ref)
+# See also [`BinPackingProblem`](@ref), [`solve(::BinPackingProblem)`](@ref)
 """
 struct BinPackingResult 
     used_bins::Vector{Int}
