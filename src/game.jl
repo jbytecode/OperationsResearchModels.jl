@@ -35,6 +35,8 @@ Defines the problem of a zero-sum game.
 # Fields
 
 - `decisionMatrix::Matrix{<:Real}`: The payoff matrix of the game designed for the row player.
+
+# See also [`GameResult`](@ref), [`solve(::GameProblem)`](@ref)
 """
 struct GameProblem
     decisionMatrix::Matrix{<:Real}
@@ -57,6 +59,8 @@ A structure to hold the result of a game.
 - `beta::Float64`: The upper bound of the game value (minimax).
 - `strategytype::StrategyType`: Indicates whether the optimal strategy is pure or mixed.
 
+
+# See also [`GameProblem`](@ref), [`solve(::GameProblem)`](@ref)
 """
 struct GameResult
     probabilities::Any
@@ -117,6 +121,8 @@ println(result2.probabilities)
 println(result2.value)
 # -3.285714285714285
 ```
+
+# See also [`GameProblem`](@ref), [`GameResult`](@ref), [`StrategyType`](@ref)
 """
 function solve(p::GameProblem; verbose::Bool = false)::Vector{GameResult}
     rowplayers_result = game_solver(p.decisionMatrix, verbose = verbose)
