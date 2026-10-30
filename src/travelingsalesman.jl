@@ -19,6 +19,8 @@ A data structure to hold the problem definition of the traveling salesman proble
 # Fields
 
 - `distancematrix::Matrix{Real}`: The distance matrix representing the distances between cities.
+
+# See also [`TravelingSalesmanResult`](@ref), [`solve(::TravelingSalesmanProblem)`](@ref)
 """
 struct TravelingSalesmanProblem
     distancematrix::Matrix{Real}
@@ -37,6 +39,8 @@ A data structure to hold the result of the traveling salesman problem.
 # Fields
 - `route::Vector{Int}`: The best route found.
 - `cost::Float64`: The cost of the best route.
+
+# See also [`TravelingSalesmanProblem`](@ref), [`solve(::TravelingSalesmanProblem)`](@ref)
 """
 struct TravelingSalesmanResult
     route::Vector{Int}
@@ -96,6 +100,8 @@ end
 
 result = solve(TravelingSalesmanProblem(distmat), ngen = 1000, popsize = 100, pcross = 1.0, pmutate = 0.10)
 ```
+
+# See also [`TravelingSalesmanResult`](@ref), [`solve(::TravelingSalesmanProblem)`](@ref)
 """
 function solve(
     problem::TravelingSalesmanProblem;
