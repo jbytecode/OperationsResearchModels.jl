@@ -20,6 +20,8 @@ import ..OperationsResearchModels: solve
 - `z::Matrix`: Binary matrix of assignments. If z[i, j] = 1 then ith point is connected to the jth point.
 - `y::Vector`: Binary vector. If y[i] is 1 then ith point is a depot.
 
+
+# See also [`solve(::PMedianProblemWithDistances)`](@ref), [`solve(::PMedianProblemWithCoordinates)`](@ref)
 """
 struct PMedianResult
     centers::Vector
