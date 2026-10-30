@@ -1,7 +1,6 @@
 module PMedian
 
-export pmedian
-export pmedian_with_distances
+
 export PMedianProblemWithDistances
 export PMedianProblemWithCoordinates
 export PMedianResult
@@ -69,20 +68,9 @@ function euclidean(u, v)::Float64
 end
 
 
-function solve(problem::PMedianProblemWithCoordinates)::PMedianResult
-    return pmedian(problem.coordinates, problem.ncenters)
-end
-
-
-function solve(problem::PMedianProblemWithDistances)::PMedianResult
-    return pmedian_with_distances(problem.distancematrix, problem.ncenters)
-end
-
-
-
 """
 
-    pmedian(data, ncenters)
+    solve(p::PMedianProblemWithCoordinates)
 
 # Description
 
@@ -92,8 +80,7 @@ The function calculates Euclidean distances between all possible rows of the mat
 
 # Arguments 
 
-- `data::Matrix`: Coordinates of locations 
-- `ncenters::Int`: Number of centers  
+- `p::PMedianProblemWithCoordinates`: PMedian problem with coordinates.
 
 # Output 
 
@@ -110,9 +97,12 @@ data3 = rand(10, 2) .+ 100
 
 data = vcat(data1, data2, data3)
 
-result = pmedian(data, 3);
+problem = PMedianProblemWithCoordinates(data, 3)
+
+result = solve(problem)
 
 println(result.centers)
+
 # 3-element Vector{Int64}:
 #  1
 # 16
@@ -122,6 +112,36 @@ println(result.objective)
 # 11.531012240599605
 ``` 
 """
+function solve(problem::PMedianProblemWithCoordinates)::PMedianResult
+    return pmedian(problem.coordinates, problem.ncenters)
+end
+
+
+
+"""
+
+    solve(p::PMedianProblemWithDistances)
+
+# Description
+
+The function selects `ncenters` locations that minimize the total distances to the nearest rows based on the provided distance matrix.
+
+# Arguments 
+
+- `p::PMedianProblemWithDistances`: PMedian problem with distances.
+
+# Output 
+- `PMedianResult`: PMedianResult object. 
+
+# See also [`solve(::PMedianProblemWithCoordinates)`](@ref) 
+"""
+function solve(problem::PMedianProblemWithDistances)::PMedianResult
+    return pmedian_with_distances(problem.distancematrix, problem.ncenters)
+end
+
+
+
+
 function pmedian(data::Matrix, ncenters::Int)::PMedianResult
 
     n, _ = size(data)
@@ -141,22 +161,7 @@ end
 
 
 
-"""
 
-    pmedian_with_distances(distancematrix, ncenters)
-
-# Description
-
-`ncenters` locations are selected that minimizes the total distances to the nearest rows. 
-
-# Arguments 
-
-- `distancematrix::Matrix`: n x n matrix of distances
-- `ncenters::Int`: Number of centers 
-
-# Output 
-- `PMedianResult`: PMedianResult object. 
-"""
 function pmedian_with_distances(distancematrix::Matrix, ncenters::Int)::PMedianResult
 
     n, _ = size(distancematrix)

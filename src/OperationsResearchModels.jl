@@ -119,7 +119,7 @@ export ShortestPathProblem, MaximumFlowProblem, MinimumCostFlowProblem
 export AssignmentProblem, AssignmentResult, isbalanced, balance
 export GameProblem, GameResult, StrategyType, alpha, beta, strategytype, Pure, Mixed
 export hasloop, MstResult, MstProblem
-export pmedian, pmedian_with_distances, PMedianResult, PMedianProblemWithDistances, PMedianProblemWithCoordinates
+export PMedianResult, PMedianProblemWithDistances, PMedianProblemWithCoordinates
 export CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmResult
 export PertActivity, PertProblem, PertResult
 export KnapsackResult, KnapsackProblem
