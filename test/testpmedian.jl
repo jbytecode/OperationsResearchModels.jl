@@ -10,7 +10,8 @@
             8 7
         ]
 
-        result = pmedian(coords, 2)
+        problem = PMedianProblemWithCoordinates(coords, 2)
+        result = solve(problem)
 
         @test isapprox(result.objective, 8.06449510224598; atol=1e-5)
 
@@ -23,7 +24,8 @@
 
         number_of_depots = 2
 
-        result = pmedian_with_distances(distance_matrix, number_of_depots)
+        problem = PMedianProblemWithDistances(distance_matrix, number_of_depots)
+        result = solve(problem)
 
         @test sort(result.centers) == [1, 2]
         @test result.objective == 5.0
@@ -41,7 +43,8 @@
 
         number_of_depots = 3
 
-        result = pmedian_with_distances(distance_matrix, number_of_depots)
+        problem = PMedianProblemWithDistances(distance_matrix, number_of_depots)
+        result = solve(problem)
 
         @test sort(result.centers) == [1, 2, 4]
         @test result.objective == 3.0
@@ -64,9 +67,13 @@
         ]
 
 
-        result1 = pmedian_with_distances(distance_matrix, 2)
-        result2 = pmedian_with_distances(distance_matrix, 3)
-        result3 = pmedian_with_distances(distance_matrix, 4)
+        problem1 = PMedianProblemWithDistances(distance_matrix, 2)
+        problem2 = PMedianProblemWithDistances(distance_matrix, 3)
+        problem3 = PMedianProblemWithDistances(distance_matrix, 4)
+
+        result1 = solve(problem1)
+        result2 = solve(problem2)
+        result3 = solve(problem3)
 
 
         # We have two optimal solutions for 2 centers

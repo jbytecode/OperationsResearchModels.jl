@@ -16,6 +16,8 @@ using JuMP, HiGHS
 # solve(p::JohnsonProblem)::JohnsonResult
 # solve(p::PortfolioProblem)::PortfolioResult
 # solve(p::BinPackingProblem)::BinPackingResult
+# solve(p::PMedianProblemWithCoordinates)::PMedianResult
+# solve(p::PMedianProblemWithDistances)::PMedianResult
 solve() = nothing
 
 # solve!(s::SimplexProblem)::SimplexProblem
@@ -95,7 +97,7 @@ import .MinimumCostFlow: MinimumCostFlowProblem, MinimumCostFlowResult
 import .Assignment: AssignmentProblem, AssignmentResult, isbalanced, balance
 import .Game: GameProblem, GameResult, StrategyType, alpha, beta, strategytype, Pure, Mixed
 import .MinimumSpanningTree: hasloop, MstResult, MstProblem
-import .PMedian: pmedian, pmedian_with_distances, PMedianResult
+import .PMedian: PMedianResult, PMedianProblemWithDistances, PMedianProblemWithCoordinates
 import .CPM: CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmResult
 import .CPM: PertActivity, PertProblem, PertResult
 import .Knapsack: KnapsackResult, KnapsackProblem
@@ -117,7 +119,7 @@ export ShortestPathProblem, MaximumFlowProblem, MinimumCostFlowProblem
 export AssignmentProblem, AssignmentResult, isbalanced, balance
 export GameProblem, GameResult, StrategyType, alpha, beta, strategytype, Pure, Mixed
 export hasloop, MstResult, MstProblem
-export pmedian, pmedian_with_distances, PMedianResult
+export pmedian, pmedian_with_distances, PMedianResult, PMedianProblemWithDistances, PMedianProblemWithCoordinates
 export CpmActivity, earliestfinishtime, longestactivity, CpmProblem, CpmResult
 export PertActivity, PertProblem, PertResult
 export KnapsackResult, KnapsackProblem

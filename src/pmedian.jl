@@ -2,8 +2,13 @@ module PMedian
 
 export pmedian
 export pmedian_with_distances
+export PMedianProblemWithDistances
+export PMedianProblemWithCoordinates
+export PMedianResult
 
 using JuMP, HiGHS
+
+import ..OperationsResearchModels: solve
 
 """
     PMedianResult
@@ -25,6 +30,36 @@ struct PMedianResult
     y::Vector
 end
 
+"""
+    PMedianProblemWithDistances
+
+# Fields
+
+- `distancematrix::Matrix`: n x n matrix of distances
+- `ncenters::Int`: Number of centers
+
+# See also [`PMedianProblemWithCoordinates`](@ref), [`solve(::PMedianProblemWithDistances)`](@ref)
+"""
+struct PMedianProblemWithDistances
+    distancematrix::Matrix
+    ncenters::Int
+end
+
+
+"""
+    PMedianProblemWithCoordinates
+
+# Fields
+
+- `coordinates::Matrix`: n x d matrix of coordinates
+- `ncenters::Int`: Number of centers
+
+# See also [`PMedianProblemWithDistances`](@ref), [`solve(::PMedianProblemWithCoordinates)`](@ref)
+"""
+struct PMedianProblemWithCoordinates
+    coordinates::Matrix
+    ncenters::Int
+end
 
 
 
@@ -33,6 +68,15 @@ function euclidean(u, v)::Float64
     return (d .* d) |> sum |> sqrt
 end
 
+
+function solve(problem::PMedianProblemWithCoordinates)::PMedianResult
+    return pmedian(problem.coordinates, problem.ncenters)
+end
+
+
+function solve(problem::PMedianProblemWithDistances)::PMedianResult
+    return pmedian_with_distances(problem.distancematrix, problem.ncenters)
+end
 
 
 

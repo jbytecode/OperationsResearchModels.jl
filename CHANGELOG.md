@@ -3,6 +3,7 @@
 - Avoid repeated edge scans and matrix construction in Prim's algorithm (Minimum Spanning Tree)
 - Replace repeated full-matrix  minimum / argmin  scans and repeated supply/demand totals in least cost method
 - Make related links in documentation
+- Unified pmedian interface with PMedianProblemWithDistances, PMedianProblemWithCoordinates, and solve(::PMedianProblemXXX)
 
 ### 0.2.14 
 

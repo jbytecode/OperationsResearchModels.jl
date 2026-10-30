@@ -1,11 +1,27 @@
 ## pmedian
 
+
+### PMedianProblemWithDistances
+
 ```@docs
-OperationsResearchModels.pmedian
+OperationsResearchModels.PMedianProblemWithDistances
 ```
 
-## pmedian with distances
+### PMedianProblemWithCoordinates
+
+```@docs
+OperationsResearchModels.PMedianProblemWithCoordinates
+```
+
+
+### The Solver
 
 ```@docs 
-OperationsResearchModels.pmedian_with_distances
+OperationsResearchModels.solve(p::PMedianProblemWithDistances)
 ```
+
+```@docs 
+OperationsResearchModels.solve(p::PMedianProblemWithCoordinates)
+```
+
+
