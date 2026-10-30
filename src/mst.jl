@@ -26,6 +26,8 @@ Defines the minimum spanning tree problem.
 
     The Connection object defines a directed edge, but for the minimum spanning tree problem, 
     the edges are considered undirected.
+
+# See also [`MstResult`](@ref), [`solve(::MstProblem)`](@ref)
 """
 struct MstProblem
     data::Union{Vector{Connection}, AbstractMatrix{<:Real}}
@@ -43,6 +45,7 @@ A structure to hold the result of the minimum spanning tree problem.
 - `connections::Vector{Connection}`: The connections (edges) in the minimum spanning tree.
 - `distance::Float64`: The total distance (weight) of the minimum spanning tree.
 
+# See also [`MstProblem`](@ref), [`solve(::MstProblem)`](@ref)
 """
 struct MstResult
     connections::Vector{Connection}
@@ -174,6 +177,8 @@ println(result.distance)
 
 println(result.connections)
 ```
+
+# See also [`MstResult`](@ref), [`solve(::MstProblem)`](@ref)
 """
 function solve(problem::MstProblem)::MstResult
 
