@@ -432,6 +432,8 @@ modifies the input SimplexProblem in place.
 # Returns
 
 - `SimplexProblem`: The solved SimplexProblem.
+
+# See also [`SimplexProblem`](@ref), [`solve!(::SimplexProblem)`](@ref), [`simplexiterations(::SimplexProblem)`](@ref)
 """
 function solve!(s::SimplexProblem)::SimplexProblem
     standardform!(s)
@@ -461,6 +463,8 @@ history of SimplexProblem states.
 # Returns
 
 - `Vector{SimplexProblem}`: The history of SimplexProblem states (by iterations).
+
+# See also [`SimplexProblem`](@ref), [`solve!(::SimplexProblem)`](@ref)
 
 """
 function simplexiterations(s::SimplexProblem)::Vector{SimplexProblem}
@@ -565,6 +569,8 @@ opttype = Maximize
 s = createsimplexproblem(obj, amat, rhs, dir, opttype)
 iters = simplexiterations(s)
 ```
+
+# See also [`OptimizationType`](@ref), [`SimplexProblem`](@ref), [`solve!(::SimplexProblem)`](@ref)
 """
 function createsimplexproblem(
     obj::Vector,
