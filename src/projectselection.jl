@@ -21,6 +21,8 @@ import ..OperationsResearchModels: solve
 - `cost::Matrix`: A matrix where each row represents a project and each column represents a resource. The values in the matrix represent the cost of using that resource for that project.
 - `budgets::Vector`: A vector where each element represents the budget available for the corresponding resource.
 - `returns::Vector`: A vector where each element represents the return of selecting the corresponding project.
+
+# See also [`ProjectSelectionResult`](@ref), [`solve(::ProjectSelectionProblem)`](@ref)
 """
 struct ProjectSelectionProblem
     cost::Matrix
@@ -41,6 +43,8 @@ end
 - `selected`: A vector of booleans (0 and 1s) indicating which projects are selected.
 - `objective`: The objective value of the model.
 - `model`: The JuMP model used to solve the problem.
+
+# See also [`ProjectSelectionProblem`](@ref), [`solve(::ProjectSelectionProblem)`](@ref)
 """
 struct ProjectSelectionResult
     selected::Vector
@@ -90,6 +94,8 @@ result = solve(problem)
 println("Selected projects: ", result.selected)
 println("Objective value: ", result.objective)
 ```
+
+# See also [`ProjectSelectionResult`](@ref), [`solve(::ProjectSelectionProblem)`](@ref)
 """
 function solve(problem::ProjectSelectionProblem)::ProjectSelectionResult
 
