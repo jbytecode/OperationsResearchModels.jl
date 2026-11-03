@@ -1,4 +1,7 @@
-### 0.2.15 (Upcoming Release)
+### 0.2.16 (Upcoming Release)
+
+
+### 0.2.15 
 
 - Avoid repeated edge scans and matrix construction in Prim's algorithm (Minimum Spanning Tree)
 - Replace repeated full-matrix  minimum / argmin  scans and repeated supply/demand totals in least cost method
