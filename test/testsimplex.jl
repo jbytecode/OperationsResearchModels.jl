@@ -236,4 +236,163 @@
 
     end
 
+    @testset "Dual Simplex - Minimize with GE" begin
+
+        eps = 0.001
+
+        # Minimize z = 100x1 + 120x2
+        # subject to
+        # 3x1 + 2x2 >= 36
+        # 2x1 + 4x2 >= 24
+        # x1, x2 >= 0
+        # Result:
+        # x1 = 12.0, x2 = 0.0
+        # Objective value = 1200.0
+
+        s = createsimplexproblem(
+            Float64[100.0, 120.0],
+            Float64[3.0 2.0; 2.0 4.0],
+            Float64[36.0, 24.0],
+            [GE, GE],
+            Minimize,
+        )
+        solve!(s, method = Dual)
+
+        @test s.converged
+        @test isapprox(s.objective_value, 1200.0, atol = eps)
+        @test sort(s.basicvariableindex) == [1, 4]
+        @test isapprox(s.rhs, [12.0, 0.0], atol = eps)
+
+    end
+
+    @testset "Dual Simplex - Maximize with Mixed Directions" begin
+
+        eps = 0.001
+
+        # Maximize z = -2x1 - x2
+        # subject to
+        #  x1 +  x2 >= 4
+        # 2x1 + 3x2 <= 12
+        # x1, x2 >= 0
+        # Result:
+        # x1 = 0.0, x2 = 4.0
+        # Objective value = -4.0
+
+        s = createsimplexproblem(
+            Float64[-2.0, -1.0],
+            Float64[1.0 1.0; 2.0 3.0],
+            Float64[4.0, 12.0],
+            [GE, LE],
+            Maximize,
+        )
+        solve!(s, method = Dual)
+
+        @test s.converged
+        @test isapprox(s.objective_value, -4.0, atol = eps)
+        @test sort(s.basicvariableindex) == [2, 4]
+        @test isapprox(s.rhs, [4.0, 0.0], atol = eps)
+
+    end
+
+    @testset "Dual Simplex - Equality and Primal Consistency" begin
+
+        eps = 0.001
+
+        # Minimize z = 4x1 + 5x2
+        # subject to
+        # x1 +  x2  = 4
+        # x1 + 2x2 >= 6
+        # x1, x2 >= 0
+        # Result:
+        # x1 = 2.0, x2 = 2.0
+        # Objective value = 18.0
+
+        s_primal = createsimplexproblem(
+            Float64[4.0, 5.0],
+            Float64[1.0 1.0; 1.0 2.0],
+            Float64[4.0, 6.0],
+            [EQ, GE],
+            Minimize,
+        )
+        solve!(s_primal, method = Primal)
+
+        s_dual = createsimplexproblem(
+            Float64[4.0, 5.0],
+            Float64[1.0 1.0; 1.0 2.0],
+            Float64[4.0, 6.0],
+            [EQ, GE],
+            Minimize,
+        )
+        solve!(s_dual, method = Dual)
+
+        @test s_primal.converged
+        @test s_dual.converged
+        @test isapprox(s_dual.objective_value, 18.0, atol = eps)
+        @test isapprox(s_primal.objective_value, s_dual.objective_value, atol = eps)
+
+        s_iter = createsimplexproblem(
+            Float64[4.0, 5.0],
+            Float64[1.0 1.0; 1.0 2.0],
+            Float64[4.0, 6.0],
+            [EQ, GE],
+            Minimize,
+        )
+        iters = simplexiterations(s_iter, method = Dual)
+        @test iters[end].converged
+        @test isapprox(iters[end].objective_value, 18.0, atol = eps)
+
+    end
+
+    @testset "Dual Simplex - Error Handling" begin
+
+        # Not dual feasible initially:
+        # Minimize z = -10x1 + 120x2
+        # subject to
+        # 3x1 + 2x2 >= 36
+        # 2x1 + 4x2 >= 24
+        # x1, x2 >= 0
+        s1 = createsimplexproblem(
+            Float64[-10.0, 120.0],
+            Float64[3.0 2.0; 2.0 4.0],
+            Float64[36.0, 24.0],
+            [GE, GE],
+            Minimize,
+        )
+        @test_throws ErrorException solve!(s1, method = Dual)
+
+        s2 = createsimplexproblem(
+            Float64[-10.0, 120.0],
+            Float64[3.0 2.0; 2.0 4.0],
+            Float64[36.0, 24.0],
+            [GE, GE],
+            Minimize,
+        )
+        @test_throws ErrorException simplexiterations(s2, method = Dual)
+
+        # Infeasible problem (Dual unbounded):
+        # Minimize z = 10x1 + 20x2
+        # subject to
+        # x1 + x2 <= 5
+        # x1 + x2 >= 10
+        # x1, x2 >= 0
+        s3 = createsimplexproblem(
+            Float64[10.0, 20.0],
+            Float64[1.0 1.0; 1.0 1.0],
+            Float64[5.0, 10.0],
+            [LE, GE],
+            Minimize,
+        )
+        @test_throws ErrorException solve!(s3, method = Dual)
+
+        s4 = createsimplexproblem(
+            Float64[10.0, 20.0],
+            Float64[1.0 1.0; 1.0 1.0],
+            Float64[5.0, 10.0],
+            [LE, GE],
+            Minimize,
+        )
+        @test_throws ErrorException simplexiterations(s4, method = Dual)
+
+    end
+
 end # end of test set Simplex
